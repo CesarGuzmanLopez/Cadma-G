@@ -1,0 +1,48 @@
+{
+    // Use IntelliSense para saber los atributos posibles.
+    // Mantenga el puntero para ver las descripciones de los existentes atributos.
+    // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Cadma",
+            "request": "launch",
+            "mainClass": "com.cadma.main.Cadma",
+            "projectName": "cadma"
+        },
+        {
+          "type": "java",
+          "name": "Launch Cadma arg img",
+          "request": "launch",
+          "mainClass": "com.cadma.main.Cadma",
+          "projectName": "cadma",
+          "args": "--img \"cccc\" -name \"nombre\" "
+        },
+        {
+          "type": "java",
+          "name": "Launch Cadma arg enum",
+          "request": "launch",
+          "mainClass": "com.cadma.main.Cadma",
+          "projectName": "cadma",
+          "args": "--enum \"ccNccO\" "
+        },
+        {
+          "type": "java",
+          "name": "Launch Cadma arg swaps",
+          "request": "launch",
+          "mainClass": "com.cadma.main.Cadma",
+          "projectName": "cadma",
+          "args": "--swaps \"ccNccO\" -P \"2,3,4\" -Output \"./salida.txt\" -Log \"./log.log\" -path \"./Imagenes/\" --S \"N\" --S \"NC\" -P 1,0,    "
+        }
+        ,
+        {
+          "type": "java",
+          "name": "Launch Cadma help",
+          "request": "launch",
+          "mainClass": "com.cadma.main.Cadma",
+          "projectName": "cadma",
+          "args": "--help "
+        }
+    ]
+}
