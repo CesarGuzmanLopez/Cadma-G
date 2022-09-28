@@ -18,7 +18,6 @@ public class MoleculesListNotRepeatTest {
 
     /**
      * Create the molecule. to Test.
-     *
      */
     @BeforeAll
     public static void setUpBeforeClass() throws Exception {

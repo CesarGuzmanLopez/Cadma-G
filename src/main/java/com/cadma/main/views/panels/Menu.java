@@ -13,12 +13,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.cadma.main.domain.models.Molecule;
 import com.cadma.main.views.About;
-import com.cadma.main.views.PrincipalView;
+import com.cadma.main.views.SmileViewGenerator;
 
 public class Menu extends JMenuBar {
-    private PrincipalView principalView;
+    private SmileViewGenerator principalView;
 
-    public Menu(final PrincipalView principalView) {
+    public Menu(final SmileViewGenerator principalView) {
         super();
         final JMenu menuFile = new JMenu("File");
         add(menuFile);

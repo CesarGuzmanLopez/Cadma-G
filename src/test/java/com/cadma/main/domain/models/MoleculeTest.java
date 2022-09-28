@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import com.cadma.main.domain.models.Molecule;
 import com.cadma.main.framework.cdk.MoleculeDataFactory;
 import com.cadma.main.framework.cdk.VerifiedSmile;
 import com.cadma.main.interfaces.AtomInterface;

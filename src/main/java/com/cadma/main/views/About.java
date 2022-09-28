@@ -29,9 +29,9 @@ public class About extends JFrame {
 
         panel.setBorder(new MatteBorder(5, 5, 5, 5, new java.awt.Color(115, 115, 115)));
         panel.setLayout(new GridBagLayout());
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        InputStream logo1 = classloader.getResourceAsStream("logo_1.png");
-        InputStream logo2 = classloader.getResourceAsStream("SMILE_logo.png");
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        InputStream logo1 = classLoader.getResourceAsStream("logo_1.png");
+        InputStream logo2 = classLoader.getResourceAsStream("SMILE_logo.png");
         GridBagConstraints gbc = new GridBagConstraints();
         JLabel label = new JLabel("About");
 

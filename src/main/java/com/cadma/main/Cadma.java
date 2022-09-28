@@ -8,7 +8,7 @@ import com.cadma.main.framework.cdk.MoleculeDataFactory;
 import com.cadma.main.framework.cdk.MoleculeGraphPainter;
 import com.cadma.main.framework.cdk.VerifiedSmile;
 import com.cadma.main.infrastructure.FirstSubstituent;
-import com.cadma.main.views.PrincipalView;
+import com.cadma.main.views.SmileViewGenerator;
 /**
  * This class is the main class of the application. It is the entry point of the
  * application.
@@ -43,15 +43,9 @@ public final class Cadma { // NOSONAR
     public static void main(final String[] args) {
         if (args.length == 0) {
             graphic();
-        } else {
-            commandLine(args);
-            
         }
     }
 
-    private static void commandLine(final String[] args) {
-        //TODO: implement command line
-    }
     /**
      * this method execute the graphic interface.
      */
@@ -65,7 +59,7 @@ public final class Cadma { // NOSONAR
         final MoleculeGraphPainter moleculeGraphPainter = new MoleculeGraphPainter();
 
         final MoleculesList smiles = FirstSubstituent.getMoleculeListInitializer(VERIFIER_SMILE, MOLECULE_FACTORY);
-        final PrincipalView principalView = new PrincipalView(smiles, VERIFIER_SMILE, moleculeGraphPainter,
+        final SmileViewGenerator principalView = new SmileViewGenerator(smiles, VERIFIER_SMILE, moleculeGraphPainter,
                 MOLECULE_FACTORY);
         principalView.initialize();
     }
@@ -84,20 +78,20 @@ public final class Cadma { // NOSONAR
         final String firsTheme = UIManager.getInstalledLookAndFeels()[0].getClassName();
         String themePoint = "";
         for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-            String classname = info.getClassName();
+            String className = info.getClassName();
             if ("GTKLookAndFeel".equals(info.getName())) {
-                themePoint = classname;
+                themePoint = className;
                 UIManager.setLookAndFeel(themePoint);
                 break;
             }
             if ("Nimbus".equals(info.getName())) {
-                themeDefault = classname;
+                themeDefault = className;
             }
             if ("Windows".equals(info.getName())) {
-                themePoint = classname;
+                themePoint = className;
             }
             if ("Metal".equals(info.getName())) {
-                themePoint = classname;
+                themePoint = className;
             }
             UIManager.setLookAndFeel(themePoint);
         }
