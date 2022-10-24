@@ -1,0 +1,38 @@
+package com.main.cadma.domain.model;
+import com.main.cadma.interfaces.ActionsCadma;
+public class Cadma1Generate implements ActionsCadma {
+
+    @Override
+    public void upload() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void update() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void getName() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void generate() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void view() {
+        // TODO Auto-generated method stub
+
+    }
+
+
+
+
+}
