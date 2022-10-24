@@ -8,14 +8,14 @@
             "type": "java",
             "name": "Launch Cadma",
             "request": "launch",
-            "mainClass": "com.cadma.main.Cadma",
+            "mainClass": "com.main.MainCadma",
             "projectName": "cadma"
         },
         {
           "type": "java",
           "name": "Launch Cadma arg img",
           "request": "launch",
-          "mainClass": "com.cadma.main.Cadma",
+          "mainClass": "com.main.MainCadma",
           "projectName": "cadma",
           "args": "--img \"cccc\" -name \"nombre\" "
         },
@@ -23,7 +23,7 @@
           "type": "java",
           "name": "Launch Cadma arg enum",
           "request": "launch",
-          "mainClass": "com.cadma.main.Cadma",
+          "mainClass": "com.main.MainCadma",
           "projectName": "cadma",
           "args": "--enum \"ccNccO\" "
         },
@@ -31,7 +31,7 @@
           "type": "java",
           "name": "Launch Cadma arg swaps",
           "request": "launch",
-          "mainClass": "com.cadma.main.Cadma",
+          "mainClass": "com.main.MainCadma",
           "projectName": "cadma",
           "args": "--swaps \"ccNccO\" -P \"2,3,4\" -Output \"./salida.txt\" -Log \"./log.log\" -path \"./Imagenes/\" --S \"N\" --S \"NC\" -P 1,0,    "
         }
@@ -40,7 +40,7 @@
           "type": "java",
           "name": "Launch Cadma help",
           "request": "launch",
-          "mainClass": "com.cadma.main.Cadma",
+          "mainClass": "com.main.MainCadma",
           "projectName": "cadma",
           "args": "--help "
         }

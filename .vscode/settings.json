@@ -16,7 +16,9 @@
         "mensajebox",
         "Moleculesubsitute",
         "Ncccc",
-        "proporcion"
+        "proporcion",
+        "smileit",
+        "Smileit"
     ],
     "DockerRun.DisableAutoGenerateConfig": true,
     "java.checkstyle.configuration": "${workspaceFolder}/my_config_checks.xml",
