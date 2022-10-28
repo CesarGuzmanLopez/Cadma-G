@@ -55,6 +55,7 @@ public final class MainCadma { // NOSONAR
         }
         String path = System.getProperty("user.dir");
         final SmileIt smileIt = new SmileIt();
+
         final CadmaProcess cadmaProcess = new CadmaProcess(path,smileIt);
         final Cadma principalView = new Cadma(cadmaProcess);
         principalView.initialize();

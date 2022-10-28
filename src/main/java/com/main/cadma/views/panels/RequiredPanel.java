@@ -46,7 +46,9 @@ public class RequiredPanel extends JPanel{
         } catch(Exception e){
             throw new RuntimeException("Could not load image");
         }
-        this.status = status;
+        actions.addObtainEvent(()->{
+            setStatus(StatusProcess.COMPLETE);
+        });
         initialize();
 
     }
@@ -92,7 +94,12 @@ public class RequiredPanel extends JPanel{
         add(panel3);
         JButton button = new JButton("Upload");
         panel3.add(button);
-        button.addActionListener(e -> actions.upload());
+
+        button.addActionListener (e -> uploadFile());
+    }
+
+    private void uploadFile() {
+        actions.upload();
     }
     private void initPanel4(){
         JPanel panel4 = new JPanel();

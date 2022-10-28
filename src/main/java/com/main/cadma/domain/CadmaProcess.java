@@ -12,11 +12,21 @@ public class CadmaProcess {
     private Cadma2Generate cadma2Generate;
 
     public CadmaProcess(String path, SmilesGuiInterface smilesGuiInterface) {
-        this.path = path;
         this.smileGenerate  = new SmileGenerate(smilesGuiInterface);
         this.cadma1Generate = new Cadma1Generate();
         this.cadma2Generate = new Cadma2Generate();
-        
+        initialize();
+
+    }
+    private void initialize() {
+        this.smileGenerate.addObtainEvent(this::generateEvent);
+
+    }
+    public void setPath(String path) {
+        this.path = path;
+    }
+    private void generateEvent(){
+        setPath(smileGenerate.getParentPath());
     }
     public SmileGenerate getSmileGenerate() {
         return smileGenerate;

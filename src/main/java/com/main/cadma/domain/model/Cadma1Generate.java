@@ -1,11 +1,11 @@
 package com.main.cadma.domain.model;
 import com.main.cadma.interfaces.ActionsCadma;
+import com.main.smileit.interfaces.CompleteEventInterface;
 public class Cadma1Generate implements ActionsCadma {
 
     @Override
     public void upload() {
-        // TODO Auto-generated method stub
-
+      // TODO document why this method is empty
     }
 
     @Override
@@ -28,6 +28,14 @@ public class Cadma1Generate implements ActionsCadma {
 
     @Override
     public void view() {
+        // TODO Auto-generated method stub
+
+    }
+
+
+
+    @Override
+    public void addObtainEvent(CompleteEventInterface completeEvent) {
         // TODO Auto-generated method stub
 
     }

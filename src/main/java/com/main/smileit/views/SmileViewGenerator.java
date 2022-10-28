@@ -3,7 +3,8 @@ package com.main.smileit.views;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-
+import java.util.Deque;
+import java.util.LinkedList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -11,10 +12,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 
 import com.main.smileit.domain.models.Molecule;
 import com.main.smileit.domain.models.MoleculesList;
 import com.main.smileit.domain.models.Smiles;
+import com.main.smileit.interfaces.CompleteEventInterface;
 import com.main.smileit.interfaces.MoleculeDataFactoryInterface;
 import com.main.smileit.interfaces.MoleculeGraphPainterInterface;
 import com.main.smileit.interfaces.MoleculeListInterface;
@@ -23,6 +27,7 @@ import com.main.smileit.views.panels.MoleculePanel;
 import com.main.smileit.views.panels.OptionPanel;
 import com.main.smileit.views.panels.WindowsGenerate;
 
+
 /**
  * @author Cesar G. Guzman Lopez
  * @version 1.0
@@ -30,14 +35,14 @@ import com.main.smileit.views.panels.WindowsGenerate;
  */
 
 @SuppressWarnings("java:S1948")
-public final class SmileViewGenerator extends javax.swing.JFrame   {
+public final class SmileViewGenerator extends javax.swing.JFrame {
     private static final long serialVersionUID = 2L;
     private MoleculePanel moleculePanelPrincipal;
     private OptionPanel optionPanel;
     private MoleculePanel moleculePreviewPanel;
     private JButton generateButton;
     private boolean listGenerated;
-
+    private MoleculeListInterface allMoleculesGenerated;
     // entry point for the program
     private JTextField textFieldSmile;
     private JCheckBox checkBoxHydrogenImplicit;
@@ -47,7 +52,7 @@ public final class SmileViewGenerator extends javax.swing.JFrame   {
     private SmileVerificationInterface verifySmile;
     private MoleculeListInterface smilesList;
     private MoleculeGraphPainterInterface moleculeGraphPainter;
-
+    private Deque<CompleteEventInterface> completeEvents;
     private MoleculeDataFactoryInterface moleculeFactory;
     // Check:OFF: MagicNumber
     /*
@@ -60,8 +65,8 @@ public final class SmileViewGenerator extends javax.swing.JFrame   {
      * @since 1.0
      */
 
-    public SmileViewGenerator(final MoleculeListInterface smilesList,
-            final SmileVerificationInterface verifySmile, final MoleculeGraphPainterInterface moleculeGraphPainter,
+    public SmileViewGenerator(final MoleculeListInterface smilesList, final SmileVerificationInterface verifySmile,
+            final MoleculeGraphPainterInterface moleculeGraphPainter,
             final MoleculeDataFactoryInterface moleculeFactory) {
         super("Smile-it");
         setSize(850, 550);
@@ -72,6 +77,8 @@ public final class SmileViewGenerator extends javax.swing.JFrame   {
         this.moleculeGraphPainter = moleculeGraphPainter;
         this.moleculeFactory = moleculeFactory;
         this.listGenerated = false;
+        completeEvents = new LinkedList<>();
+
     }
 
     private void createAndDrawSmile() {
@@ -82,10 +89,10 @@ public final class SmileViewGenerator extends javax.swing.JFrame   {
         }
         final boolean implicitHydrogen = checkBoxHydrogenImplicit.isSelected();
         try {
-            final Smiles smileH = new Smiles(smile, smile, "Select sites over molecule to substitute",
-                 implicitHydrogen, verifySmile);
+            final Smiles smileH = new Smiles(smile, smile, "Select sites over molecule to substitute", implicitHydrogen,
+                    verifySmile);
             moleculePanelPrincipal.setMolecule(new Molecule(smileH, moleculeFactory));
-        } catch (Exception e) { //NOSONAR
+        } catch (Exception e) { // NOSONAR
             generateButton.setEnabled(false);
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -95,10 +102,25 @@ public final class SmileViewGenerator extends javax.swing.JFrame   {
     private void generate() {
         final MoleculesList selected = MoleculesList.createMoleculesList(verifySmile, moleculeFactory,
                 optionPanel.getListMolecule());
-                windowsGenerate = new WindowsGenerate(moleculePanelPrincipal.getMolecule(), selected);
+        windowsGenerate = new WindowsGenerate(moleculePanelPrincipal.getMolecule(), selected);
+        windowsGenerate.addCompleteEvent( () ->{
                 listGenerated = true;
-                        }
+                windowsGenerate.dispose();
+                setVisible(false);
+                allMoleculesGenerated = windowsGenerate.getAllMoleculesGenerated();
 
+        });
+        for ( CompleteEventInterface completeEvent : completeEvents) {
+            windowsGenerate.addCompleteEvent(completeEvent);
+        }
+    }
+    public void addGenerateEvent( CompleteEventInterface event) {
+        completeEvents.add(event);
+
+    }
+    public MoleculeListInterface getAllMoleculesGenerated() {
+        return allMoleculesGenerated;
+    }
     /** initialize all JPanels. */
     public void initialize() {
 
@@ -120,7 +142,9 @@ public final class SmileViewGenerator extends javax.swing.JFrame   {
     private void initializeEntrySmile(final int gridx, final int gridy, final double weightx, final double weighty) {
         final JPanel panelSmile = new JPanel();
         panelSmile.setLayout(new GridBagLayout());
-        panelSmile.setBorder(javax.swing.BorderFactory.createTitledBorder("Entry"));
+        EmptyBorder margin = new EmptyBorder(10, 10, 10, 10);
+
+        panelSmile.setBorder(new CompoundBorder(javax.swing.BorderFactory.createTitledBorder(""), margin));
 
         final GridBagConstraints gbcPanel = new GridBagConstraints();
         gbcPanel.ipadx = 10;
@@ -133,7 +157,6 @@ public final class SmileViewGenerator extends javax.swing.JFrame   {
         gbcPanel.gridy = 0;
         panelSmile.add(textFieldSmile, gbcPanel);
         checkBoxHydrogenImplicit = new JCheckBox("Implicit hydrogen");
-
 
         gbcPanel.gridx = 4;
         gbcPanel.gridy = 0;
@@ -188,7 +211,9 @@ public final class SmileViewGenerator extends javax.swing.JFrame   {
         gbc.anchor = GridBagConstraints.CENTER;
         add(optionPanel, gbc);
     }
-
+    public boolean isListGenerated() {
+        return listGenerated;
+    }
     private void initializeMoleculePreviewPanel(final int gridx, final int gridy, final double weightx,
             final double weighty) {
         moleculePreviewPanel = new MoleculePanel(moleculeGraphPainter);
@@ -231,14 +256,11 @@ public final class SmileViewGenerator extends javax.swing.JFrame   {
         return moleculePanelPrincipal.getMolecule();
     }
 
-
-
-    public String getPath(){
-        if(windowsGenerate != null){
-            return windowsGenerate.getPath();
+    public String getParentPath() {
+        if (windowsGenerate != null) {
+            return windowsGenerate.getParentPath();
         }
-        return null;
+        throw new IllegalStateException("The path is not defined");
     }
-
 
 }

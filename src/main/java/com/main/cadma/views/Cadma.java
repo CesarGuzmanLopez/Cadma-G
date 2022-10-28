@@ -71,7 +71,7 @@ public class Cadma extends JFrame {
         gbcPanelPrincipal.gridx = 0;
         gbcPanelPrincipal.gridy = 1;
         contentPane.add(panelPrincipal2, gbcPanelPrincipal);
-        panelPrincipal2.setStatus(StatusProcess.COMPLETE);
+        panelPrincipal2.setStatus(StatusProcess.EMPTY);
     }
     private void initializePanelCadma1(){
         RequiredPanel panelPrincipal2 = new RequiredPanel("CADMA-1",cadmaProcess.getCadma1Generate());
@@ -80,7 +80,7 @@ public class Cadma extends JFrame {
         gbcPanelPrincipal.gridx = 0;
         gbcPanelPrincipal.gridy = 2;
         contentPane.add(panelPrincipal2, gbcPanelPrincipal);
-        panelPrincipal2.setStatus(StatusProcess.INCOMPLETE);
+        panelPrincipal2.setStatus(StatusProcess.EMPTY);
 
     }
     private void initializePanelCadma2(){

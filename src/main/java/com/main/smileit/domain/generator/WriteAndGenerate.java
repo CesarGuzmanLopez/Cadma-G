@@ -16,6 +16,7 @@ import com.main.smileit.domain.models.MoleculesList;
 import com.main.smileit.domain.models.MoleculesListAbstract;
 import com.main.smileit.interfaces.AtomInterface;
 import com.main.smileit.interfaces.MoleculeDataInterface;
+import com.main.smileit.interfaces.MoleculeListInterface;
 
 /**
  * Class WriteAndGenerate.
@@ -167,8 +168,8 @@ public class WriteAndGenerate {
     /**
      * Write and generate.
      */
-    public final void generate() throws IOException {
-        writeHeadDescription();
+    public final MoleculeListInterface generate() throws IOException {
+        GeneratorUtils.writeHeadDescription(principal, rSubstitutes, substitutes,writeDescription);
         GeneratorPermutesSmile generator = new GeneratorPermutesSmile(principal, substitutes, rSubstitutes, numBounds,
                 repeated);
         MoleculesListAbstract generateList = generator.getAllMolecules();
@@ -180,35 +181,18 @@ public class WriteAndGenerate {
         }
         printStructureSubstitute(generateList);
         if (saveImages != null) {
-            saveImages(generateList);
+            GeneratorUtils.saveImages(generateList, principal.getName(), saveImages);
         }
         closeFiles();
-
+        return generateList;
     }
 
-    /**
-     *
-     * @param generateList List of molecules permutes.
-     */
-    private void saveImages(final MoleculesListAbstract generateList) { // UNCHECK
-        final List<Molecule> list = generateList.getListMolecule();
-        int i = 0;
-        for (Molecule molecule : list) {
-            String name = principal.getName() + "_" + i++ + ".png";
 
-            BufferedImage bi = molecule.getImage(WIDTH, HEIGHT, "SMILE: " + molecule.smile());
-            try {
-                ImageIO.write(bi, "png", new File(saveImages + System.getProperty("file.separator") + name));
-            } catch (IOException e) {
-                throw new RuntimeException(e.getMessage());
-            }
-        }
-    }
 
     /**
      * Write head description.
      */
-    private void printStructureSubstitute(MoleculesListAbstract generateList) throws IOException { // UNCHECK
+    public  void printStructureSubstitute(MoleculesListAbstract generateList) throws IOException { // UNCHECK
         if (writeDescription != null) {
             writeDescription.write("==========================================================\n");
             for (Molecule molecule : generateList.getListMolecule()) {
@@ -225,21 +209,6 @@ public class WriteAndGenerate {
         }
     }
 
-    /**
-     * Write Head Description.
-     */
-    private void writeHeadDescription() throws IOException {
-        if (writeDescription != null) {
-            writeDescription.write("Parent molecule: " + principal.getName() + "\nSmile " + principal.smile() + "\n");
-            writeDescription.write("Number of substituents: " + substitutes.getListMolecule().size() + "\n");
-            writeDescription.write("Simultaneous substitutions allowed: " + rSubstitutes + "\n");
-            writeDescription.write("Substitutes: " + "\n");
-            for (Molecule molecule : substitutes.getListMolecule()) {
-                writeDescription.write("\t " + molecule.getName());
-                writeDescription.write("\n");
-            }
-        }
-    }
     /**
      * Close Files.
      */
