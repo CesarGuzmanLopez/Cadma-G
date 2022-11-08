@@ -18,7 +18,8 @@ import javax.swing.border.EmptyBorder;
 import com.main.smileit.domain.models.Molecule;
 import com.main.smileit.domain.models.MoleculesList;
 import com.main.smileit.domain.models.Smiles;
-import com.main.smileit.interfaces.CompleteEventInterface;
+import com.main.smileit.interfaces.EventInterface;
+import com.main.smileit.interfaces.EventDescriptionInterface;
 import com.main.smileit.interfaces.MoleculeDataFactoryInterface;
 import com.main.smileit.interfaces.MoleculeGraphPainterInterface;
 import com.main.smileit.interfaces.MoleculeListInterface;
@@ -26,7 +27,6 @@ import com.main.smileit.interfaces.SmileVerificationInterface;
 import com.main.smileit.views.panels.MoleculePanel;
 import com.main.smileit.views.panels.OptionPanel;
 import com.main.smileit.views.panels.WindowsGenerate;
-
 
 /**
  * @author Cesar G. Guzman Lopez
@@ -52,12 +52,12 @@ public final class SmileViewGenerator extends javax.swing.JFrame {
     private SmileVerificationInterface verifySmile;
     private MoleculeListInterface smilesList;
     private MoleculeGraphPainterInterface moleculeGraphPainter;
-    private Deque<CompleteEventInterface> completeEvents;
+    private Deque<EventInterface> completeEvents;
     private MoleculeDataFactoryInterface moleculeFactory;
+    private EventDescriptionInterface descriptionGenerator;
     // Check:OFF: MagicNumber
     /*
      * Constructor of the class
-     *
      * @author Cesar G. Guzman Lopez
      *
      * @version 1.0
@@ -79,6 +79,13 @@ public final class SmileViewGenerator extends javax.swing.JFrame {
         this.listGenerated = false;
         completeEvents = new LinkedList<>();
 
+    }
+    /**
+        * Method to initialize the components of the view.
+        * @param descriptionGenerated
+    */
+    public void setDescriptionGenerate(final EventDescriptionInterface descriptionGenerated) {
+        this.descriptionGenerator = descriptionGenerated;
     }
 
     private void createAndDrawSmile() {
@@ -103,24 +110,35 @@ public final class SmileViewGenerator extends javax.swing.JFrame {
         final MoleculesList selected = MoleculesList.createMoleculesList(verifySmile, moleculeFactory,
                 optionPanel.getListMolecule());
         windowsGenerate = new WindowsGenerate(moleculePanelPrincipal.getMolecule(), selected);
-        windowsGenerate.addCompleteEvent( () ->{
-                listGenerated = true;
-                windowsGenerate.dispose();
-                setVisible(false);
-                allMoleculesGenerated = windowsGenerate.getAllMoleculesGenerated();
+        windowsGenerate.setEventDescription(descriptionGenerator);
+        windowsGenerate.addCompleteEvent(() -> {
+            listGenerated = true;
+            windowsGenerate.dispose();
+            setVisible(false);
+            allMoleculesGenerated = windowsGenerate.getAllMoleculesGenerated();
 
         });
-        for ( CompleteEventInterface completeEvent : completeEvents) {
+        for (EventInterface completeEvent : completeEvents) {
             windowsGenerate.addCompleteEvent(completeEvent);
         }
     }
-    public void addGenerateEvent( CompleteEventInterface event) {
+    /**
+     * Method to add a complete event.
+     * @param event
+     */
+    public void addGenerateEvent(final EventInterface event) {
         completeEvents.add(event);
 
     }
+
+    /**
+     * Method to get the list of molecules generated.
+     * @return the list of molecules generated
+     */
     public MoleculeListInterface getAllMoleculesGenerated() {
         return allMoleculesGenerated;
     }
+
     /** initialize all JPanels. */
     public void initialize() {
 
@@ -211,9 +229,13 @@ public final class SmileViewGenerator extends javax.swing.JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
         add(optionPanel, gbc);
     }
+    /** return true if the list of molecules generated.
+     * @return if the list is generated
+     */
     public boolean isListGenerated() {
         return listGenerated;
     }
+
     private void initializeMoleculePreviewPanel(final int gridx, final int gridy, final double weightx,
             final double weighty) {
         moleculePreviewPanel = new MoleculePanel(moleculeGraphPainter);
@@ -256,6 +278,9 @@ public final class SmileViewGenerator extends javax.swing.JFrame {
         return moleculePanelPrincipal.getMolecule();
     }
 
+    /**
+     *  @return get the path parent of all files
+     */
     public String getParentPath() {
         if (windowsGenerate != null) {
             return windowsGenerate.getParentPath();

@@ -24,15 +24,16 @@ public class Menu extends JMenuBar {
         about.addActionListener(e -> showAbout());
 
     }
+
     /** Show the about dialog. */
 
     private void showAbout() {
         About about = new About();
         about.setVisible(true);
     }
-    /** Save the principal view. */
+    /** Save the principal molecule. */
     private void savePrincipal() {
-        //TODO: save the principal view.
+        // TODO Auto-generated method stub
     }
 
 }

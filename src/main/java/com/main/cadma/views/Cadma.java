@@ -1,4 +1,5 @@
 package com.main.cadma.views;
+
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -18,10 +19,11 @@ public class Cadma extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private CadmaProcess cadmaProcess;
+
     /**
      * @param cadmaProcess
      */
-    public Cadma(CadmaProcess cadmaProcess) {
+    public Cadma(final CadmaProcess cadmaProcess) {
         super("CADMA - Computer Aided Design for M Applications");
         setSize(850, 300);
         setMinimumSize(new Dimension(400, 180));
@@ -29,13 +31,14 @@ public class Cadma extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         GridBagLayout gblContentPane = new GridBagLayout();
-        gblContentPane.columnWidths = new int[]{0, 0};
-        gblContentPane.rowHeights = new int[]{0, 0};
-        gblContentPane.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-        gblContentPane.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+        gblContentPane.columnWidths = new int[] {0, 0 };
+        gblContentPane.rowHeights = new int[] {0, 0 };
+        gblContentPane.columnWeights = new double[] {1.0, Double.MIN_VALUE };
+        gblContentPane.rowWeights = new double[] {1.0, Double.MIN_VALUE };
         this.cadmaProcess = cadmaProcess;
         contentPane.setLayout(gblContentPane);
     }
+
     /** initialize all JPanels. */
     public void initialize() {
         setJMenuBar(new Menu());
@@ -46,14 +49,16 @@ public class Cadma extends JFrame {
         setVisible(true);
 
     }
-    private void initializeRouteLabel(){
+
+    private void initializeRouteLabel() {
         JPanel panelPrincipal2 = new JPanel();
         GridBagConstraints gbcPanelPrincipal = new GridBagConstraints();
         gbcPanelPrincipal.fill = GridBagConstraints.HORIZONTAL;
         gbcPanelPrincipal.gridx = 0;
         gbcPanelPrincipal.gridy = 0;
-        /**
-         * un Jlabel que contenga el nombre otro que de el porcentaje de avance en el proceso y  un boton de cancelar
+        /*
+         * un Jlabel que contenga el nombre otro que de el porcentaje de avance en el
+         * proceso y un boton de cancelar
          */
         JLabel nameOfProcess = new JLabel("No es no");
         JLabel percentageOfProcess = new JLabel("Lo he padaso bien ");
@@ -64,7 +69,8 @@ public class Cadma extends JFrame {
 
         contentPane.add(panelPrincipal2, gbcPanelPrincipal);
     }
-    private void initializePanelSmileIt(){
+
+    private void initializePanelSmileIt() {
         RequiredPanel panelPrincipal2 = new RequiredPanel("SMILE-IT", cadmaProcess.getSmileGenerate());
         GridBagConstraints gbcPanelPrincipal = new GridBagConstraints();
         gbcPanelPrincipal.fill = GridBagConstraints.HORIZONTAL;
@@ -73,8 +79,9 @@ public class Cadma extends JFrame {
         contentPane.add(panelPrincipal2, gbcPanelPrincipal);
         panelPrincipal2.setStatus(StatusProcess.EMPTY);
     }
-    private void initializePanelCadma1(){
-        RequiredPanel panelPrincipal2 = new RequiredPanel("CADMA-1",cadmaProcess.getCadma1Generate());
+
+    private void initializePanelCadma1() {
+        RequiredPanel panelPrincipal2 = new RequiredPanel("CADMA-1", cadmaProcess.getCadma1Generate());
         GridBagConstraints gbcPanelPrincipal = new GridBagConstraints();
         gbcPanelPrincipal.fill = GridBagConstraints.HORIZONTAL;
         gbcPanelPrincipal.gridx = 0;
@@ -83,8 +90,9 @@ public class Cadma extends JFrame {
         panelPrincipal2.setStatus(StatusProcess.EMPTY);
 
     }
-    private void initializePanelCadma2(){
-        RequiredPanel panelPrincipal2 = new RequiredPanel("CADMA-2",cadmaProcess.getCadma1Generate());
+
+    private void initializePanelCadma2() {
+        RequiredPanel panelPrincipal2 = new RequiredPanel("CADMA-2", cadmaProcess.getCadma1Generate());
         GridBagConstraints gbcPanelPrincipal = new GridBagConstraints();
         gbcPanelPrincipal.fill = GridBagConstraints.HORIZONTAL;
         gbcPanelPrincipal.gridx = 0;

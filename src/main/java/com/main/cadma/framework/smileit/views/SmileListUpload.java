@@ -1,12 +1,15 @@
 package com.main.cadma.framework.smileit.views;
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import com.main.smileit.interfaces.CompleteEventInterface;
+
+import com.main.smileit.interfaces.EventInterface;
 import com.main.smileit.interfaces.MoleculeListInterface;
- import java.awt.GridBagLayout;
+
+import java.awt.GridBagLayout;
 import java.io.File;
 import java.util.Deque;
 import java.util.LinkedList;
@@ -22,7 +25,8 @@ public class SmileListUpload extends JFrame {
     private JLabel selectedFolder;
     private JTextField nameField;
     private MoleculeListInterface allMoleculesGenerated;
-    private Deque<CompleteEventInterface> completeEvents;
+    private Deque<EventInterface> completeEvents;
+
     public SmileListUpload() {
         setTitle("Generate");
         setSize(550, 300);
@@ -33,16 +37,17 @@ public class SmileListUpload extends JFrame {
         completeEvents = new LinkedList<>();
         path = System.getProperty("user.dir");
     }
-    public void addCompleteEvent(final CompleteEventInterface completeEvent) {
-        completeEvents.add(completeEvent);
-    }
 
+    /**
+     * @return allMoleculesGenerated
+     */
     public MoleculeListInterface getAllMoleculesGenerated() {
         if (allMoleculesGenerated == null) {
             throw new IllegalStateException("Error, The molecules have not been generated");
         }
         return allMoleculesGenerated;
     }
+
     private void initialize() {
         final GridBagConstraints gbc = new GridBagConstraints();
 
@@ -68,7 +73,6 @@ public class SmileListUpload extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         selectSaveFolder.addActionListener(e -> selectSave());
         add(selectSaveFolder, gbc);
-
 
         final JLabel labelUpload = new JLabel("Select file to upload:  ");
         labelUpload.setPreferredSize(new java.awt.Dimension(210, 30));
@@ -117,12 +121,9 @@ public class SmileListUpload extends JFrame {
         if (!extension.equals("txt")) {
             throw new IllegalStateException("Error, the file is not a txt file");
         }
-        final String parentPath = this.parentPath;
-        final String nameFile = name;
-        final String path = this.path;
-        
         dispose();
     }
+
     private void selectSave() {
         savePath = new JFileChooser();
         savePath.setCurrentDirectory(new File(path));
@@ -151,10 +152,18 @@ public class SmileListUpload extends JFrame {
             selectedFolder.setText("");
         }
     }
-    public String getParentPath(){
+
+    /**
+     * @return parent path
+     */
+    public String getParentPath() {
         return parentPath;
     }
-    public void addEventUpload(CompleteEventInterface completeEvent) {
+
+    /**
+     * @param completeEvent
+     */
+    public void addEventUpload(final EventInterface completeEvent) {
         completeEvents.add(completeEvent);
     }
 }

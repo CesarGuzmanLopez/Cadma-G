@@ -1,6 +1,5 @@
 package com.main.smileit.domain.generator;
 
-import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
@@ -9,12 +8,12 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
-import javax.imageio.ImageIO;
 
 import com.main.smileit.domain.models.Molecule;
 import com.main.smileit.domain.models.MoleculesList;
 import com.main.smileit.domain.models.MoleculesListAbstract;
 import com.main.smileit.interfaces.AtomInterface;
+import com.main.smileit.interfaces.EventDescriptionInterface;
 import com.main.smileit.interfaces.MoleculeDataInterface;
 import com.main.smileit.interfaces.MoleculeListInterface;
 
@@ -42,6 +41,7 @@ public class WriteAndGenerate {
     private boolean repeated;
 
     private String saveImages;
+    private EventDescriptionInterface descriptionGenerator;
 
     public WriteAndGenerate(final MoleculesList substitutes, final Molecule principal, final int rSubstitutes,
             final int numBounds, final File fileDescription, final File fileOutput) {
@@ -67,7 +67,7 @@ public class WriteAndGenerate {
      * @param fileDescription File save Description
      * @param fileOutput      File save Output
      * @return true if the entry is correct
-     */
+     *///sdf
     public static final boolean verifyEntry(final Molecule principal, final MoleculesList substitutes,
             final int rSubstitutes, final File fileDescription, final File fileOutput) {
         if (substitutes == null || principal == null) {
@@ -146,7 +146,7 @@ public class WriteAndGenerate {
     public final void verificationAndCreateFiles() {
         boolean createFile = true;
         try {
-            if (this.fileDescription != null) {
+            if (this.fileDescription != null && descriptionGenerator == null) {
                 this.writeDescription = Files.newBufferedWriter(fileDescription.toPath(), CHARSET,
                         StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
                 if (!fileDescription.exists()) {
@@ -167,32 +167,40 @@ public class WriteAndGenerate {
 
     /**
      * Write and generate.
+     *
+     * @return List of molecules generated
      */
     public final MoleculeListInterface generate() throws IOException {
-        GeneratorUtils.writeHeadDescription(principal, rSubstitutes, substitutes,writeDescription);
+        GeneratorUtils.writeHeadDescription(principal, rSubstitutes, substitutes, writeDescription);
         GeneratorPermutesSmile generator = new GeneratorPermutesSmile(principal, substitutes, rSubstitutes, numBounds,
                 repeated);
         MoleculesListAbstract generateList = generator.getAllMolecules();
+
         if (writeDescription != null) {
-            writeDescription.write("\n\n\t=== ===\t\tTotal: " + generateList.getListMolecule().size() + "\t=== ===\n");
+            if (descriptionGenerator != null) {
+                descriptionGenerator.setBuferedWriter(writeDescription, generateList);
+                descriptionGenerator.execute();
+            } else {
+                writeDescription
+                        .write("\n\n\t=== ===\t\tTotal: " + generateList.getListMolecule().size() + "\t=== ===\n");
+            }
+            printStructureSubstitute(generateList);
         }
         for (Molecule molecule : generateList.getListMolecule()) {
             writeOutput.write(molecule.smile() + "\n");
         }
-        printStructureSubstitute(generateList);
         if (saveImages != null) {
             GeneratorUtils.saveImages(generateList, principal.getName(), saveImages);
         }
+
         closeFiles();
         return generateList;
     }
 
-
-
     /**
      * Write head description.
      */
-    public  void printStructureSubstitute(MoleculesListAbstract generateList) throws IOException { // UNCHECK
+    private void printStructureSubstitute(MoleculesListAbstract generateList) throws IOException { // UNCHECK
         if (writeDescription != null) {
             writeDescription.write("==========================================================\n");
             for (Molecule molecule : generateList.getListMolecule()) {
@@ -219,5 +227,12 @@ public class WriteAndGenerate {
         if (writeOutput != null) {
             writeOutput.close();
         }
+    }
+
+    /**
+     * @param descGenerator
+     */
+    public void eventDescription(final EventDescriptionInterface descGenerator) {
+        this.descriptionGenerator = descGenerator;
     }
 }

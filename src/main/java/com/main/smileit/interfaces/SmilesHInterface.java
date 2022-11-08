@@ -2,6 +2,8 @@ package com.main.smileit.interfaces;
 /**Interface for the SmilesH.
  *
  * @author Cesar Gerardo Guzman Lopez
+ * @Description: Contain a name of the molecule, the smile and the message xand
+ *                especially for the hydrogen implicit.
  */
 public  interface SmilesHInterface {
     /**

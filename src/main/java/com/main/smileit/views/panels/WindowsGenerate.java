@@ -11,7 +11,8 @@ import javax.swing.JTextField;
 import com.main.smileit.domain.generator.WriteAndGenerate;
 import com.main.smileit.domain.models.Molecule;
 import com.main.smileit.domain.models.MoleculesList;
-import com.main.smileit.interfaces.CompleteEventInterface;
+import com.main.smileit.interfaces.EventDescriptionInterface;
+import com.main.smileit.interfaces.EventInterface;
 import com.main.smileit.interfaces.MoleculeListInterface;
 
 import java.awt.event.MouseListener;
@@ -28,11 +29,14 @@ public class WindowsGenerate extends JFrame {
     private Molecule principal;
     private MoleculesList moleculeList;
     private JFileChooser savePath;
-    private String path, parentPath;
+    private String path;
+    private String parentPath;
     private JLabel selectedFolder;
     private JTextField nameField;
     private MoleculeListInterface allMoleculesGenerated;
-    private Deque<CompleteEventInterface> completeEvents;
+    private Deque<EventInterface> completeEvents;
+    private EventDescriptionInterface descritionGenerator;
+
     public WindowsGenerate(final Molecule principal, final MoleculesList moleculeList) {
         setTitle("Generate");
         setSize(550, 300);
@@ -51,22 +55,33 @@ public class WindowsGenerate extends JFrame {
         repaint();
 
     }
-    public void addCompleteEvent(final CompleteEventInterface completeEvent) {
+
+    /**
+     * This method is runned when the process is completed.
+     *
+     * @param completeEvent the event to be executed.
+     */
+    public void addCompleteEvent(final EventInterface completeEvent) {
         completeEvents.add(completeEvent);
     }
-    /** Genera View Principal generate. */
+
+    /**
+     * Genera View Principal generate.
+     *
+     * @return true if generated smiles
+     */
     boolean generate() {
 
         principal.setName(nameField.getText());
-        if(savePath == null) {
+        if (savePath == null) {
             JOptionPane.showMessageDialog(null, "Please select a folder to save the files");
             return false;
         }
         File saveFileListDescriptive = new File(savePath.getSelectedFile().getAbsolutePath(),
-                principal.getName() +  System.getProperty("file.separator") +"info.txt");
+                principal.getName() + System.getProperty("file.separator") + "info.txt");
         File saveFileListSmile = new File(savePath.getSelectedFile().getAbsolutePath(),
                 principal.getName() + System.getProperty("file.separator") + "output.txt");
-        parentPath =saveFileListSmile.getParent();
+        parentPath = saveFileListSmile.getParent();
         try {
             WriteAndGenerate.verifyEntry(principal, moleculeList, (int) rSubstitutes.getValue(),
                     saveFileListDescriptive, saveFileListSmile);
@@ -80,24 +95,35 @@ public class WindowsGenerate extends JFrame {
                 directory.mkdir();
             }
             generator.setSaveImages(directory.getAbsolutePath());
-            allMoleculesGenerated =generator.generate();
+            generator.eventDescription(descritionGenerator);
+            allMoleculesGenerated = generator.generate();
         } catch (Exception e) { // NOSONAR
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         dispose();
         JOptionPane.showMessageDialog(this, "Generate", "Generate", JOptionPane.INFORMATION_MESSAGE);
-        for (CompleteEventInterface completeGenerated : completeEvents) {
-            completeGenerated.action();
+        for (EventInterface completeGenerated : completeEvents) {
+            completeGenerated.execute();
         }
         return true;
     }
+
+    /**
+     * This method is runned when the process is completed.
+     *
+     * @return the molecules list generated.
+     */
     public MoleculeListInterface getAllMoleculesGenerated() {
         if (allMoleculesGenerated == null) {
             throw new IllegalStateException("Error, The molecules have not been generated");
         }
         return allMoleculesGenerated;
     }
+
+    /**
+     * This method is runner when the process is completed.
+     */
     private void initialize() {
         final GridBagConstraints gbc = new GridBagConstraints();
 
@@ -169,17 +195,17 @@ public class WindowsGenerate extends JFrame {
 
             @Override
             public void mouseClicked(final java.awt.event.MouseEvent e) {
-              // this method is empty
+                // this method is empty
             }
 
             @Override
             public void mousePressed(final java.awt.event.MouseEvent e) {
-              // this method is empty
+                // this method is empty
             }
 
             @Override
             public void mouseReleased(final java.awt.event.MouseEvent e) {
-              // this method is empty
+                // this method is empty
             }
 
             @Override
@@ -211,8 +237,19 @@ public class WindowsGenerate extends JFrame {
             selectedFolder.setText("");
         }
     }
-    public String getParentPath(){
+
+    /**
+     * @return the parent path of documents
+     */
+    public String getParentPath() {
         return parentPath;
+    }
+
+    /**
+     * @param descriptionGenerator the descriptionGenerator to set
+     */
+    public void setEventDescription(final EventDescriptionInterface descriptionGenerator) {
+        this.descritionGenerator = descriptionGenerator;
     }
 
 }

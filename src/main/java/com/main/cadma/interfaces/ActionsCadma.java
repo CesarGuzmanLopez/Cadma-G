@@ -1,12 +1,37 @@
 package com.main.cadma.interfaces;
 
-import com.main.smileit.interfaces.CompleteEventInterface;
+import com.main.smileit.interfaces.EventInterface;
 
 public interface ActionsCadma {
-    public void upload();
-    public void update();
-    public void getName();
-    public void generate();
-    public void addObtainEvent(CompleteEventInterface completeEvent);
-    public void view();
+    /**
+     * Upload a file.
+     */
+     void upload();
+
+    /**
+     * Update a file.
+     */
+     void update();
+
+    /**
+     * Get the name of process.
+     */
+     void getName();
+
+    /**
+     * Generate a process.
+     */
+
+     void generate();
+
+    /**
+     * Add event to obtain the result.
+     * @param completeEvent
+     */
+     void addObtainEvent(EventInterface completeEvent);
+
+    /**
+     * View the result.
+     */
+     void view();
 }

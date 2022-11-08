@@ -11,20 +11,21 @@ import javax.imageio.ImageIO;
 import com.main.smileit.domain.models.Molecule;
 import com.main.smileit.interfaces.MoleculeListInterface;
 
-final public class GeneratorUtils {
-    /**
-     *
-     * @param generateList List of molecules permutes.
-     */
+public final class GeneratorUtils {
     static final int WIDTH = 700;
     static final int HEIGHT = 700;
 
+    private GeneratorUtils() {
+    }
+
     /**
      *
-     * @param generateList List of molecules permutes.
+     * @param generateList   List of molecules permutes.
+     * @param namePrincipal  Name of principal molecule.
+     * @param saveImagesPath Path to save the image.
      */
-    public final static void saveImages(final MoleculeListInterface generateList, String namePrincipal,
-            String saveImagesPath) { // UNCHECK
+    public static void saveImages(final MoleculeListInterface generateList, final String namePrincipal,
+            final String saveImagesPath) { // UNCHECK
         final List<Molecule> list = generateList.getListMolecule();
         int i = 0;
         for (Molecule molecule : list) {
@@ -38,23 +39,24 @@ final public class GeneratorUtils {
             }
         }
     }
-
-    /**
-     * Write Head Description.
+ 
+    /** Write Head Description.
+     * @param principal        Molecule principal.
+     * @param rSubstitutes     num of rSubstitutes.
+     * @param substitutes      List of substitutes.
+     * @param writeDescription Writer to write.
+     * @throw IOException if the writer has a problem.
      */
-    public static void writeHeadDescription(Molecule principal, int rSubstitutes, MoleculeListInterface substitutes,
-            BufferedWriter writeDescription) throws IOException {
+    public static void writeHeadDescription(final Molecule principal, final int rSubstitutes,
+            final MoleculeListInterface substitutes, BufferedWriter writeDescription) throws IOException { // UNCHECK
         if (writeDescription != null) {
             writeDescription.write("Principal: " + principal.getName() + "\nSmile " + principal.smile() + "\n");
             if (substitutes != null) {
-                writeDescription.write("Number of substituents: " + substitutes.getListMolecule().size() + "\n");
-
+                writeDescription.write("Number of substituent: " + substitutes.getListMolecule().size() + "\n");
                 writeDescription.write("Simultaneous substitutions allowed: " + rSubstitutes + "\n");
-
                 writeDescription.write("Substitutes: " + "\n");
-
                 for (Molecule molecule : substitutes.getListMolecule()) {
-                    writeDescription.write("\t " + molecule.getName());
+                    writeDescription.write("\t " + molecule.getName() + " -> " + molecule.smile() + "\n");
                     writeDescription.write("\n");
                 }
             }

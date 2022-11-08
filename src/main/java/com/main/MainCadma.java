@@ -7,7 +7,6 @@ import com.main.cadma.domain.CadmaProcess;
 import com.main.cadma.framework.smileit.SmileIt;
 import com.main.cadma.views.Cadma;
 
-
 /**
  * This class is the main class of the application. It is the entry point of the
  * application.
@@ -24,7 +23,7 @@ public final class MainCadma { // NOSONAR
      *
      * @since 1.0
      */
-    private MainCadma(){
+    private MainCadma() {
 
     }
 
@@ -42,7 +41,7 @@ public final class MainCadma { // NOSONAR
             graphic();
         }
     }
-
+//
     /**
      * this method execute the graphic interface.
      */
@@ -55,8 +54,11 @@ public final class MainCadma { // NOSONAR
         }
         String path = System.getProperty("user.dir");
         final SmileIt smileIt = new SmileIt();
-
-        final CadmaProcess cadmaProcess = new CadmaProcess(path,smileIt);
+        
+        
+        final CadmaProcess cadmaProcess = new CadmaProcess(smileIt);
+        cadmaProcess.setParentPath(path);
+        
         final Cadma principalView = new Cadma(cadmaProcess);
         principalView.initialize();
     }
