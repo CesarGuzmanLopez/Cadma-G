@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -18,12 +19,12 @@ import javax.swing.border.EmptyBorder;
 import com.main.smileit.domain.models.Molecule;
 import com.main.smileit.domain.models.MoleculesList;
 import com.main.smileit.domain.models.Smiles;
-import com.main.smileit.interfaces.EventInterface;
-import com.main.smileit.interfaces.EventDescriptionInterface;
+import com.main.smileit.interfaces.EventGenerateSmiles;
 import com.main.smileit.interfaces.MoleculeDataFactoryInterface;
 import com.main.smileit.interfaces.MoleculeGraphPainterInterface;
 import com.main.smileit.interfaces.MoleculeListInterface;
 import com.main.smileit.interfaces.SmileVerificationInterface;
+import com.main.smileit.interfaces.SmilesHInterface;
 import com.main.smileit.views.panels.MoleculePanel;
 import com.main.smileit.views.panels.OptionPanel;
 import com.main.smileit.views.panels.WindowsGenerate;
@@ -41,8 +42,9 @@ public final class SmileViewGenerator extends javax.swing.JFrame {
     private OptionPanel optionPanel;
     private MoleculePanel moleculePreviewPanel;
     private JButton generateButton;
-    private boolean listGenerated;
     private MoleculeListInterface allMoleculesGenerated;
+    private MoleculeListInterface listSubstitutes;
+
     // entry point for the program
     private JTextField textFieldSmile;
     private JCheckBox checkBoxHydrogenImplicit;
@@ -52,9 +54,8 @@ public final class SmileViewGenerator extends javax.swing.JFrame {
     private SmileVerificationInterface verifySmile;
     private MoleculeListInterface smilesList;
     private MoleculeGraphPainterInterface moleculeGraphPainter;
-    private Deque<EventInterface> completeEvents;
+    private Deque<EventGenerateSmiles> EventCompletes;
     private MoleculeDataFactoryInterface moleculeFactory;
-    private EventDescriptionInterface descriptionGenerator;
     // Check:OFF: MagicNumber
     /*
      * Constructor of the class
@@ -76,17 +77,9 @@ public final class SmileViewGenerator extends javax.swing.JFrame {
         this.verifySmile = verifySmile;
         this.moleculeGraphPainter = moleculeGraphPainter;
         this.moleculeFactory = moleculeFactory;
-        this.listGenerated = false;
-        completeEvents = new LinkedList<>();
+        EventCompletes = new LinkedList<>();
+    }
 
-    }
-    /**
-        * Method to initialize the components of the view.
-        * @param descriptionGenerated
-    */
-    public void setDescriptionGenerate(final EventDescriptionInterface descriptionGenerated) {
-        this.descriptionGenerator = descriptionGenerated;
-    }
 
     private void createAndDrawSmile() {
         final String smile = textFieldSmile.getText();
@@ -110,26 +103,29 @@ public final class SmileViewGenerator extends javax.swing.JFrame {
         final MoleculesList selected = MoleculesList.createMoleculesList(verifySmile, moleculeFactory,
                 optionPanel.getListMolecule());
         windowsGenerate = new WindowsGenerate(moleculePanelPrincipal.getMolecule(), selected);
-        windowsGenerate.setEventDescription(descriptionGenerator);
-        windowsGenerate.addCompleteEvent(() -> {
-            listGenerated = true;
+        windowsGenerate.addCompleteEvent((String namePath,SmilesHInterface principal, List<SmilesHInterface> substitutes, List<SmilesHInterface> smiles) ->{
             windowsGenerate.dispose();
             setVisible(false);
-            allMoleculesGenerated = windowsGenerate.getAllMoleculesGenerated();
-
         });
-        for (EventInterface completeEvent : completeEvents) {
-            windowsGenerate.addCompleteEvent(completeEvent);
+        for (EventGenerateSmiles EventComplete : EventCompletes) {
+            windowsGenerate.addCompleteEvent(EventComplete);
         }
     }
     /**
      * Method to add a complete event.
      * @param event
      */
-    public void addGenerateEvent(final EventInterface event) {
-        completeEvents.add(event);
-
+    public void addGenerateEvent(final EventGenerateSmiles event) {
+        EventCompletes.add(event);
     }
+
+    /**
+     * Method to return the list of substitutes selected.
+     */
+    public MoleculeListInterface getListSubstitutes() {
+        return listSubstitutes;
+    }
+
 
     /**
      * Method to get the list of molecules generated.
@@ -229,12 +225,7 @@ public final class SmileViewGenerator extends javax.swing.JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
         add(optionPanel, gbc);
     }
-    /** return true if the list of molecules generated.
-     * @return if the list is generated
-     */
-    public boolean isListGenerated() {
-        return listGenerated;
-    }
+
 
     private void initializeMoleculePreviewPanel(final int gridx, final int gridy, final double weightx,
             final double weighty) {
@@ -274,7 +265,7 @@ public final class SmileViewGenerator extends javax.swing.JFrame {
      *
      * @return the Molecule principal.
      */
-    public Molecule getPrincipal() {
+    public Molecule getMoleculePrincipal() {
         return moleculePanelPrincipal.getMolecule();
     }
 

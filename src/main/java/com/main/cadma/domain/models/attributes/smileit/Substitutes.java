@@ -81,5 +81,4 @@ public class Substitutes extends AttributeAbstract<List<SmilesHInterface>> {
         }
         return sb.toString();
     }
-
 }

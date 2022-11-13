@@ -3,19 +3,19 @@ package com.main.cadma.domain.models.attributes.smileit;
 import com.main.cadma.domain.models.AttributeAbstract;
 import com.main.smileit.interfaces.SmilesHInterface;
 
-public class Smile extends AttributeAbstract<SmilesHInterface> {
+public class SmilePrincipal extends AttributeAbstract<SmilesHInterface> {
     private static final String SLUG_SMILE = "SMILE";
     private static final String SLUG_NAME = "Principal";
 
     private String name;
 
-    protected Smile(SmilesHInterface value) {
+    public SmilePrincipal(SmilesHInterface value) {
         super(value, SLUG_SMILE, true);
         initialize();
     }
 
-    protected Smile() {
-        super(null, SLUG_SMILE, false);
+    public SmilePrincipal() {
+        super(null, SLUG_NAME, false);
         initialize();
     }
 
@@ -34,6 +34,7 @@ public class Smile extends AttributeAbstract<SmilesHInterface> {
         }
         if (line.contains(SLUG_NAME)) {
             name = line.substring((SLUG_NAME + ": ").length());
+
         }
     }
 

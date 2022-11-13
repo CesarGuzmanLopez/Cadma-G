@@ -11,15 +11,16 @@ import javax.swing.JTextField;
 import com.main.smileit.domain.generator.WriteAndGenerate;
 import com.main.smileit.domain.models.Molecule;
 import com.main.smileit.domain.models.MoleculesList;
-import com.main.smileit.interfaces.EventDescriptionInterface;
-import com.main.smileit.interfaces.EventInterface;
+import com.main.smileit.interfaces.EventGenerateSmiles;
 import com.main.smileit.interfaces.MoleculeListInterface;
+import com.main.smileit.interfaces.SmilesHInterface;
 
 import java.awt.event.MouseListener;
 import java.awt.GridBagLayout;
 import java.io.File;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
 import java.awt.GridBagConstraints;
 
 @SuppressWarnings("java:S1948")
@@ -27,15 +28,13 @@ public class WindowsGenerate extends JFrame {
 
     private JSpinner rSubstitutes;
     private Molecule principal;
-    private MoleculesList moleculeList;
+    private MoleculesList substitutesList;
     private JFileChooser savePath;
     private String path;
     private String parentPath;
     private JLabel selectedFolder;
     private JTextField nameField;
-    private MoleculeListInterface allMoleculesGenerated;
-    private Deque<EventInterface> completeEvents;
-    private EventDescriptionInterface descritionGenerator;
+    private Deque<EventGenerateSmiles> completeEvents;
 
     public WindowsGenerate(final Molecule principal, final MoleculesList moleculeList) {
         setTitle("Generate");
@@ -45,8 +44,7 @@ public class WindowsGenerate extends JFrame {
         setLayout(new GridBagLayout());
         initialize();
         this.principal = principal;
-        this.moleculeList = moleculeList;
-
+        this.substitutesList = moleculeList;
         revalidate();
         repaint();
         setVisible(true);
@@ -61,7 +59,7 @@ public class WindowsGenerate extends JFrame {
      *
      * @param completeEvent the event to be executed.
      */
-    public void addCompleteEvent(final EventInterface completeEvent) {
+    public void addCompleteEvent(final EventGenerateSmiles completeEvent) {
         completeEvents.add(completeEvent);
     }
 
@@ -73,6 +71,7 @@ public class WindowsGenerate extends JFrame {
     boolean generate() {
 
         principal.setName(nameField.getText());
+        MoleculeListInterface listAllGenerated;
         if (savePath == null) {
             JOptionPane.showMessageDialog(null, "Please select a folder to save the files");
             return false;
@@ -83,9 +82,9 @@ public class WindowsGenerate extends JFrame {
                 principal.getName() + System.getProperty("file.separator") + "output.txt");
         parentPath = saveFileListSmile.getParent();
         try {
-            WriteAndGenerate.verifyEntry(principal, moleculeList, (int) rSubstitutes.getValue(),
+            WriteAndGenerate.verifyEntry(principal, substitutesList, (int) rSubstitutes.getValue(),
                     saveFileListDescriptive, saveFileListSmile);
-            final WriteAndGenerate generator = new WriteAndGenerate(moleculeList, principal,
+            final WriteAndGenerate generator = new WriteAndGenerate(substitutesList, principal,
                     (int) rSubstitutes.getValue(), 1, saveFileListDescriptive, saveFileListSmile);
 
             File directory = new File(savePath.getSelectedFile().getAbsolutePath(),
@@ -95,30 +94,50 @@ public class WindowsGenerate extends JFrame {
                 directory.mkdir();
             }
             generator.setSaveImages(directory.getAbsolutePath());
-            generator.eventDescription(descritionGenerator);
-            allMoleculesGenerated = generator.generate();
+            listAllGenerated = generator.generate();
         } catch (Exception e) { // NOSONAR
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         dispose();
         JOptionPane.showMessageDialog(this, "Generate", "Generate", JOptionPane.INFORMATION_MESSAGE);
-        for (EventInterface completeGenerated : completeEvents) {
-            completeGenerated.execute();
+        List<SmilesHInterface> smilesSubstitutes = new LinkedList<>();
+        for (Molecule molecule : listAllGenerated.getListMolecule()) {
+            smilesSubstitutes.add(molecule);
+        }
+        List<SmilesHInterface> resultSmiles = new LinkedList<>();
+        for(Molecule molecule : listAllGenerated.getListMolecule()){
+            resultSmiles.add(molecule);
+        }
+        for (EventGenerateSmiles completeGenerated : completeEvents) {
+            completeGenerated.execute(  parentPath, principal,smilesSubstitutes, resultSmiles );
         }
         return true;
     }
+
 
     /**
      * This method is runned when the process is completed.
      *
      * @return the molecules list generated.
      */
-    public MoleculeListInterface getAllMoleculesGenerated() {
-        if (allMoleculesGenerated == null) {
+    public Molecule getPrincipalMolecule() {
+        if (principal == null) {
             throw new IllegalStateException("Error, The molecules have not been generated");
         }
-        return allMoleculesGenerated;
+        return principal;
+    }
+
+    /**
+     *
+     *
+     * @return the substitutes list generated.
+     */
+    public MoleculesList getSubstitutesList() {
+        if (substitutesList == null) {
+            throw new IllegalStateException("Error, The molecules have not been generated");
+        }
+        return substitutesList;
     }
 
     /**
@@ -245,11 +264,6 @@ public class WindowsGenerate extends JFrame {
         return parentPath;
     }
 
-    /**
-     * @param descriptionGenerator the descriptionGenerator to set
-     */
-    public void setEventDescription(final EventDescriptionInterface descriptionGenerator) {
-        this.descritionGenerator = descriptionGenerator;
-    }
+
 
 }

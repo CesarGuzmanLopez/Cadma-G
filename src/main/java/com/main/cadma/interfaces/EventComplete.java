@@ -1,9 +1,8 @@
-package com.main.smileit.interfaces;
-
+package com.main.cadma.interfaces;
 @FunctionalInterface
-public interface EventInterface {
+public interface EventComplete {
     /**
      * This method is called when the is completed the process.
      */
-    void execute();
+    void execute( );
 }

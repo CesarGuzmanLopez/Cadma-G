@@ -1,6 +1,5 @@
 package com.main.cadma.interfaces;
 
-import com.main.smileit.interfaces.EventInterface;
 
 public interface ActionsCadma {
     /**
@@ -8,15 +7,6 @@ public interface ActionsCadma {
      */
      void upload();
 
-    /**
-     * Update a file.
-     */
-     void update();
-
-    /**
-     * Get the name of process.
-     */
-     void getName();
 
     /**
      * Generate a process.
@@ -25,13 +15,16 @@ public interface ActionsCadma {
      void generate();
 
     /**
-     * Add event to obtain the result.
-     * @param completeEvent
-     */
-     void addObtainEvent(EventInterface completeEvent);
-
-    /**
      * View the result.
      */
      void view();
+    /**
+     * @return parent path
+     */
+
+     /**
+      *
+      * @param completeEvent
+      */
+     public void addObtainEvent(final EventComplete completeEvent);
 }

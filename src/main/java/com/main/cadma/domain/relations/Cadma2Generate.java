@@ -1,24 +1,12 @@
 package com.main.cadma.domain.relations;
 
 import com.main.cadma.interfaces.ActionsCadma;
-import com.main.smileit.interfaces.EventInterface;
+import com.main.cadma.interfaces.EventComplete;
 
 public class Cadma2Generate implements ActionsCadma {
 
     @Override
     public void upload() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void update() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void getName() {
         // TODO Auto-generated method stub
 
     }
@@ -36,9 +24,11 @@ public class Cadma2Generate implements ActionsCadma {
     }
 
     @Override
-    public void addObtainEvent(final EventInterface completeEvent) {
+    public void addObtainEvent(EventComplete completeEvent) {
         // TODO Auto-generated method stub
 
     }
+
+
 
 }

@@ -1,32 +1,29 @@
 package com.main.cadma.domain.relations;
 
 import com.main.cadma.interfaces.ActionsCadma;
+import com.main.cadma.interfaces.EventComplete;
 import com.main.cadma.interfaces.SmilesGuiInterface;
-import com.main.smileit.interfaces.EventInterface;
-import com.main.smileit.interfaces.MoleculeListInterface;
+import com.main.cadma.interfaces.SmilesUploadInterface;
+import com.main.cadma.interfaces.StatusProcess;
 
 public class SmileGenerate implements ActionsCadma {
     private SmilesGuiInterface smilesGui;
-    private boolean uploadFile;
-    private String parentPath;
+    private SmilesUploadInterface smilesUpload;
+    private StatusProcess smilesStatusProcess;
 
-    public SmileGenerate(SmilesGuiInterface smilesGui) {// UNCHECK
+    public SmileGenerate(final SmilesGuiInterface smilesGui, final SmilesUploadInterface smilesUpload) {
         this.smilesGui = smilesGui;
+        this.smilesUpload = smilesUpload;
+        this.smilesStatusProcess = StatusProcess.EMPTY;
+
     }
 
     /**
      * @return parent path
      */
     public String getParentPath() {
-        if (uploadFile) return parentPath;
-        return smilesGui.getParentPath();
-    }
-
-    /**
-     * @return return all list of smiles.
-     */
-    public MoleculeListInterface getListSmiles() {
-        return smilesGui.getAllMolecules();
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 
     /**
@@ -34,25 +31,7 @@ public class SmileGenerate implements ActionsCadma {
      */
     @Override
     public void upload() {
-        smilesGui.uploadList();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void update() {
-        // TODO Auto-generated method stub
-
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void getName() {
-        // TODO Auto-generated method stub
-
+        smilesUpload.showUpload();
     }
 
     /**
@@ -61,7 +40,6 @@ public class SmileGenerate implements ActionsCadma {
     @Override
     public void generate() {
         smilesGui.showGenerate();
-
     }
 
     /**
@@ -69,7 +47,7 @@ public class SmileGenerate implements ActionsCadma {
      */
     @Override
     public void view() {
-        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 
     /**
@@ -77,8 +55,12 @@ public class SmileGenerate implements ActionsCadma {
      */
 
     @Override
-    public void addObtainEvent(final EventInterface completeEvent) {
-        smilesGui.addObtainEvent(completeEvent);
+    public void addObtainEvent(final EventComplete completeEvent) {
+        smilesGui.addGenerateEvent(completeEvent);
+        smilesUpload.add(completeEvent);
     }
 
+    public StatusProcess getStatusProcess() {
+        return smilesStatusProcess;
+    }
 }
