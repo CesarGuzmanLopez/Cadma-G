@@ -2,6 +2,7 @@ package com.main.cadma.domain.relations;
 
 import com.main.cadma.interfaces.ActionsCadma;
 import com.main.cadma.interfaces.EventComplete;
+import com.main.cadma.interfaces.StatusProcess;
 
 public class Cadma2Generate implements ActionsCadma {
 
@@ -27,6 +28,18 @@ public class Cadma2Generate implements ActionsCadma {
     public void addObtainEvent(EventComplete completeEvent) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void importCadmaProcess(String path) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public StatusProcess getStatusProcess() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 

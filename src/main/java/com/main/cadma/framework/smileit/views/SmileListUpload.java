@@ -52,7 +52,7 @@ public class SmileListUpload extends JFrame implements SmilesUploadInterface {
     private void initialize() {
         final GridBagConstraints gbc = new GridBagConstraints();
         final JLabel nameLabel = new JLabel("Name ");
-        nameLabel.setPreferredSize(new java.awt.Dimension(210, 30));
+        nameLabel.setPreferredSize(new java.awt.Dimension(70, 30));
         gbc.gridx = 0;
         gbc.gridy = 0;
         add(nameLabel, gbc);
@@ -62,7 +62,7 @@ public class SmileListUpload extends JFrame implements SmilesUploadInterface {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(nameField, gbc);
         final JLabel labelSmileName = new JLabel("Select path to save files:  ");
-        labelSmileName.setPreferredSize(new java.awt.Dimension(210, 30));
+        labelSmileName.setPreferredSize(new java.awt.Dimension(70, 30));
         gbc.gridx = 0;
         gbc.gridy = 1;
         add(labelSmileName, gbc);
@@ -167,7 +167,7 @@ public class SmileListUpload extends JFrame implements SmilesUploadInterface {
     }
 
     @Override
-    public void add(EventComplete completeEvent) {
+    public void addUploadEvent(EventComplete completeEvent) {
         completeEvents.add(completeEvent);
     }
 

@@ -15,15 +15,14 @@ public class Substitutes extends AttributeAbstract<List<SmilesHInterface>> {
     private int numberSubstitutesRest;
     private int numberAllowed;
     private boolean startup;
-    private List<SmilesHInterface> substList;
 
     public Substitutes(List<SmilesHInterface> listSmiles) {
         super(listSmiles, SLUG, true);
-        initialize();
+        numberSubstitutes = listSmiles.size();
     }
 
     public Substitutes() {
-        super(null, SLUG, false);
+        super(new LinkedList<>(), SLUG, false);
         initialize();
 
     }
@@ -31,13 +30,12 @@ public class Substitutes extends AttributeAbstract<List<SmilesHInterface>> {
     private void initialize() {
         numberSubstitutes = 0;
         numberSubstitutesRest = 0;
-        substList = new LinkedList<>();
         startup = false;
     }
 
     @Override
     public void lineAnalyze(String line) {
-        if (!isFound()) {
+        if (isFound()) {
             return;
         }
         if (!line.contains(SLUG_SUBSTITUTES) && numberSubstitutes == 0) {
@@ -46,6 +44,7 @@ public class Substitutes extends AttributeAbstract<List<SmilesHInterface>> {
         if (line.contains(SLUG_SUBSTITUTES)) {
             numberSubstitutes = Integer.parseInt(line.substring((SLUG_SUBSTITUTES + ": ").length()));
             numberSubstitutesRest = Integer.parseInt(line.substring((SLUG_SUBSTITUTES + ": ").length()));
+
             return;
         }
         if (line.contains(SLUG_ALLOWED)) {
@@ -62,11 +61,12 @@ public class Substitutes extends AttributeAbstract<List<SmilesHInterface>> {
                         "SmileFactory is null pleas set it whit AttributeAbstract.setSmileFactory()");
             }
             line = line.replace("\t", "").replace(" ", "");
-            substList.add(smileFactory.create(line.split("->")[0], line.split("->")[1], "", true));
+            getValue().add(smileFactory.create(line.split("->")[0], line.split("->")[1], "", true));
             numberSubstitutesRest--;
         }
-        if (startup && numberSubstitutesRest == 0) {
-            setValue(substList);
+        if (numberSubstitutesRest == 0) {
+            startup = false;
+            found();
         }
     }
 
@@ -76,7 +76,7 @@ public class Substitutes extends AttributeAbstract<List<SmilesHInterface>> {
         sb.append(SLUG_SUBSTITUTES + ": " + numberSubstitutes + "\n");
         sb.append(SLUG_ALLOWED + ": " + numberAllowed + "\n");
         sb.append(SLUG + ":\n");
-        for (SmilesHInterface smiles : substList) {
+        for (SmilesHInterface smiles : getValue()) {
             sb.append("\t" + smiles.smile() + " -> " + smiles.getName() + "\n");
         }
         return sb.toString();

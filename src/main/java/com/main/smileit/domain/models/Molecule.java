@@ -21,7 +21,9 @@ public class Molecule extends Smiles implements MoleculeComparableInterface {
         moleculeDataOfSmile = moleculeDataFactory.getMoleculeDataOfSmile(this);
         resetSmile();
     }
-
+    public static SmilesHInterface create(Molecule a){
+        return a;
+    }
     public Molecule(final String name, final String smiles, final String message, final boolean hydrogenImplicit,
             final SmileVerificationInterface smileVerification,
             final MoleculeDataFactoryInterface moleculeDataOfSmileFactory) {

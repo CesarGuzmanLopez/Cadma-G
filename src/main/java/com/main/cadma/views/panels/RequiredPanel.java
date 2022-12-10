@@ -51,7 +51,9 @@ public class RequiredPanel extends JPanel {
         } catch (IOException e) {
             throw new RuntimeException("Could not load image");
         }
-        actions.addObtainEvent(() -> setStatus(StatusProcess.COMPLETE));
+        actions.addObtainEvent(() ->
+            setStatus(actions.getStatusProcess())
+        );
         initialize();
     }
     /**
@@ -63,7 +65,7 @@ public class RequiredPanel extends JPanel {
         panel1.removeAll();
         if (status == StatusProcess.ERROR) {
             panel1.add(new JLabel(new ImageIcon(tache)));
-        } else if (status == StatusProcess.COMPLETE) {
+        } else if (status == StatusProcess.FINISH) {
             panel1.add(new JLabel(new ImageIcon(paloma)));
         } else if (status == StatusProcess.INCOMPLETE) {
             panel1.add(new JLabel(new ImageIcon(neutro)));

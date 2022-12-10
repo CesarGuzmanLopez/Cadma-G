@@ -4,9 +4,12 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import com.main.cadma.domain.CadmaProcess;
+import com.main.cadma.domain.models.AttributeAbstract;
+import com.main.cadma.framework.smileit.SmileFactory;
 import com.main.cadma.framework.smileit.SmileIt;
 import com.main.cadma.framework.smileit.views.SmileListUpload;
 import com.main.cadma.views.Cadma;
+import com.main.cadma.views.ViewSmileIt;
 
 /**
  * This class is the main class of the application. It is the entry point of the
@@ -53,12 +56,12 @@ public final class MainCadma {
                 | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-        String path = System.getProperty("user.dir");
         final SmileIt smileIt = new SmileIt();
         final SmileListUpload slu = new SmileListUpload();
+        AttributeAbstract.setSmileFactory(new SmileFactory());
+        final ViewSmileIt viewSmileIt = new ViewSmileIt();
+        final CadmaProcess cadmaProcess = new CadmaProcess(smileIt, slu,viewSmileIt);
 
-        final CadmaProcess cadmaProcess = new CadmaProcess(smileIt,slu);
-        cadmaProcess.setParentPathUpload(path);
 
         final Cadma principalView = new Cadma(cadmaProcess);
         principalView.initialize();
@@ -66,6 +69,7 @@ public final class MainCadma {
 
     /**
      * This method is used to select the theme of the application.
+     *
      * @since 1.0
      * @throws ClassNotFoundException          if the class is not found.
      * @throws InstantiationException          if the class is not instantiated.

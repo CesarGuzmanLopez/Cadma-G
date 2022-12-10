@@ -40,6 +40,7 @@ public class SmilePrincipal extends AttributeAbstract<SmilesHInterface> {
 
     @Override
     public String toString() {
-        return SLUG_NAME + ": " + getValue().smile() + "\n" + SLUG_SMILE + ": " + getValue().getName() + "\n";
+        return SLUG_NAME + ": " + getValue().getName() + "\n"
+        + SLUG_SMILE + ": " + getValue().smile() + "\n";
     }
 }

@@ -26,6 +26,8 @@
     "[java]": {
         "editor.detectIndentation": true
     },
-    "java.checkstyle.version": "5.3"
+    "java.checkstyle.version": "5.3",
+    "java.dependency.syncWithFolderExplorer": false,
+    "java.compile.nullAnalysis.mode": "automatic"
 
 }

@@ -27,4 +27,13 @@ public interface ActionsCadma {
       * @param completeEvent
       */
      public void addObtainEvent(final EventComplete completeEvent);
+    /**
+     * Import a file.
+     */
+    void importCadmaProcess( String path);
+    /**
+     *
+     */
+    StatusProcess getStatusProcess();
+
 }

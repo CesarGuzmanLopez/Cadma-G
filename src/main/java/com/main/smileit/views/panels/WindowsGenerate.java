@@ -102,7 +102,7 @@ public class WindowsGenerate extends JFrame {
         dispose();
         JOptionPane.showMessageDialog(this, "Generate", "Generate", JOptionPane.INFORMATION_MESSAGE);
         List<SmilesHInterface> smilesSubstitutes = new LinkedList<>();
-        for (Molecule molecule : listAllGenerated.getListMolecule()) {
+        for (Molecule molecule : substitutesList.getListMolecule()) {
             smilesSubstitutes.add(molecule);
         }
         List<SmilesHInterface> resultSmiles = new LinkedList<>();

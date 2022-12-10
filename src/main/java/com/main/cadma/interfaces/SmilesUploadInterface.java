@@ -11,7 +11,7 @@ public interface SmilesUploadInterface {
      * Add event to obtain the result.
      * @param completeEvent
      */
-    void add(EventComplete completeEvent);
+    void addUploadEvent(EventComplete completeEvent);
 
 
     /**

@@ -1,6 +1,5 @@
 package com.main.cadma.framework.smileit;
 
-import com.main.cadma.interfaces.SmilesUploadInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +35,11 @@ public class SmileIt implements SmilesGuiInterface {
         principalView.dispose();
         generated = false;
         events = new ArrayList<>();
-        principalView.addGenerateEvent((String path, SmilesHInterface Principal, List<SmilesHInterface> subs,
+        principalView.addGenerateEvent((String path, SmilesHInterface principal, List<SmilesHInterface> subs,
                 List<SmilesHInterface> listSmileGenerated) -> {
             generated = true;
             this.pathPrincipal = path;
-            this.MoleculePrincipal = Principal;
+            this.MoleculePrincipal = principal;
             this.substitutes = subs;
             this.moleculesList = listSmileGenerated;
             for (final EventComplete event : events) {

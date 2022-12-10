@@ -6,6 +6,7 @@ import java.awt.GridBagConstraints;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -28,20 +29,29 @@ public class Cadma extends JFrame {
         setSize(850, 300);
         setMinimumSize(new Dimension(400, 180));
         contentPane = new JPanel();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         GridBagLayout gblContentPane = new GridBagLayout();
-        gblContentPane.columnWidths = new int[] {0, 0 };
-        gblContentPane.rowHeights = new int[] {0, 0 };
-        gblContentPane.columnWeights = new double[] {1.0, Double.MIN_VALUE };
-        gblContentPane.rowWeights = new double[] {1.0, Double.MIN_VALUE };
+        gblContentPane.columnWidths = new int[] { 0, 0 };
+        gblContentPane.rowHeights = new int[] { 0, 0 };
+        gblContentPane.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+        gblContentPane.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
         this.cadmaProcess = cadmaProcess;
         contentPane.setLayout(gblContentPane);
     }
 
     /** initialize all JPanels. */
     public void initialize() {
-        setJMenuBar(new Menu());
+        Menu menu = new Menu();
+        menu.setActions((String a) -> {
+            try {
+                cadmaProcess.importCadmaProcess(a);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        setJMenuBar(menu);
         initializeRouteLabel();
         initializePanelSmileIt();
         initializePanelCadma1();

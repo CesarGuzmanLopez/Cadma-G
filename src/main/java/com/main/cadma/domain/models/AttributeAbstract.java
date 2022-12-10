@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.main.cadma.interfaces.SmileFactory;
+import com.main.cadma.interfaces.SmileFactoryInterfaces;
 
 public abstract class AttributeAbstract<ATTR> {
-    protected static SmileFactory smileFactory;
+    public static SmileFactoryInterfaces smileFactory;
     private static final String REGEX_GET_NUMBERS = "([-+]?\\d*\\.?\\d*e?\\d*d?\\d+)";
     private ATTR value;
     private String name;
@@ -23,7 +23,7 @@ public abstract class AttributeAbstract<ATTR> {
 
     public abstract void lineAnalyze(String line);
 
-    public static void setSmileFactory(SmileFactory smileFactory) {
+    public static void setSmileFactory(SmileFactoryInterfaces smileFactory) {
         AttributeAbstract.smileFactory = smileFactory;
     }
 
@@ -31,7 +31,7 @@ public abstract class AttributeAbstract<ATTR> {
         return value;
     }
 
-    protected void found() {
+    public void found() {
         found = true;
     }
 
@@ -44,7 +44,7 @@ public abstract class AttributeAbstract<ATTR> {
     }
 
     public boolean isFound() {
-        return found && value != null;
+        return found ;
     }
 
     public String getName() {
