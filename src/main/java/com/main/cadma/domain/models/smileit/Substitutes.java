@@ -1,12 +1,14 @@
-package com.main.cadma.domain.models.attributes.smileit;
+package com.main.cadma.domain.models.smileit;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.main.cadma.domain.models.AttributeAbstract;
-import com.main.smileit.interfaces.SmilesHInterface;
+import com.main.shared.domain.Molecule;
 
-public class Substitutes extends AttributeAbstract<List<SmilesHInterface>> {
+@JsonSerialize
+public class Substitutes extends AttributeAbstract<List<Molecule>> {
     private static final String SLUG = "Substitutes";
     private static final String SLUG_SUBSTITUTES = "Number of substituent";
     private static final String SLUG_ALLOWED = "Simultaneous substitutions allowed";
@@ -16,7 +18,7 @@ public class Substitutes extends AttributeAbstract<List<SmilesHInterface>> {
     private int numberAllowed;
     private boolean startup;
 
-    public Substitutes(List<SmilesHInterface> listSmiles) {
+    public Substitutes(List<Molecule> listSmiles) {
         super(listSmiles, SLUG, true);
         numberSubstitutes = listSmiles.size();
     }
@@ -56,12 +58,9 @@ public class Substitutes extends AttributeAbstract<List<SmilesHInterface>> {
             return;
         }
         if (startup && numberSubstitutesRest > 0) {
-            if (smileFactory == null) {
-                throw new IllegalArgumentException(
-                        "SmileFactory is null pleas set it whit AttributeAbstract.setSmileFactory()");
-            }
             line = line.replace("\t", "").replace(" ", "");
-            getValue().add(smileFactory.create(line.split("->")[0], line.split("->")[1], "", true));
+            getValue().add(
+                    new Molecule( line.split("->")[1],line.split("->")[0]));
             numberSubstitutesRest--;
         }
         if (numberSubstitutesRest == 0) {
@@ -76,8 +75,8 @@ public class Substitutes extends AttributeAbstract<List<SmilesHInterface>> {
         sb.append(SLUG_SUBSTITUTES + ": " + numberSubstitutes + "\n");
         sb.append(SLUG_ALLOWED + ": " + numberAllowed + "\n");
         sb.append(SLUG + ":\n");
-        for (SmilesHInterface smiles : getValue()) {
-            sb.append("\t" + smiles.smile() + " -> " + smiles.getName() + "\n");
+        for (Molecule smiles : getValue()) {
+            sb.append("\t" + smiles.getSmile() + " -> " + smiles.getName() + "\n");
         }
         return sb.toString();
     }

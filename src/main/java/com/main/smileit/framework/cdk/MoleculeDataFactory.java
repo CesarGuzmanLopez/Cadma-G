@@ -20,8 +20,4 @@ public class MoleculeDataFactory implements MoleculeDataFactoryInterface {
             final MoleculeDataInterface moleculeData) {
         return new MoleculeData(molecule, moleculeData);
     }
-
-
-
-
 }

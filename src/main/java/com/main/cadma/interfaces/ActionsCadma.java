@@ -18,9 +18,6 @@ public interface ActionsCadma {
      * View the result.
      */
      void view();
-    /**
-     * @return parent path
-     */
 
      /**
       *

@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.main.cadma.interfaces.SmileFactoryInterfaces;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+@JsonSerialize
 public abstract class AttributeAbstract<ATTR> {
-    public static SmileFactoryInterfaces smileFactory;
     private static final String REGEX_GET_NUMBERS = "([-+]?\\d*\\.?\\d*e?\\d*d?\\d+)";
     private ATTR value;
     private String name;
@@ -22,10 +22,6 @@ public abstract class AttributeAbstract<ATTR> {
     }
 
     public abstract void lineAnalyze(String line);
-
-    public static void setSmileFactory(SmileFactoryInterfaces smileFactory) {
-        AttributeAbstract.smileFactory = smileFactory;
-    }
 
     public ATTR getValue() {
         return value;

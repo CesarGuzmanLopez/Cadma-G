@@ -4,7 +4,8 @@ package com.main.cadma.domain;
 import com.main.cadma.domain.relations.Cadma1Generate;
 import com.main.cadma.domain.relations.Cadma2Generate;
 import com.main.cadma.domain.relations.SmileGenerate;
-import com.main.cadma.interfaces.SmilesGuiInterface;
+import com.main.cadma.interfaces.MoleculesGuiInterface;
+import com.main.cadma.interfaces.SaveImagesInterface;
 import com.main.cadma.interfaces.SmilesUploadInterface;
 import com.main.cadma.views.ViewSmileIt;
 
@@ -17,8 +18,8 @@ public final class CadmaProcess {
      * @param smilesGuiGenerator controller of smileIt
      * @param viewSmileIt
      */
-    public CadmaProcess(final SmilesGuiInterface smilesGuiGenerator,final SmilesUploadInterface smilesUpload, ViewSmileIt viewSmileIt) {
-        smileGenerate = new SmileGenerate(smilesGuiGenerator, smilesUpload, viewSmileIt);
+    public CadmaProcess(final MoleculesGuiInterface smilesGuiGenerator,final SmilesUploadInterface smilesUpload, ViewSmileIt viewSmileIt,SaveImagesInterface saveImage) {
+        smileGenerate = new SmileGenerate(smilesGuiGenerator, smilesUpload, viewSmileIt, saveImage );
         cadma1Generate = new Cadma1Generate();
         cadma2Generate = new Cadma2Generate();
 
@@ -49,6 +50,5 @@ public final class CadmaProcess {
     public Cadma2Generate getCadma2Generate() {
         return cadma2Generate;
     }
-
 
 }

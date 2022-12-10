@@ -10,24 +10,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.main.cadma.domain.models.AttributeAbstract;
-import com.main.cadma.domain.models.attributes.smileit.GenerateSmiles;
-import com.main.cadma.domain.models.attributes.smileit.SmilePrincipal;
-import com.main.cadma.domain.models.attributes.smileit.Substitutes;
+import com.main.cadma.domain.models.smileit.GenerateSmiles;
+import com.main.cadma.domain.models.smileit.MoleculePrincipal;
+import com.main.cadma.domain.models.smileit.Substitutes;
 import com.main.cadma.interfaces.ActionsCadma;
 import com.main.cadma.interfaces.EventComplete;
-import com.main.cadma.interfaces.SmileFactoryInterfaces;
-import com.main.cadma.interfaces.SmilesGuiInterface;
+import com.main.cadma.interfaces.MoleculesGuiInterface;
+import com.main.cadma.interfaces.SaveImagesInterface;
 import com.main.cadma.interfaces.SmilesUploadInterface;
 import com.main.cadma.interfaces.StatusProcess;
 import com.main.cadma.views.ViewSmileIt;
-import com.main.smileit.interfaces.SmilesHInterface;
+import com.main.shared.domain.Molecule;
 
 public class SmileGenerate implements ActionsCadma {
     public static final String FILE_SMILES = "output.txt";
     public static final String FILE_INFO = "CadmaInfo.txt";
-    private SmilesGuiInterface smilesGui;
+    public static final String FILE_JSON = "CadmaJson.json";
+    private MoleculesGuiInterface smilesGui;
     private SmilesUploadInterface smilesUpload;
-    private SmilePrincipal smilePrincipal;
+    private MoleculePrincipal smilePrincipal;
     private Substitutes substitutes;
     private GenerateSmiles generateSmiles;
     private String parentPath;
@@ -35,8 +36,10 @@ public class SmileGenerate implements ActionsCadma {
     private List<EventComplete> importProcessEvent;
     private StatusProcess statusProcess;
     private ViewSmileIt viewSmileIt;
+    private SaveImagesInterface saveImage;
 
-    public SmileGenerate(final SmilesGuiInterface smilesGui, final SmilesUploadInterface smilesUpload, ViewSmileIt viewSmileIt) {
+    public SmileGenerate(final MoleculesGuiInterface smilesGui, final SmilesUploadInterface smilesUpload,
+            ViewSmileIt viewSmileIt, SaveImagesInterface saveImage) {
         this.smilesGui = smilesGui;
         this.smilesUpload = smilesUpload;
         this.importProcessEvent = new ArrayList<>();
@@ -48,17 +51,12 @@ public class SmileGenerate implements ActionsCadma {
         this.smilesGui.addGenerateEvent(this::generateCadmaInfo);
         this.smilesUpload.addUploadEvent(this::generateCadmaInfo);
 
-
         statusProcess = StatusProcess.EMPTY;
-
+        this.saveImage = saveImage;
     }
 
     /**
-     * importProcesEvent {@inheritDoc}
-     */
-    /**
-     *
-     * @return
+     * importProcessEvent
      */
     private void generateCadmaInfo() {
         if (smilePrincipal == null || generateSmiles == null || substitutes == null) {
@@ -73,9 +71,7 @@ public class SmileGenerate implements ActionsCadma {
         } catch (IOException e) {
             statusProcess = StatusProcess.ERROR;
             throw new IllegalArgumentException("Error writing file" + e.getMessage());
-
         }
-
     }
 
     /**
@@ -118,7 +114,7 @@ public class SmileGenerate implements ActionsCadma {
         File fileSmiles = new File(parentPath + System.getProperty("file.separator") + FILE_SMILES);
         if (!fileSmiles.exists()) {
             statusProcess = StatusProcess.ERROR;
-            throw new IllegalArgumentException(FILE_SMILES +": File not exists");
+            throw new IllegalArgumentException(FILE_SMILES + ": File not exists");
         }
 
         try (FileReader lectorInfo = new FileReader(fileInfo);
@@ -128,7 +124,7 @@ public class SmileGenerate implements ActionsCadma {
 
         ) {
             String line;
-            smilePrincipal = new SmilePrincipal();
+            smilePrincipal = new MoleculePrincipal();
             substitutes = new Substitutes();
             while ((line = lector1.readLine()) != null) {
                 smilePrincipal.lineAnalyze(line);
@@ -146,9 +142,10 @@ public class SmileGenerate implements ActionsCadma {
         }
         statusProcess = StatusProcess.FINISH;
 
-        if(substitutes.getValue().isEmpty()) {
+        if (substitutes.getValue().isEmpty()) {
             statusProcess = StatusProcess.INCOMPLETE;
         }
+        principalName = smilePrincipal.getValue().getName();
         for (EventComplete event : importProcessEvent) {
             event.execute();
         }
@@ -175,12 +172,14 @@ public class SmileGenerate implements ActionsCadma {
             }
             if (generateSmiles.getValue().isEmpty())
                 throw new NullPointerException("No smiles found");
+            if(saveImage!=null) {
+                saveImage.saveImage(principalName, directory.getAbsolutePath()
+                + System.getProperty("file.separator") + "Structures-png" + System.getProperty("file.separator"),generateSmiles.getValue());
+            }
 
-            SmileFactoryInterfaces.saveImages(generateSmiles.getValue(), principalName, directory.getAbsolutePath()
-                    + System.getProperty("file.separator") + "Structures-png" + System.getProperty("file.separator"));
             generateSmiles.found();
-            for (SmilesHInterface smile : generateSmiles.getValue()) {
-                myWriter.write(smile.smile() + "\n");
+            for (Molecule smile : generateSmiles.getValue()) {
+                myWriter.write(smile.getSmile() + "\n");
             }
         } catch (IOException e) {
             statusProcess = StatusProcess.ERROR;
@@ -188,8 +187,8 @@ public class SmileGenerate implements ActionsCadma {
         }
 
         substitutes = new Substitutes();
-        smilePrincipal = new SmilePrincipal(AttributeAbstract.smileFactory
-                .create(generateSmiles.getValue().get(0).smile(), principalName, "Smile", true));
+        smilePrincipal = new MoleculePrincipal(
+                new Molecule(principalName, generateSmiles.getValue().get(0).getSmile()));
         statusProcess = StatusProcess.INCOMPLETE;
 
     }
@@ -205,7 +204,7 @@ public class SmileGenerate implements ActionsCadma {
 
     private void definedGenerated() {
         try {
-            smilePrincipal = new SmilePrincipal(smilesGui.getMoleculePrincipal());
+            smilePrincipal = new MoleculePrincipal(smilesGui.getMoleculePrincipal());
             substitutes = new Substitutes(smilesGui.getSubstitutes());
             generateSmiles = new GenerateSmiles(smilesGui.getMoleculesList(),
                     smilesGui.getMoleculePrincipal().getName());
@@ -223,17 +222,20 @@ public class SmileGenerate implements ActionsCadma {
      */
     @Override
     public void view() {
-        if(statusProcess == StatusProcess.EMPTY || statusProcess == StatusProcess.ERROR || generateSmiles.getValue().isEmpty()) {
-            throw new IllegalArgumentException("No smiles to view");
+        if (statusProcess == StatusProcess.EMPTY || statusProcess == StatusProcess.ERROR
+                || generateSmiles.getValue().isEmpty()) {
+            throw new IllegalArgumentException("Please generate or import smiles");
         }
-
+        if (principalName == null || principalName.isEmpty()) {
+            throw new IllegalArgumentException("Principal name is null");
+        }
         String[][] smilesGenerated = new String[generateSmiles.getValue().size()][2];
         for (int i = 0; i < generateSmiles.getValue().size(); i++) {
             smilesGenerated[i][1] = parentPath + System.getProperty("file.separator") + "Structures-png"
-                    + System.getProperty("file.separator") +principalName+"_"+i + ".png";
-            smilesGenerated[i][0] = generateSmiles.getValue().get(i).smile();
+                    + System.getProperty("file.separator") + principalName + "_" + i + ".png";
+            smilesGenerated[i][0] = generateSmiles.getValue().get(i).getSmile();
         }
-        String [] label = {"Smiles"};
+        String[] label = { "Smiles" };
         viewSmileIt.setInfo(smilesGenerated, label);
         viewSmileIt.setVisible(true);
     }
@@ -248,7 +250,7 @@ public class SmileGenerate implements ActionsCadma {
         importProcessEvent.add(completeEvent);
     }
 
-    public SmilePrincipal getSmilePrincipal() {
+    public MoleculePrincipal getSmilePrincipal() {
         return smilePrincipal;
     }
 

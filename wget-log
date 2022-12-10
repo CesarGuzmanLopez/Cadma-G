@@ -1,0 +1,11 @@
+--2022-11-29 00:23:22--  https://www.youtube.com/watch?v=nmzzlBqtp_w
+Resolving www.youtube.com (www.youtube.com)... 2607:f8b0:4012:808::200e, 2607:f8b0:4012:805::200e, 2607:f8b0:4012:800::200e, ...
+Connecting to www.youtube.com (www.youtube.com)|2607:f8b0:4012:808::200e|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: ‘watch?v=nmzzlBqtp_w’
+
+watch?v=nmzzlBqtp_w                       [<=>                                                                      ]       0  --.-KB/s               watch?v=nmzzlBqtp_w                       [ <=>                                                                     ] 376.24K   918KB/s               watch?v=nmzzlBqtp_w                       [  <=>                                                                    ] 660.32K  1.42MB/s    in 0.5s    
+
+2022-11-29 00:23:23 (1.42 MB/s) - ‘watch?v=nmzzlBqtp_w’ saved [676165]
+

@@ -9,8 +9,10 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import com.main.smileit.domain.models.Molecule;
-import com.main.smileit.framework.cdk.MoleculeDataFactory;
+import com.main.smileit.domain.models.MoleculesList;
+import com.main.smileit.interfaces.MoleculeDataFactoryInterface;
 import com.main.smileit.interfaces.MoleculeListInterface;
+import com.main.smileit.interfaces.SmileVerificationInterface;
 import com.main.smileit.interfaces.SmilesHInterface;
 
 public final class GeneratorUtils {
@@ -37,39 +39,25 @@ public final class GeneratorUtils {
         for (Molecule molecule : list) {
             String name = namePrincipal + "_" + i++ + ".png";
             BufferedImage bi = molecule.getImage(WIDTH, HEIGHT, "SMILE: " + molecule.smile());
+            String filePath = saveImagesPath + System.getProperty("file.separator") + name;
             try {
-                ImageIO.write(bi, "png", new File(saveImagesPath + System.getProperty("file.separator") + name));
+
+                ImageIO.write(bi, "png", new File(filePath));
             } catch (IOException e) {
                 throw new RuntimeException(e.getMessage());
             }
+            molecule.setPathImage(filePath);
         }
     }
 
-    /**
-     *
-     * @param generateList   List of molecules permutes.
-     * @param namePrincipal  Name of principal molecule.
-     * @param saveImagesPath Path to save the image.
-     */
-    public static void saveImages(final List<SmilesHInterface> list, final String namePrincipal,
-            final String saveImagesPath) { // UNCHECK
-        int i = 0;
-        File file = new File(saveImagesPath);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        for (SmilesHInterface smile : list) {
-            Molecule molecule = new Molecule(smile, new MoleculeDataFactory());
-            String name = namePrincipal + "_" + i++ + ".png";
-            BufferedImage bi = molecule.getImage(WIDTH, HEIGHT, "SMILE: " + molecule.smile());
-            try {
-                ImageIO.write(bi, "png", new File(saveImagesPath + System.getProperty("file.separator") + name));
-            } catch (IOException e) {
-                throw new RuntimeException(e.getMessage());
-            }finally{
-
-            }
-        }
+    public static void saveImages(final String namePrincipal, final String saveImagesPath, List<String> listOfSmiles,
+            final SmileVerificationInterface verificationSmile, final MoleculeDataFactoryInterface factory) {
+                MoleculeListInterface generateList = new MoleculesList(verificationSmile, factory);
+                int i = 0;
+                for(String smile : listOfSmiles){
+                    generateList.addSmiles(namePrincipal + i++, smile, "", false);
+                }
+                saveImages(generateList, namePrincipal, saveImagesPath);
     }
 
     /**
@@ -81,7 +69,7 @@ public final class GeneratorUtils {
      * @param writeDescription Writer to write.
      * @throw IOException if the writer has a problem.
      */
-    public static void writeHeadDescription(final Molecule principal, final int rSubstitutes,
+    public static void writeHeadDescription(final SmilesHInterface principal, final int rSubstitutes,
             final MoleculeListInterface substitutes, BufferedWriter writeDescription) throws IOException { // UNCHECK
         if (writeDescription != null) {
             writeDescription.write("Principal: " + principal.getName() + "\nSmile " + principal.smile() + "\n");

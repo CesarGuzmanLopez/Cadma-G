@@ -29,7 +29,7 @@ public class Cadma extends JFrame {
         setSize(850, 300);
         setMinimumSize(new Dimension(400, 180));
         contentPane = new JPanel();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         GridBagLayout gblContentPane = new GridBagLayout();
@@ -71,7 +71,7 @@ public class Cadma extends JFrame {
          * proceso y un boton de cancelar
          */
         JLabel nameOfProcess = new JLabel("No es no");
-        JLabel percentageOfProcess = new JLabel("Lo he padaso bien ");
+        JLabel percentageOfProcess = new JLabel("Lo he pasado bien ");
         JLabel cancelProcess = new JLabel("Y es bastante mas de lo que jamas soñe");
         panelPrincipal2.add(nameOfProcess);
         panelPrincipal2.add(percentageOfProcess);
@@ -98,7 +98,6 @@ public class Cadma extends JFrame {
         gbcPanelPrincipal.gridy = 2;
         contentPane.add(panelPrincipal2, gbcPanelPrincipal);
         panelPrincipal2.setStatus(StatusProcess.EMPTY);
-
     }
 
     private void initializePanelCadma2() {

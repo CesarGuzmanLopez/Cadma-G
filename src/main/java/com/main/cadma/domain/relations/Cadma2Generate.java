@@ -12,6 +12,9 @@ public class Cadma2Generate implements ActionsCadma {
 
     }
 
+
+
+
     @Override
     public void generate() {
         // TODO Auto-generated method stub

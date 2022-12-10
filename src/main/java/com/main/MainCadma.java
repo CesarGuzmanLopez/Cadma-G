@@ -4,8 +4,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import com.main.cadma.domain.CadmaProcess;
-import com.main.cadma.domain.models.AttributeAbstract;
-import com.main.cadma.framework.smileit.SmileFactory;
+import com.main.cadma.framework.smileit.SaveImages;
 import com.main.cadma.framework.smileit.SmileIt;
 import com.main.cadma.framework.smileit.views.SmileListUpload;
 import com.main.cadma.views.Cadma;
@@ -58,9 +57,9 @@ public final class MainCadma {
         }
         final SmileIt smileIt = new SmileIt();
         final SmileListUpload slu = new SmileListUpload();
-        AttributeAbstract.setSmileFactory(new SmileFactory());
         final ViewSmileIt viewSmileIt = new ViewSmileIt();
-        final CadmaProcess cadmaProcess = new CadmaProcess(smileIt, slu,viewSmileIt);
+        final SaveImages saveImage = new SaveImages();
+        final CadmaProcess cadmaProcess = new CadmaProcess(smileIt, slu,viewSmileIt,saveImage);
 
 
         final Cadma principalView = new Cadma(cadmaProcess);

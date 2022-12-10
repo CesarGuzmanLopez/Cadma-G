@@ -103,7 +103,7 @@ public final class SmileViewGenerator extends javax.swing.JFrame {
         final MoleculesList selected = MoleculesList.createMoleculesList(verifySmile, moleculeFactory,
                 optionPanel.getListMolecule());
         windowsGenerate = new WindowsGenerate(moleculePanelPrincipal.getMolecule(), selected);
-        windowsGenerate.addCompleteEvent((String namePath,SmilesHInterface principal, List<SmilesHInterface> substitutes, List<SmilesHInterface> smiles) ->{
+        windowsGenerate.addCompleteEvent((String namePath,Molecule principal, List<Molecule> substitutes, List<Molecule> smiles) ->{
             windowsGenerate.dispose();
             setVisible(false);
         });

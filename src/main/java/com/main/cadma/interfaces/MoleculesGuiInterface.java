@@ -2,9 +2,9 @@ package com.main.cadma.interfaces;
 
 import java.util.List;
 
-import com.main.smileit.interfaces.SmilesHInterface;
+import com.main.shared.domain.Molecule;
 
-public interface SmilesGuiInterface {
+public interface MoleculesGuiInterface {
     /**
      * Show the principal view for generate Smiles.
      */
@@ -21,17 +21,17 @@ public interface SmilesGuiInterface {
     /**
      * @return the List of substitutes selected.
      */
-    List<SmilesHInterface> getMoleculesList();
+    List<Molecule> getMoleculesList();
 
     /**
      * @return the List of substitutes selected.
      */
-    List<SmilesHInterface> getSubstitutes();
+    List<Molecule> getSubstitutes();
 
     /**
      * @return the moleculePrincipal
      */
-    SmilesHInterface getMoleculePrincipal();
+    Molecule getMoleculePrincipal();
 
     /**
      * @return the pathPrincipal

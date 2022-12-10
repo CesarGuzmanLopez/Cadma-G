@@ -14,12 +14,13 @@ import java.awt.image.BufferedImage;
 public class Molecule extends Smiles implements MoleculeComparableInterface {
     private MoleculeDataFactoryInterface moleculeDataFactory;
     private MoleculeDataInterface moleculeDataOfSmile;
-
+    private String pathImage = "";
     public Molecule(final SmilesHInterface smile, final MoleculeDataFactoryInterface moleculeFactory) {
         super(smile);
         this.moleculeDataFactory = moleculeFactory;
         moleculeDataOfSmile = moleculeDataFactory.getMoleculeDataOfSmile(this);
         resetSmile();
+        pathImage = "";
     }
     public static SmilesHInterface create(Molecule a){
         return a;
@@ -32,7 +33,12 @@ public class Molecule extends Smiles implements MoleculeComparableInterface {
         moleculeDataOfSmile = this.moleculeDataFactory.getMoleculeDataOfSmile(this);
         resetSmile();
     }
-
+    public void setPathImage(String path){
+        this.pathImage = path;
+    }
+    public String getPathImage(){
+        return pathImage;
+    }
     public Molecule(final Molecule molecule) {
         super(molecule);
         this.moleculeDataFactory = molecule.moleculeDataFactory;

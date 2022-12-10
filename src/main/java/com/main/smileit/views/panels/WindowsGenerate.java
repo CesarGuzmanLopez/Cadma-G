@@ -71,7 +71,6 @@ public class WindowsGenerate extends JFrame {
     boolean generate() {
 
         principal.setName(nameField.getText());
-        MoleculeListInterface listAllGenerated;
         if (savePath == null) {
             JOptionPane.showMessageDialog(null, "Please select a folder to save the files");
             return false;
@@ -81,6 +80,8 @@ public class WindowsGenerate extends JFrame {
         File saveFileListSmile = new File(savePath.getSelectedFile().getAbsolutePath(),
                 principal.getName() + System.getProperty("file.separator") + "output.txt");
         parentPath = saveFileListSmile.getParent();
+        MoleculeListInterface listAllGenerated;
+
         try {
             WriteAndGenerate.verifyEntry(principal, substitutesList, (int) rSubstitutes.getValue(),
                     saveFileListDescriptive, saveFileListSmile);
@@ -100,18 +101,12 @@ public class WindowsGenerate extends JFrame {
             return false;
         }
         dispose();
-        JOptionPane.showMessageDialog(this, "Generate", "Generate", JOptionPane.INFORMATION_MESSAGE);
-        List<SmilesHInterface> smilesSubstitutes = new LinkedList<>();
-        for (Molecule molecule : substitutesList.getListMolecule()) {
-            smilesSubstitutes.add(molecule);
-        }
-        List<SmilesHInterface> resultSmiles = new LinkedList<>();
-        for(Molecule molecule : listAllGenerated.getListMolecule()){
-            resultSmiles.add(molecule);
-        }
+
         for (EventGenerateSmiles completeGenerated : completeEvents) {
-            completeGenerated.execute(  parentPath, principal,smilesSubstitutes, resultSmiles );
+            completeGenerated.execute(  parentPath, principal,substitutesList.getListMolecule(), listAllGenerated.getListMolecule() );
         }
+        JOptionPane.showMessageDialog(this, "Generate", "Generate", JOptionPane.INFORMATION_MESSAGE);
+
         return true;
     }
 

@@ -1,28 +1,28 @@
 package com.main.cadma.framework.smileit;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import com.main.cadma.interfaces.EventComplete;
-import com.main.cadma.interfaces.SmilesGuiInterface;
+import com.main.cadma.interfaces.MoleculesGuiInterface;
 import com.main.smileit.views.SmileViewGenerator;
+import com.main.smileit.domain.models.Molecule;
 import com.main.smileit.domain.models.MoleculesList;
 import com.main.smileit.framework.cdk.MoleculeDataFactory;
 import com.main.smileit.framework.cdk.MoleculeGraphPainter;
 import com.main.smileit.framework.cdk.VerifiedSmile;
 import com.main.smileit.infrastructure.FirstSubstituent;
-import com.main.smileit.interfaces.SmilesHInterface;
 
-public class SmileIt implements SmilesGuiInterface {
+
+public class SmileIt implements MoleculesGuiInterface {
 
     private final SmileViewGenerator principalView;
     private final List<EventComplete> events;
     private boolean generated;
 
-    private List<SmilesHInterface> moleculesList;
-    private List<SmilesHInterface> substitutes;
-    private SmilesHInterface MoleculePrincipal;
+    private List<com.main.shared.domain.Molecule> moleculesList;
+    private List<com.main.shared.domain.Molecule> substitutes;
+    private com.main.shared.domain.Molecule moleculePrincipal;
     private String pathPrincipal;
 
     public SmileIt() {
@@ -30,22 +30,32 @@ public class SmileIt implements SmilesGuiInterface {
         final VerifiedSmile verifierSmile = new VerifiedSmile();
         final MoleculeGraphPainter moleculeGraphPainter = new MoleculeGraphPainter();
         final MoleculesList smiles = FirstSubstituent.getMoleculeListInitializer(verifierSmile, moleculeFactory);
+
         principalView = new SmileViewGenerator(smiles, verifierSmile, moleculeGraphPainter, moleculeFactory);
         principalView.initialize();
         principalView.dispose();
         generated = false;
         events = new ArrayList<>();
-        principalView.addGenerateEvent((String path, SmilesHInterface principal, List<SmilesHInterface> subs,
-                List<SmilesHInterface> listSmileGenerated) -> {
-            generated = true;
-            this.pathPrincipal = path;
-            this.MoleculePrincipal = principal;
-            this.substitutes = subs;
-            this.moleculesList = listSmileGenerated;
-            for (final EventComplete event : events) {
-                event.execute();
-            }
-        });
+        principalView.addGenerateEvent(
+                (String path, Molecule principal, List<Molecule> subs, List<Molecule> listSmileGenerated) -> {
+                    generated = true;
+                    this.pathPrincipal = path;
+                    this.moleculePrincipal = new com.main.shared.domain.Molecule(principal.getName(),
+                            principal.smile(), principal.getMessage(), principal.getPathImage());
+                    this.substitutes = new ArrayList<>();
+                    for (final Molecule molecule : subs) {
+                        this.substitutes.add(new com.main.shared.domain.Molecule(molecule.getName(),
+                                molecule.smile(), molecule.getMessage(), molecule.getPathImage()));
+                    }
+                    this.moleculesList = new ArrayList<>(listSmileGenerated.size());
+                    for (final Molecule molecule : listSmileGenerated) {
+                        this.moleculesList.add(new com.main.shared.domain.Molecule(principal.getName(),
+                                molecule.smile(), molecule.getMessage(), molecule.getPathImage()));
+                    }
+                    for (final EventComplete event : events) {
+                        event.execute();
+                    }
+                });
     }
 
     /**
@@ -75,7 +85,7 @@ public class SmileIt implements SmilesGuiInterface {
      * {@inheritDoc}
      */
     @Override
-    public List<SmilesHInterface> getMoleculesList() {
+    public List<com.main.shared.domain.Molecule> getMoleculesList() {
         if (!generated) {
             throw new IllegalStateException("The smiles are not generated");
         }
@@ -86,7 +96,7 @@ public class SmileIt implements SmilesGuiInterface {
      * {@inheritDoc}
      */
     @Override
-    public List<SmilesHInterface> getSubstitutes() {
+    public List<com.main.shared.domain.Molecule> getSubstitutes() {
         if (!generated) {
             throw new IllegalStateException("The smiles are not generated");
         }
@@ -97,11 +107,11 @@ public class SmileIt implements SmilesGuiInterface {
      * {@inheritDoc}
      */
     @Override
-    public SmilesHInterface getMoleculePrincipal() {
+    public com.main.shared.domain.Molecule getMoleculePrincipal() {
         if (!generated) {
             throw new IllegalStateException("The smiles are not generated");
         }
-        return MoleculePrincipal;
+        return moleculePrincipal;
     }
 
     /**

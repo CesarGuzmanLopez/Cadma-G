@@ -1,15 +1,17 @@
-package com.main.cadma.domain.models.attributes.smileit;
+package com.main.cadma.domain.models.smileit;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.main.cadma.domain.models.AttributeAbstract;
-import com.main.smileit.interfaces.SmilesHInterface;
 
-public class GenerateSmiles extends AttributeAbstract<List<SmilesHInterface>> {
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.main.cadma.domain.models.AttributeAbstract;
+import com.main.shared.domain.Molecule;
+@JsonSerialize
+public class GenerateSmiles extends AttributeAbstract<List<Molecule>> {
     private int numSmiles;
     private String nameOfPrincipal;
 
-    public GenerateSmiles(List<SmilesHInterface> value, String nameOfPrincipal) {
+    public GenerateSmiles(List<Molecule> value, String nameOfPrincipal) {
         super(value, nameOfPrincipal, true);
         initialize();
     }
@@ -25,15 +27,15 @@ public class GenerateSmiles extends AttributeAbstract<List<SmilesHInterface>> {
 
     @Override
     public void lineAnalyze(String line) {
-        getValue().add(smileFactory.create(line, nameOfPrincipal + "_" + numSmiles, line, true));
+        getValue().add(new Molecule( nameOfPrincipal + "_" + numSmiles,line));
     }
 
     @Override
     public String toString() {
 
         StringBuilder sb = new StringBuilder();
-        for (SmilesHInterface smile : getValue()) {
-            sb.append(smile.smile() + "\n");
+        for (Molecule smile : getValue()) {
+            sb.append(smile.getSmile() + "\n");
         }
         return sb.toString();
     }
