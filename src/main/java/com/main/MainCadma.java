@@ -1,8 +1,6 @@
 package com.main;
-
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
 import com.main.cadma.domain.CadmaProcess;
 import com.main.cadma.framework.smileit.SaveImages;
 import com.main.cadma.framework.smileit.SmileIt;
@@ -98,6 +96,5 @@ public final class MainCadma {
         if (!themeDefault.equals("") && themePoint.equals(firsTheme)) {
             UIManager.setLookAndFeel(themeDefault);
         }
-
     }
 }

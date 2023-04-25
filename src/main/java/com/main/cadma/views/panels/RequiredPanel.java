@@ -31,6 +31,11 @@ public class RequiredPanel extends JPanel {
     private BufferedImage circulo;
     private StatusProcess status;
     private ActionsCadma actions;
+    private JButton buttonGenerate;
+    private JButton buttonUpload;
+    private JButton buttonView;
+    private RequiredPanel panelNext;
+
     private JPanel panel1;
 
     public RequiredPanel(final String title, final ActionsCadma actions) {
@@ -56,6 +61,34 @@ public class RequiredPanel extends JPanel {
         );
         initialize();
     }
+
+    /**
+    * enable buttons generate and upload.
+    * */
+    public void enableButtons() {
+        buttonGenerate.setEnabled(true);
+        buttonUpload.setEnabled(true);
+        revalidateAll();
+    }
+
+    /**
+     * disable buttons generate and upload.
+     * */
+    public void ActionsAfterUploadOrGenerate() {
+        buttonGenerate.setEnabled(false);
+        buttonUpload.setEnabled(false);
+        buttonView.setEnabled(true);
+        revalidateAll();
+    }
+    /**
+     * @param RequiredPanel panel to next validate
+     * add tje next panel to validate.
+     * */
+
+    public void setPanelNext(final RequiredPanel panelNext) {
+        this.panelNext = panelNext;
+    }
+
     /**
      * set Status of panel.
      * @param status actual of process
@@ -65,8 +98,13 @@ public class RequiredPanel extends JPanel {
         panel1.removeAll();
         if (status == StatusProcess.ERROR) {
             panel1.add(new JLabel(new ImageIcon(tache)));
+
         } else if (status == StatusProcess.FINISH) {
             panel1.add(new JLabel(new ImageIcon(paloma)));
+            ActionsAfterUploadOrGenerate();
+            if (panelNext != null && panelNext.status != StatusProcess.FINISH) {
+                panelNext.enableButtons();
+            }
         } else if (status == StatusProcess.INCOMPLETE) {
             panel1.add(new JLabel(new ImageIcon(neutro)));
         } else if (status == StatusProcess.EMPTY) {
@@ -82,8 +120,10 @@ public class RequiredPanel extends JPanel {
         initPanel3();
         initPanel4();
 
+        buttonGenerate.setEnabled(false);
+        buttonUpload.setEnabled(false);
+        buttonView.setEnabled(false);
     }
-
     private void initPanel1() {
         panel1 = new JPanel();
         add(panel1);
@@ -95,18 +135,17 @@ public class RequiredPanel extends JPanel {
     private void initPanel2() {
         JPanel panel2 = new JPanel();
         add(panel2);
-        JButton button = new JButton("Generate");
-        panel2.add(button);
-        button.addActionListener(e -> actions.generate());
+        buttonGenerate = new JButton("Generate");
+        panel2.add(buttonGenerate);
+        buttonGenerate.addActionListener(e -> actions.generate());
     }
 
     private void initPanel3() {
         JPanel panel3 = new JPanel();
         add(panel3);
-        JButton button = new JButton("Upload");
-        panel3.add(button);
-
-        button.addActionListener(e -> uploadFile());
+        buttonUpload = new JButton("Upload");
+        panel3.add(buttonUpload);
+        buttonUpload.addActionListener(e -> uploadFile());
     }
 
     private void uploadFile() {
@@ -116,9 +155,20 @@ public class RequiredPanel extends JPanel {
     private void initPanel4() {
         JPanel panel4 = new JPanel();
         add(panel4);
-        JButton button = new JButton("View");
-        panel4.add(button);
-        button.addActionListener(e -> actions.view());
+        buttonView  = new JButton("View");
+        panel4.add(buttonView);
+        buttonView.addActionListener(e -> actions.view());
+    }
+
+    private void revalidateAll() {
+        panel1.revalidate();
+        panel1.repaint();
+        buttonView.revalidate();
+        buttonView.repaint();
+        buttonUpload.revalidate();
+        buttonUpload.repaint();
+        buttonGenerate.revalidate();
+        buttonGenerate.repaint();
     }
 
     private static BufferedImage resize(final Image img, final int newW, final int newH) {
@@ -129,5 +179,4 @@ public class RequiredPanel extends JPanel {
         g2d.dispose();
         return redImg;
     }
-
 }

@@ -19,8 +19,11 @@ public final class CadmaProcess {
      * @param viewSmileIt
      */
     public CadmaProcess(final MoleculesGuiInterface smilesGuiGenerator,final SmilesUploadInterface smilesUpload, ViewSmileIt viewSmileIt,SaveImagesInterface saveImage) {
+
         smileGenerate = new SmileGenerate(smilesGuiGenerator, smilesUpload, viewSmileIt, saveImage );
+
         cadma1Generate = new Cadma1Generate();
+
         cadma2Generate = new Cadma2Generate();
 
     }
@@ -50,5 +53,4 @@ public final class CadmaProcess {
     public Cadma2Generate getCadma2Generate() {
         return cadma2Generate;
     }
-
 }

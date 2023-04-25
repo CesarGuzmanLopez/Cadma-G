@@ -9,9 +9,7 @@ public class Cadma1Generate implements ActionsCadma {
       // TODO document why this method is empty
     }
 
-    @Override
-    public void generate() {
-        // TODO Auto-generated method stub
+    @Override    public void generate() {
 
     }
 

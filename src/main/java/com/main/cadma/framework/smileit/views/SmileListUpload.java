@@ -30,7 +30,7 @@ public class SmileListUpload extends JFrame implements SmilesUploadInterface {
 
     public SmileListUpload() {
         setTitle("Upload smiles");
-        setSize(550, 300);
+        setSize(300, 200);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(new GridBagLayout());
@@ -77,7 +77,6 @@ public class SmileListUpload extends JFrame implements SmilesUploadInterface {
         gbc.gridx = 2;
         gbc.gridy = 1;
         add(selectedFolderPath, gbc);
-
         final JLabel labelUpload = new JLabel("Select file to upload:  ");
         labelUpload.setPreferredSize(new java.awt.Dimension(210, 30));
         gbc.gridx = 0;

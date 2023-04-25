@@ -20,13 +20,18 @@ public class Cadma extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private CadmaProcess cadmaProcess;
-
+    private RequiredPanel panelSmileIt;
+    private RequiredPanel panelCadma1;
+    private RequiredPanel panelCadma2;
     /**
      * @param cadmaProcess
+     * @since 1.0
+     * Esta fimcopm crea la ventana principal de la aplicacion
+     * aqui se mostrara toda la informacion previa si ya se tienen avances
      */
     public Cadma(final CadmaProcess cadmaProcess) {
         super("CADMA - Computer Aided Design for M Applications");
-        setSize(850, 300);
+        setSize(550, 450);
         setMinimumSize(new Dimension(400, 180));
         contentPane = new JPanel();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -57,7 +62,9 @@ public class Cadma extends JFrame {
         initializePanelCadma1();
         initializePanelCadma2();
         setVisible(true);
-
+        panelSmileIt.enableButtons();
+        panelSmileIt.setPanelNext(panelCadma1);
+        panelCadma1.setPanelNext(panelCadma2);
     }
 
     private void initializeRouteLabel() {
@@ -70,9 +77,9 @@ public class Cadma extends JFrame {
          * un Jlabel que contenga el nombre otro que de el porcentaje de avance en el
          * proceso y un boton de cancelar
          */
-        JLabel nameOfProcess = new JLabel("No es no");
-        JLabel percentageOfProcess = new JLabel("Lo he pasado bien ");
-        JLabel cancelProcess = new JLabel("Y es bastante mas de lo que jamas soñe");
+        JLabel nameOfProcess = new JLabel(" ");
+        JLabel percentageOfProcess = new JLabel("  ");
+        JLabel cancelProcess = new JLabel(" ");
         panelPrincipal2.add(nameOfProcess);
         panelPrincipal2.add(percentageOfProcess);
         panelPrincipal2.add(cancelProcess);
@@ -81,32 +88,32 @@ public class Cadma extends JFrame {
     }
 
     private void initializePanelSmileIt() {
-        RequiredPanel panelPrincipal2 = new RequiredPanel("SMILE-IT", cadmaProcess.getSmileGenerate());
+        panelSmileIt = new RequiredPanel("SMILE-IT", cadmaProcess.getSmileGenerate());
         GridBagConstraints gbcPanelPrincipal = new GridBagConstraints();
         gbcPanelPrincipal.fill = GridBagConstraints.HORIZONTAL;
         gbcPanelPrincipal.gridx = 0;
         gbcPanelPrincipal.gridy = 1;
-        contentPane.add(panelPrincipal2, gbcPanelPrincipal);
-        panelPrincipal2.setStatus(StatusProcess.EMPTY);
+        contentPane.add(panelSmileIt, gbcPanelPrincipal);
+        panelSmileIt.setStatus(StatusProcess.EMPTY);
     }
 
     private void initializePanelCadma1() {
-        RequiredPanel panelPrincipal2 = new RequiredPanel("CADMA-1", cadmaProcess.getCadma1Generate());
+        panelCadma1 = new RequiredPanel("CADMA-1", cadmaProcess.getCadma1Generate());
         GridBagConstraints gbcPanelPrincipal = new GridBagConstraints();
         gbcPanelPrincipal.fill = GridBagConstraints.HORIZONTAL;
         gbcPanelPrincipal.gridx = 0;
         gbcPanelPrincipal.gridy = 2;
-        contentPane.add(panelPrincipal2, gbcPanelPrincipal);
-        panelPrincipal2.setStatus(StatusProcess.EMPTY);
+        contentPane.add(panelCadma1, gbcPanelPrincipal);
+        panelCadma1.setStatus(StatusProcess.EMPTY);
     }
 
     private void initializePanelCadma2() {
-        RequiredPanel panelPrincipal2 = new RequiredPanel("CADMA-2", cadmaProcess.getCadma1Generate());
+        panelCadma2 = new RequiredPanel("CADMA-2", cadmaProcess.getCadma1Generate());
         GridBagConstraints gbcPanelPrincipal = new GridBagConstraints();
         gbcPanelPrincipal.fill = GridBagConstraints.HORIZONTAL;
         gbcPanelPrincipal.gridx = 0;
         gbcPanelPrincipal.gridy = 3;
-        contentPane.add(panelPrincipal2, gbcPanelPrincipal);
-        panelPrincipal2.setStatus(StatusProcess.EMPTY);
+        contentPane.add(panelCadma2, gbcPanelPrincipal);
+        panelCadma2.setStatus(StatusProcess.EMPTY);
     }
 }

@@ -9,7 +9,6 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.main.cadma.domain.models.AttributeAbstract;
 import com.main.cadma.domain.models.smileit.GenerateSmiles;
 import com.main.cadma.domain.models.smileit.MoleculePrincipal;
 import com.main.cadma.domain.models.smileit.Substitutes;
@@ -44,13 +43,10 @@ public class SmileGenerate implements ActionsCadma {
         this.smilesUpload = smilesUpload;
         this.importProcessEvent = new ArrayList<>();
         this.viewSmileIt = viewSmileIt;
-
         this.smilesUpload.addUploadEvent(this::uploadSmiles);
         this.smilesGui.addGenerateEvent(this::definedGenerated);
-
         this.smilesGui.addGenerateEvent(this::generateCadmaInfo);
         this.smilesUpload.addUploadEvent(this::generateCadmaInfo);
-
         statusProcess = StatusProcess.EMPTY;
         this.saveImage = saveImage;
     }
@@ -190,7 +186,6 @@ public class SmileGenerate implements ActionsCadma {
         smilePrincipal = new MoleculePrincipal(
                 new Molecule(principalName, generateSmiles.getValue().get(0).getSmile()));
         statusProcess = StatusProcess.INCOMPLETE;
-
     }
 
     /**
@@ -199,7 +194,6 @@ public class SmileGenerate implements ActionsCadma {
     @Override
     public void generate() {
         smilesGui.showGenerate();
-
     }
 
     private void definedGenerated() {
