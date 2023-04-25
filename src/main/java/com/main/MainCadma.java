@@ -19,8 +19,7 @@ import com.main.cadma.views.ViewSmileIt;
  * @since 1.0
  */
 public final class MainCadma {
-
-    /**
+    /*
      * This method is the main method of the application. It is the entry point of
      * the application.
      *
@@ -60,8 +59,6 @@ public final class MainCadma {
         final ViewSmileIt viewSmileIt = new ViewSmileIt();
         final SaveImages saveImage = new SaveImages();
         final CadmaProcess cadmaProcess = new CadmaProcess(smileIt, slu,viewSmileIt,saveImage);
-
-
         final Cadma principalView = new Cadma(cadmaProcess);
         principalView.initialize();
     }

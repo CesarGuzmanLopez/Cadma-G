@@ -1,0 +1,27 @@
+{
+  "adapters": {
+    "java-debug-server": {
+      "name": "vscode-java",
+      "port": "${AdapterPort}",
+            "java.jdt.ls.vmargs" : "--add-exports java.base/sun.security.action=ALL-UNNAMED"
+    }
+  },
+  "configurations": {
+    "Java Attach": {
+      "default": true,
+      "adapter": "java-debug-server",
+      "configuration": {
+        "request": "attach",
+        "host": "127.0.0.1",
+        "port": "8000",
+        "java.jdt.ls.vmargs" : "--add-exports java.base/sun.security.action=ALL-UNNAMED"
+      },
+      "breakpoints": {
+        "exception": {
+          "caught": "N",
+          "uncaught": "N"
+        }
+      }
+    }
+  }
+}

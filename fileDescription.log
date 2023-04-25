@@ -1,0 +1,142 @@
+Principal: NCOC
+Smile COCN
+Number of substituent: 3
+Simultaneous substitutions allowed: 2
+Substitutes: 
+	 ccOcc2 -> C=COC=C
+
+	 Ncccc -> C=CC=CN
+
+	 Oxygens -> O
+
+
+
+	=== ===		Total: 127	=== ===
+==========================================================
+		H		H		H		COCN
+		C=COC=C		H		H		C=COC(=C)O(C)CN
+		H		C=COC=C		H		C=COC(=C)NCOC
+		H		H		C=COC=C		C=COC(=C)COCN
+		C=COC=C		*		*		C=CO[CH](=C)=O(C)CN
+		*		C=COC=C		*		C=CO[CH](=C)=NCOC
+		*		*		C=COC=C		C=CO[CH](=C)=COCN
+		C=CC=CN		H		H		C=CC=C(N)O(C)CN
+		H		C=CC=CN		H		C=CC=C(N)NCOC
+		H		H		C=CC=CN		C=CC=C(COCN)N
+		C=CC=CN		*		*		C=CC=[CH](=O(C)CN)N
+		*		C=CC=CN		*		C=CC=[CH](=NCOC)N
+		*		*		C=CC=CN		C=CC=[CH](=COCN)N
+		O		H		H		CO(CN)O
+		H		O		H		COCNO
+		H		H		O		C(N)OCO
+		O		*		*		CO(=O)CN
+		*		O		*		COCN=O
+		*		*		O		C(N)OC=O
+		C=COC=C		C=COC=C		H		C=COC(=C)NCO(C)C(=C)OC=C
+		C=COC=C		H		C=COC=C		C=COC(=C)CO(CN)C(=C)OC=C
+		C=COC=C		C=COC=C		*		C=CO[CH](=C)=NCO(C)C(=C)OC=C
+		C=COC=C		*		C=COC=C		C=CO[CH](=C)=CO(CN)C(=C)OC=C
+		C=COC=C		C=CC=CN		H		C=CC=C(N)NCO(C)C(=C)OC=C
+		C=COC=C		H		C=CC=CN		C=CC=C(CO(CN)C(=C)OC=C)N
+		C=COC=C		C=CC=CN		*		C=CC=[CH](=NCO(C)C(=C)OC=C)N
+		C=COC=C		*		C=CC=CN		C=CC=[CH](=CO(CN)C(=C)OC=C)N
+		C=COC=C		O		H		C=COC(=C)O(C)CNO
+		C=COC=C		H		O		C=COC(=C)O(CN)CO
+		C=COC=C		O		*		C=COC(=C)O(C)CN=O
+		C=COC=C		*		O		C=COC(=C)O(CN)C=O
+		H		C=COC=C		C=COC=C		C=COC(=C)COCNC(=C)OC=C
+		C=COC=C		C=COC=C		*		C=COC(=C)NCO(=[CH](=C)OC=C)C
+		*		C=COC=C		C=COC=C		C=CO[CH](=C)=COCNC(=C)OC=C
+		C=CC=CN		C=COC=C		H		C=CC=C(N)O(C)CNC(=C)OC=C
+		H		C=COC=C		C=CC=CN		C=CC=C(COCNC(=C)OC=C)N
+		C=CC=CN		C=COC=C		*		C=CC=[CH](=O(C)CNC(=C)OC=C)N
+		*		C=COC=C		C=CC=CN		C=CC=[CH](=COCNC(=C)OC=C)N
+		O		C=COC=C		H		C=COC(=C)NCO(C)O
+		H		C=COC=C		O		C=COC(=C)NCOCO
+		O		C=COC=C		*		C=COC(=C)NCO(=O)C
+		*		C=COC=C		O		C=COC(=C)NCOC=O
+		C=COC=C		*		C=COC=C		C=COC(=C)CO(=[CH](=C)OC=C)CN
+		*		C=COC=C		C=COC=C		C=COC(=C)COCN=[CH](=C)OC=C
+		C=CC=CN		H		C=COC=C		C=CC=C(N)O(CC(=C)OC=C)CN
+		H		C=CC=CN		C=COC=C		C=CC=C(N)NCOCC(=C)OC=C
+		C=CC=CN		*		C=COC=C		C=CC=[CH](=O(CC(=C)OC=C)CN)N
+		*		C=CC=CN		C=COC=C		C=CC=[CH](=NCOCC(=C)OC=C)N
+		O		H		C=COC=C		C=COC(=C)CO(CN)O
+		H		O		C=COC=C		C=COC(=C)COCNO
+		O		*		C=COC=C		C=COC(=C)CO(=O)CN
+		*		O		C=COC=C		C=COC(=C)COCN=O
+		C=COC=C		C=COC=C		*		C=CO[CH](=C)=NCO(=[CH](=C)OC=C)C
+		C=COC=C		*		C=COC=C		C=CO[CH](=C)=CO(=[CH](=C)OC=C)CN
+		C=COC=C		C=CC=CN		*		C=CC=C(N)NCO(=[CH](=C)OC=C)C
+		C=COC=C		*		C=CC=CN		C=CC=C(CO(=[CH](=C)OC=C)CN)N
+		C=COC=C		C=CC=CN		*		C=CC=[CH](=NCO(=[CH](=C)OC=C)C)N
+		C=COC=C		*		C=CC=CN		C=CC=[CH](=CO(=[CH](=C)OC=C)CN)N
+		C=COC=C		O		*		C=CO[CH](=C)=O(C)CNO
+		C=COC=C		*		O		C=CO[CH](=C)=O(CN)CO
+		C=COC=C		O		*		C=CO[CH](=C)=O(C)CN=O
+		C=COC=C		*		O		C=CO[CH](=C)=O(CN)C=O
+		*		C=COC=C		C=COC=C		C=CO[CH](=C)=COCN=[CH](=C)OC=C
+		C=CC=CN		C=COC=C		*		C=CC=C(N)O(C)CN=[CH](=C)OC=C
+		*		C=COC=C		C=CC=CN		C=CC=C(COCN=[CH](=C)OC=C)N
+		C=CC=CN		C=COC=C		*		C=CC=[CH](=O(C)CN=[CH](=C)OC=C)N
+		*		C=COC=C		C=CC=CN		C=CC=[CH](=COCN=[CH](=C)OC=C)N
+		O		C=COC=C		*		C=CO[CH](=C)=NCO(C)O
+		*		C=COC=C		O		C=CO[CH](=C)=NCOCO
+		O		C=COC=C		*		C=CO[CH](=C)=NCO(=O)C
+		*		C=COC=C		O		C=CO[CH](=C)=NCOC=O
+		C=CC=CN		*		C=COC=C		C=CC=C(N)O(C=[CH](=C)OC=C)CN
+		*		C=CC=CN		C=COC=C		C=CC=C(N)NCOC=[CH](=C)OC=C
+		C=CC=CN		*		C=COC=C		C=CC=[CH](=O(C=[CH](=C)OC=C)CN)N
+		*		C=CC=CN		C=COC=C		C=CC=[CH](=NCOC=[CH](=C)OC=C)N
+		O		*		C=COC=C		C=CO[CH](=C)=CO(CN)O
+		*		O		C=COC=C		C=CO[CH](=C)=COCNO
+		O		*		C=COC=C		C=CO[CH](=C)=CO(=O)CN
+		*		O		C=COC=C		C=CO[CH](=C)=COCN=O
+		C=CC=CN		C=CC=CN		H		C=CC=C(N)NCO(C)C(=CC=C)N
+		C=CC=CN		H		C=CC=CN		C=CC=C(CO(CN)C(=CC=C)N)N
+		C=CC=CN		C=CC=CN		*		C=CC=[CH](=NCO(C)C(=CC=C)N)N
+		C=CC=CN		*		C=CC=CN		C=CC=[CH](=CO(CN)C(=CC=C)N)N
+		C=CC=CN		O		H		C=CC=C(N)O(C)CNO
+		C=CC=CN		H		O		C=CC=C(N)O(CN)CO
+		C=CC=CN		O		*		C=CC=C(N)O(C)CN=O
+		C=CC=CN		*		O		C=CC=C(N)O(CN)C=O
+		H		C=CC=CN		C=CC=CN		C=CC=C(COCNC(=CC=C)N)N
+		C=CC=CN		C=CC=CN		*		C=CC=C(N)NCO(=[CH](=CC=C)N)C
+		*		C=CC=CN		C=CC=CN		C=CC=[CH](=COCNC(=CC=C)N)N
+		O		C=CC=CN		H		C=CC=C(N)NCO(C)O
+		H		C=CC=CN		O		C=CC=C(N)NCOCO
+		O		C=CC=CN		*		C=CC=C(N)NCO(=O)C
+		*		C=CC=CN		O		C=CC=C(N)NCOC=O
+		C=CC=CN		*		C=CC=CN		C=CC=C(CO(=[CH](=CC=C)N)CN)N
+		*		C=CC=CN		C=CC=CN		C=CC=C(COCN=[CH](=CC=C)N)N
+		O		H		C=CC=CN		C=CC=C(CO(CN)O)N
+		H		O		C=CC=CN		C=CC=C(COCNO)N
+		O		*		C=CC=CN		C=CC=C(CO(=O)CN)N
+		*		O		C=CC=CN		C=CC=C(COCN=O)N
+		C=CC=CN		C=CC=CN		*		C=CC=[CH](=NCO(=[CH](=CC=C)N)C)N
+		C=CC=CN		*		C=CC=CN		C=CC=[CH](=CO(=[CH](=CC=C)N)CN)N
+		C=CC=CN		O		*		C=CC=[CH](=O(C)CNO)N
+		C=CC=CN		*		O		C=CC=[CH](=O(CN)CO)N
+		C=CC=CN		O		*		C=CC=[CH](=O(C)CN=O)N
+		C=CC=CN		*		O		C=CC=[CH](=O(CN)C=O)N
+		*		C=CC=CN		C=CC=CN		C=CC=[CH](=COCN=[CH](=CC=C)N)N
+		O		C=CC=CN		*		C=CC=[CH](=NCO(C)O)N
+		*		C=CC=CN		O		C=CC=[CH](=NCOCO)N
+		O		C=CC=CN		*		C=CC=[CH](=NCO(=O)C)N
+		*		C=CC=CN		O		C=CC=[CH](=NCOC=O)N
+		O		*		C=CC=CN		C=CC=[CH](=CO(CN)O)N
+		*		O		C=CC=CN		C=CC=[CH](=COCNO)N
+		O		*		C=CC=CN		C=CC=[CH](=CO(=O)CN)N
+		*		O		C=CC=CN		C=CC=[CH](=COCN=O)N
+		O		O		H		CO(CNO)O
+		O		H		O		C(N)O(CO)O
+		O		O		*		CO(CN=O)O
+		O		*		O		C(N)O(C=O)O
+		H		O		O		C(NO)OCO
+		O		O		*		CO(=O)CNO
+		*		O		O		C(NO)OC=O
+		O		*		O		C(N)O(=O)CO
+		*		O		O		C(N=O)OCO
+		O		O		*		CO(=O)CN=O
+		O		*		O		C(N)O(=O)C=O
+		*		O		O		C(N=O)OC=O
