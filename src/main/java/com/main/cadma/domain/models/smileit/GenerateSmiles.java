@@ -6,6 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.main.cadma.domain.models.AttributeAbstract;
 import com.main.shared.domain.Molecule;
+
 @JsonSerialize
 public class GenerateSmiles extends AttributeAbstract<List<Molecule>> {
     private int numSmiles;
@@ -39,5 +40,4 @@ public class GenerateSmiles extends AttributeAbstract<List<Molecule>> {
         }
         return sb.toString();
     }
-
 }

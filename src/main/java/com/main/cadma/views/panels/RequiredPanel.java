@@ -34,6 +34,7 @@ public class RequiredPanel extends JPanel {
     private JButton buttonGenerate;
     private JButton buttonUpload;
     private JButton buttonView;
+    private JButton buttonDelete;
     private RequiredPanel panelNext;
 
     private JPanel panel1;
@@ -78,6 +79,7 @@ public class RequiredPanel extends JPanel {
         buttonGenerate.setEnabled(false);
         buttonUpload.setEnabled(false);
         buttonView.setEnabled(true);
+        buttonDelete.setEnabled(true);
         revalidateAll();
     }
     /**
@@ -99,14 +101,18 @@ public class RequiredPanel extends JPanel {
         if (status == StatusProcess.ERROR) {
             panel1.add(new JLabel(new ImageIcon(tache)));
 
-        } else if (status == StatusProcess.FINISH) {
+        } else if (status == StatusProcess.COMPLETE) {
             panel1.add(new JLabel(new ImageIcon(paloma)));
             ActionsAfterUploadOrGenerate();
-            if (panelNext != null && panelNext.status != StatusProcess.FINISH) {
+            if (panelNext != null && panelNext.status != StatusProcess.COMPLETE) {
                 panelNext.enableButtons();
             }
         } else if (status == StatusProcess.INCOMPLETE) {
+            buttonGenerate.setText("Continue");
+            buttonGenerate.setEnabled(true);
+            buttonUpload.setEnabled(false);
             panel1.add(new JLabel(new ImageIcon(neutro)));
+
         } else if (status == StatusProcess.EMPTY) {
             panel1.add(new JLabel(new ImageIcon(circulo)));
         }
@@ -119,10 +125,11 @@ public class RequiredPanel extends JPanel {
         initPanel2();
         initPanel3();
         initPanel4();
-
+        initPanel5();
         buttonGenerate.setEnabled(false);
         buttonUpload.setEnabled(false);
         buttonView.setEnabled(false);
+        buttonDelete.setEnabled(false);
     }
     private void initPanel1() {
         panel1 = new JPanel();
@@ -134,22 +141,28 @@ public class RequiredPanel extends JPanel {
 
     private void initPanel2() {
         JPanel panel2 = new JPanel();
-        add(panel2);
         buttonGenerate = new JButton("Generate");
-        panel2.add(buttonGenerate);
+        if(!actions.isGenerate()) {
+            buttonGenerate.setVisible(false);
+            buttonGenerate.setEnabled(false);
+        }else{
+            add(panel2);
+            panel2.add(buttonGenerate);
+        }
         buttonGenerate.addActionListener(e -> actions.generate());
     }
 
     private void initPanel3() {
         JPanel panel3 = new JPanel();
-        add(panel3);
         buttonUpload = new JButton("Upload");
-        panel3.add(buttonUpload);
-        buttonUpload.addActionListener(e -> uploadFile());
-    }
-
-    private void uploadFile() {
-        actions.upload();
+        if(!actions.isUpload()) {
+            buttonUpload.setVisible(false);
+            buttonUpload.setEnabled(false);
+        }else{
+            add(panel3);
+            panel3.add(buttonUpload);
+        }
+        buttonUpload.addActionListener(e -> actions.upload());
     }
 
     private void initPanel4() {
@@ -158,6 +171,18 @@ public class RequiredPanel extends JPanel {
         buttonView  = new JButton("View");
         panel4.add(buttonView);
         buttonView.addActionListener(e -> actions.view());
+    }
+    private void initPanel5() {
+        JPanel panel5 = new JPanel();
+        buttonDelete  = new JButton("delete");
+        if(!actions.isDelete()) {
+            buttonDelete.setVisible(false);
+            buttonDelete.setEnabled(false);
+        }else{
+            add(panel5);
+            panel5.add(buttonDelete);
+        }
+        buttonDelete.addActionListener(e -> actions.delete());
     }
 
     private void revalidateAll() {
@@ -179,4 +204,4 @@ public class RequiredPanel extends JPanel {
         g2d.dispose();
         return redImg;
     }
-}
+ }

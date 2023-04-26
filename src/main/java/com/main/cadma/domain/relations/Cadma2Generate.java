@@ -34,15 +34,42 @@ public class Cadma2Generate implements ActionsCadma {
     }
 
     @Override
-    public void importCadmaProcess(String path) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public StatusProcess getStatusProcess() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+
+
+
+    @Override
+    public void delete() {
+        // TODO Auto-generated method stub
+    }
+
+
+
+
+    @Override
+    public boolean isDelete() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+
+
+
+    @Override
+    public boolean isUpload() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+
+    @Override
+    public boolean isGenerate() {
+        // TODO Auto-generated method stub
+        return false;
     }
 
 

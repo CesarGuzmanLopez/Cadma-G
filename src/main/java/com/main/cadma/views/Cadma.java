@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.main.cadma.domain.CadmaProcess;
+import com.main.cadma.interfaces.EventUpdateData;
 import com.main.cadma.interfaces.StatusProcess;
 import com.main.cadma.views.panels.RequiredPanel;
 import com.main.cadma.views.panels.Menu;
@@ -23,6 +24,11 @@ public class Cadma extends JFrame {
     private RequiredPanel panelSmileIt;
     private RequiredPanel panelCadma1;
     private RequiredPanel panelCadma2;
+    private JLabel nameOfPath;
+    private JLabel nameOfProcess;
+    private JLabel numberOfSubstituents;
+    private JLabel numberOfMoleculesGenerated;
+
     /**
      * @param cadmaProcess
      * @since 1.0
@@ -42,9 +48,25 @@ public class Cadma extends JFrame {
         gblContentPane.rowHeights = new int[] { 0, 0 };
         gblContentPane.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
         gblContentPane.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
-        this.cadmaProcess = cadmaProcess;
         contentPane.setLayout(gblContentPane);
-    }
+
+        this.cadmaProcess = cadmaProcess;
+
+        cadmaProcess.setEventUpdateData(new EventUpdateData() {
+            @Override
+            public void execute() {
+                nameOfProcess.setText("Process: " + cadmaProcess.getNameOfProcess());
+                numberOfSubstituents.setText("Number of substituents: " + cadmaProcess.getNumberOfSubstituents());
+                numberOfMoleculesGenerated.setText("Number of molecules generated: " + cadmaProcess.getNumberOfMoleculesGenerated());
+                nameOfPath.setText("Path: " + cadmaProcess.getPath());
+                numberOfMoleculesGenerated.setVisible(true);
+                nameOfProcess.setVisible(true);
+                numberOfSubstituents.setVisible(true);
+
+
+            }
+        });
+        }
 
     /** initialize all JPanels. */
     public void initialize() {
@@ -69,26 +91,51 @@ public class Cadma extends JFrame {
 
     private void initializeRouteLabel() {
         JPanel panelPrincipal2 = new JPanel();
+        GridBagLayout gblContentPane = new GridBagLayout();
+        gblContentPane.columnWidths = new int[] { 0, 0 };
+        gblContentPane.rowHeights = new int[] { 0, 0 };
+        gblContentPane.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+        gblContentPane.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
+        panelPrincipal2.setLayout(gblContentPane);
+
+
+
+
+
         GridBagConstraints gbcPanelPrincipal = new GridBagConstraints();
         gbcPanelPrincipal.fill = GridBagConstraints.HORIZONTAL;
         gbcPanelPrincipal.gridx = 0;
         gbcPanelPrincipal.gridy = 0;
+
         /*
-         * un Jlabel que contenga el nombre otro que de el porcentaje de avance en el
-         * proceso y un boton de cancelar
+
          */
-        JLabel nameOfProcess = new JLabel(" ");
-        JLabel percentageOfProcess = new JLabel("  ");
-        JLabel cancelProcess = new JLabel(" ");
-        panelPrincipal2.add(nameOfProcess);
-        panelPrincipal2.add(percentageOfProcess);
-        panelPrincipal2.add(cancelProcess);
+
+        nameOfPath = new JLabel("");
+        nameOfProcess        = new JLabel("Please Generate the Smiles or Upload a file or import a project in the menu");
+        numberOfSubstituents = new JLabel("");
+        numberOfMoleculesGenerated = new JLabel(" ");
+        panelPrincipal2.add(nameOfPath, gbcPanelPrincipal);
+        gbcPanelPrincipal.gridy = 1;
+        panelPrincipal2.add(nameOfProcess, gbcPanelPrincipal);
+        gbcPanelPrincipal.gridy = 2;
+        panelPrincipal2.add(numberOfSubstituents, gbcPanelPrincipal);
+        gbcPanelPrincipal.gridy = 3;
+        panelPrincipal2.add(numberOfMoleculesGenerated, gbcPanelPrincipal);
+
+
+        gbcPanelPrincipal.fill = GridBagConstraints.HORIZONTAL;
+        gbcPanelPrincipal.gridx = 0;
+        gbcPanelPrincipal.gridy = 0;
+
 
         contentPane.add(panelPrincipal2, gbcPanelPrincipal);
     }
 
     private void initializePanelSmileIt() {
+
         panelSmileIt = new RequiredPanel("SMILE-IT", cadmaProcess.getSmileGenerate());
+
         GridBagConstraints gbcPanelPrincipal = new GridBagConstraints();
         gbcPanelPrincipal.fill = GridBagConstraints.HORIZONTAL;
         gbcPanelPrincipal.gridx = 0;
@@ -108,7 +155,7 @@ public class Cadma extends JFrame {
     }
 
     private void initializePanelCadma2() {
-        panelCadma2 = new RequiredPanel("CADMA-2", cadmaProcess.getCadma1Generate());
+        panelCadma2 = new RequiredPanel("CADMA-2", cadmaProcess.getCadma2Generate());
         GridBagConstraints gbcPanelPrincipal = new GridBagConstraints();
         gbcPanelPrincipal.fill = GridBagConstraints.HORIZONTAL;
         gbcPanelPrincipal.gridx = 0;

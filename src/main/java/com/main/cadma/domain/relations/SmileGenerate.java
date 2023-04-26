@@ -90,7 +90,6 @@ public class SmileGenerate implements ActionsCadma {
         return statusProcess;
     }
 
-    @Override
     public void importCadmaProcess(final String path) {
 
         if (path == null || path.isEmpty()) {
@@ -136,7 +135,7 @@ public class SmileGenerate implements ActionsCadma {
             throw new IllegalArgumentException("Error reading file" + e.getMessage());
 
         }
-        statusProcess = StatusProcess.FINISH;
+        statusProcess = StatusProcess.COMPLETE;
 
         if (substitutes.getValue().isEmpty()) {
             statusProcess = StatusProcess.INCOMPLETE;
@@ -208,7 +207,7 @@ public class SmileGenerate implements ActionsCadma {
             statusProcess = StatusProcess.ERROR;
             throw new IllegalArgumentException("Error to generate smiles: " + e.getMessage());
         }
-        statusProcess = StatusProcess.FINISH;
+        statusProcess = StatusProcess.COMPLETE;
     }
 
     /**
@@ -255,4 +254,54 @@ public class SmileGenerate implements ActionsCadma {
     public GenerateSmiles getGenerateSmiles() {
         return generateSmiles;
     }
+   /**
+     * @return the principalName
+     */
+    public String getPrincipalName() {
+        return principalName;
+    }
+    /**
+     * @return number of susbtitutes
+     *
+     * */
+     public int getNumberSubstitutes() {
+        return substitutes.getValue().size();
+    }
+
+    /**
+     * @return number of generate smiles
+     * */
+    public int getNumberGenerateSmiles() {
+        if (generateSmiles == null || generateSmiles.getValue() == null) {
+            return 0;
+        }
+        if (generateSmiles.getValue().isEmpty()) {
+            return 0;
+        }
+        return generateSmiles.getValue().size();
+    }
+
+    @Override
+    public void delete() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean isDelete() {
+        return false;
+    }
+
+    @Override
+    public boolean isUpload() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public boolean isGenerate() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+
 }
