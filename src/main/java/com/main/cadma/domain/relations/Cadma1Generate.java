@@ -4,10 +4,10 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import com.main.cadma.interfaces.ActionsCadma;
 import com.main.cadma.interfaces.EventComplete;
 import com.main.cadma.interfaces.EventUpdateData;
-import com.main.cadma.interfaces.StatusProcess;
+import com.main.shared.domain.cadma.interfaces.ActionsCadma;
+import com.main.shared.domain.cadma.interfaces.StatusProcess;
 public class Cadma1Generate implements ActionsCadma {
     private SmileGenerate smileGenerate;
     private boolean isActivate;
@@ -42,20 +42,22 @@ public class Cadma1Generate implements ActionsCadma {
             throw new RuntimeException("path not set");
         }
 
-
         //verifico si existe el directorio de cadma1
         java.io.File file = new java.io.File(pathCadma1);
         if(statusProcess == StatusProcess.EMPTY || !file.exists()) {
             file.mkdir();
-            statusProcess = StatusProcess.IN_PROCESS;
         }
 
-
-
-
-
+        initNotImplemented();
+        statusProcess = StatusProcess.IN_PROCESS;
 
         runEventUpdateData();
+    }
+    private void initNotImplemented() {
+        if(statusProcess != StatusProcess.NOT_IMPLEMENTED) {
+            return;
+        }
+
     }
 
     @Override
@@ -107,13 +109,11 @@ public class Cadma1Generate implements ActionsCadma {
 
     @Override
     public boolean isDelete() {
-        // TODO Auto-generated method stub
         return true;
     }
 
     @Override
     public boolean isUpload() {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -143,10 +143,11 @@ public class Cadma1Generate implements ActionsCadma {
         }else {
             statusProcess = StatusProcess.NOT_IMPLEMENTED;
         }
+
         runEventUpdateData();
     }
 
-    @Override
+   @Override
     public void addEventUpdateData(EventUpdateData eventUpdateData) {
         eventsUpdateData.add(eventUpdateData);
     }
@@ -156,5 +157,4 @@ public class Cadma1Generate implements ActionsCadma {
             event.updateData();
         }
     }
-
 }

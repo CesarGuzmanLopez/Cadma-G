@@ -12,15 +12,15 @@ import java.util.List;
 import com.main.cadma.domain.models.smileit.GenerateSmiles;
 import com.main.cadma.domain.models.smileit.MoleculePrincipal;
 import com.main.cadma.domain.models.smileit.Substitutes;
-import com.main.cadma.interfaces.ActionsCadma;
 import com.main.cadma.interfaces.EventComplete;
 import com.main.cadma.interfaces.EventUpdateData;
 import com.main.cadma.interfaces.MoleculesGuiInterface;
 import com.main.cadma.interfaces.SaveImagesInterface;
 import com.main.cadma.interfaces.SmilesUploadInterface;
-import com.main.cadma.interfaces.StatusProcess;
 import com.main.cadma.views.ViewSmileIt;
 import com.main.shared.domain.Molecule;
+import com.main.shared.domain.cadma.interfaces.ActionsCadma;
+import com.main.shared.domain.cadma.interfaces.StatusProcess;
 
 public class SmileGenerate implements ActionsCadma {
     public static final String FILE_SMILES = "output.txt";

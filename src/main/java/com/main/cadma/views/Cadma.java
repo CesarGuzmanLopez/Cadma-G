@@ -12,9 +12,9 @@ import javax.swing.border.EmptyBorder;
 
 import com.main.cadma.domain.CadmaProcess;
 import com.main.cadma.interfaces.EventUpdateData;
-import com.main.cadma.interfaces.StatusProcess;
-import com.main.cadma.views.panels.RequiredPanel;
 import com.main.cadma.views.panels.Menu;
+import com.main.shared.domain.cadma.interfaces.StatusProcess;
+import com.main.shared.domain.cadma.views.panel.RequiredPanel;
 
 @SuppressWarnings("java:S1948")
 public class Cadma extends JFrame {

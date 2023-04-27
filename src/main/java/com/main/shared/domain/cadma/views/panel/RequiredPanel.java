@@ -1,4 +1,4 @@
-package com.main.cadma.views.panels;
+package com.main.shared.domain.cadma.views.panel;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -12,8 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
-import com.main.cadma.interfaces.ActionsCadma;
-import com.main.cadma.interfaces.StatusProcess;
+import com.main.shared.domain.cadma.interfaces.ActionsCadma;
+import com.main.shared.domain.cadma.interfaces.StatusProcess;
 
 /**
  *
@@ -62,8 +62,6 @@ public class RequiredPanel extends JPanel {
         actions.addEventUpdateData(() ->
             setStatus(actions.getStatusProcess())
         );
-        initialize();
-
     }
 
     /**
