@@ -52,21 +52,22 @@ public class Cadma extends JFrame {
 
         this.cadmaProcess = cadmaProcess;
 
-        cadmaProcess.setEventUpdateData(new EventUpdateData() {
-            @Override
-            public void execute() {
-                nameOfProcess.setText("Process: " + cadmaProcess.getNameOfProcess());
-                numberOfSubstituents.setText("Number of substituents: " + cadmaProcess.getNumberOfSubstituents());
-                numberOfMoleculesGenerated.setText("Number of molecules generated: " + cadmaProcess.getNumberOfMoleculesGenerated());
-                nameOfPath.setText("Path: " + cadmaProcess.getPath());
-                numberOfMoleculesGenerated.setVisible(true);
-                nameOfProcess.setVisible(true);
-                numberOfSubstituents.setVisible(true);
+        cadmaProcess.addEventUpdateData(
+                new EventUpdateData() {
+                    @Override
+                    public void updateData() {
+                        nameOfProcess.setText("process: " + cadmaProcess.getNameOfProcess());
+                        numberOfSubstituents.setText("number of substituents: " + cadmaProcess.getNumberOfSubstituents());
+                        numberOfMoleculesGenerated.setText("number of molecules generated: " + cadmaProcess.getNumberOfMoleculesGenerated());
+                        nameOfPath.setText("path: " + cadmaProcess.getPath());
+                        numberOfMoleculesGenerated.setVisible(true);
+                        nameOfProcess.setVisible(true);
+                        numberOfSubstituents.setVisible(true);
 
-
+                    }
             }
-        });
-        }
+        );
+    }
 
     /** initialize all JPanels. */
     public void initialize() {
@@ -97,11 +98,6 @@ public class Cadma extends JFrame {
         gblContentPane.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
         gblContentPane.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
         panelPrincipal2.setLayout(gblContentPane);
-
-
-
-
-
         GridBagConstraints gbcPanelPrincipal = new GridBagConstraints();
         gbcPanelPrincipal.fill = GridBagConstraints.HORIZONTAL;
         gbcPanelPrincipal.gridx = 0;
@@ -122,20 +118,14 @@ public class Cadma extends JFrame {
         panelPrincipal2.add(numberOfSubstituents, gbcPanelPrincipal);
         gbcPanelPrincipal.gridy = 3;
         panelPrincipal2.add(numberOfMoleculesGenerated, gbcPanelPrincipal);
-
-
         gbcPanelPrincipal.fill = GridBagConstraints.HORIZONTAL;
         gbcPanelPrincipal.gridx = 0;
         gbcPanelPrincipal.gridy = 0;
-
-
         contentPane.add(panelPrincipal2, gbcPanelPrincipal);
     }
 
     private void initializePanelSmileIt() {
-
         panelSmileIt = new RequiredPanel("SMILE-IT", cadmaProcess.getSmileGenerate());
-
         GridBagConstraints gbcPanelPrincipal = new GridBagConstraints();
         gbcPanelPrincipal.fill = GridBagConstraints.HORIZONTAL;
         gbcPanelPrincipal.gridx = 0;

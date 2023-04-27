@@ -2,6 +2,7 @@ package com.main.cadma.domain.relations;
 
 import com.main.cadma.interfaces.ActionsCadma;
 import com.main.cadma.interfaces.EventComplete;
+import com.main.cadma.interfaces.EventUpdateData;
 import com.main.cadma.interfaces.StatusProcess;
 
 public class Cadma2Generate implements ActionsCadma {
@@ -11,9 +12,6 @@ public class Cadma2Generate implements ActionsCadma {
         // TODO Auto-generated method stub
 
     }
-
-
-
 
     @Override
     public void generate() {
@@ -56,9 +54,6 @@ public class Cadma2Generate implements ActionsCadma {
         return false;
     }
 
-
-
-
     @Override
     public boolean isUpload() {
         // TODO Auto-generated method stub
@@ -71,7 +66,9 @@ public class Cadma2Generate implements ActionsCadma {
         // TODO Auto-generated method stub
         return false;
     }
+    @Override
+    public void addEventUpdateData(EventUpdateData event) {
 
-
+    }
 
 }

@@ -1,8 +1,9 @@
 package com.main.cadma.interfaces;
 
 public enum StatusProcess {
-    INCOMPLETE,
+    IN_PROCESS,
     EMPTY,
     COMPLETE,
-    ERROR
+    ERROR,
+    NOT_IMPLEMENTED
 }

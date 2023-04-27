@@ -4,6 +4,7 @@ package com.main.cadma.domain;
 import com.main.cadma.domain.relations.Cadma1Generate;
 import com.main.cadma.domain.relations.Cadma2Generate;
 import com.main.cadma.domain.relations.SmileGenerate;
+import com.main.cadma.interfaces.EventComplete;
 import com.main.cadma.interfaces.EventUpdateData;
 import com.main.cadma.interfaces.MoleculesGuiInterface;
 import com.main.cadma.interfaces.SaveImagesInterface;
@@ -24,15 +25,13 @@ public final class CadmaProcess {
         cadma1Generate = new Cadma1Generate(smileGenerate);
         cadma2Generate = new Cadma2Generate();
         smileGenerate.addObtainEvent(
-            new EventUpdateData() {
-                @Override
+                new EventComplete() {
+                    @Override
                     public void execute() {
                         cadma1Generate.enableGenerate();
                     }
-            }
+                }
         );
-
-
     }
     public void importCadmaProcess(final String path) {
         smileGenerate.importCadmaProcess(path);
@@ -69,10 +68,10 @@ public final class CadmaProcess {
     /**
      * set the event to update data
      * */
-    public void setEventUpdateData(final EventUpdateData event) {
-        smileGenerate.addObtainEvent(event);
-        cadma1Generate.addObtainEvent(event);
-        cadma2Generate.addObtainEvent(event);
+    public void addEventUpdateData(final EventUpdateData event) {
+        smileGenerate.addEventUpdateData(event);
+        cadma1Generate.addEventUpdateData(event);
+        cadma2Generate.addEventUpdateData(event);
     }
    /**
     * @return name of process
@@ -93,5 +92,5 @@ public final class CadmaProcess {
     public int getNumberOfMoleculesGenerated() {
         return smileGenerate.getNumberGenerateSmiles();
     }
-
 }
+

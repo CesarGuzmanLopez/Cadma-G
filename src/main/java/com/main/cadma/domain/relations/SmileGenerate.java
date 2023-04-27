@@ -14,6 +14,7 @@ import com.main.cadma.domain.models.smileit.MoleculePrincipal;
 import com.main.cadma.domain.models.smileit.Substitutes;
 import com.main.cadma.interfaces.ActionsCadma;
 import com.main.cadma.interfaces.EventComplete;
+import com.main.cadma.interfaces.EventUpdateData;
 import com.main.cadma.interfaces.MoleculesGuiInterface;
 import com.main.cadma.interfaces.SaveImagesInterface;
 import com.main.cadma.interfaces.SmilesUploadInterface;
@@ -36,12 +37,14 @@ public class SmileGenerate implements ActionsCadma {
     private StatusProcess statusProcess;
     private ViewSmileIt viewSmileIt;
     private SaveImagesInterface saveImage;
+    private List<EventUpdateData> eventsUpdateData;
 
     public SmileGenerate(final MoleculesGuiInterface smilesGui, final SmilesUploadInterface smilesUpload,
             ViewSmileIt viewSmileIt, SaveImagesInterface saveImage) {
         this.smilesGui = smilesGui;
         this.smilesUpload = smilesUpload;
         this.importProcessEvent = new ArrayList<>();
+        this.eventsUpdateData = new ArrayList<>();
         this.viewSmileIt = viewSmileIt;
         this.smilesUpload.addUploadEvent(this::uploadSmiles);
         this.smilesGui.addGenerateEvent(this::definedGenerated);
@@ -138,12 +141,13 @@ public class SmileGenerate implements ActionsCadma {
         statusProcess = StatusProcess.COMPLETE;
 
         if (substitutes.getValue().isEmpty()) {
-            statusProcess = StatusProcess.INCOMPLETE;
+            statusProcess = StatusProcess.IN_PROCESS;
         }
         principalName = smilePrincipal.getValue().getName();
         for (EventComplete event : importProcessEvent) {
             event.execute();
         }
+        runEventUpdateData();
     }
 
     private void uploadSmiles() {
@@ -184,9 +188,9 @@ public class SmileGenerate implements ActionsCadma {
         substitutes = new Substitutes();
         smilePrincipal = new MoleculePrincipal(
                 new Molecule(principalName, generateSmiles.getValue().get(0).getSmile()));
-        statusProcess = StatusProcess.INCOMPLETE;
+        statusProcess = StatusProcess.IN_PROCESS;
+        runEventUpdateData();
     }
-
     /**
      * {@inheritDoc}
      */
@@ -293,15 +297,22 @@ public class SmileGenerate implements ActionsCadma {
 
     @Override
     public boolean isUpload() {
-        // TODO Auto-generated method stub
+
         return true;
     }
 
     @Override
     public boolean isGenerate() {
-        // TODO Auto-generated method stub
         return true;
     }
+    @Override
+    public void addEventUpdateData(EventUpdateData event) {
+        eventsUpdateData.add(event);
+    }
 
-
+    private void runEventUpdateData() {
+        for (EventUpdateData event : eventsUpdateData) {
+            event.updateData();
+        }
+    }
 }

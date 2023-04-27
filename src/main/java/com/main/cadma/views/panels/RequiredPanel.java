@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -60,7 +59,11 @@ public class RequiredPanel extends JPanel {
         actions.addObtainEvent(() ->
             setStatus(actions.getStatusProcess())
         );
+        actions.addEventUpdateData(() ->
+            setStatus(actions.getStatusProcess())
+        );
         initialize();
+
     }
 
     /**
@@ -107,14 +110,27 @@ public class RequiredPanel extends JPanel {
             if (panelNext != null && panelNext.status != StatusProcess.COMPLETE) {
                 panelNext.enableButtons();
             }
-        } else if (status == StatusProcess.INCOMPLETE) {
+        } else if (status == StatusProcess.IN_PROCESS) {
             buttonGenerate.setText("Continue");
             buttonGenerate.setEnabled(true);
             buttonUpload.setEnabled(false);
+            buttonView.setEnabled(true);
+            buttonDelete.setEnabled(true);
             panel1.add(new JLabel(new ImageIcon(neutro)));
-
         } else if (status == StatusProcess.EMPTY) {
             panel1.add(new JLabel(new ImageIcon(circulo)));
+            buttonGenerate.setEnabled(false);
+            buttonUpload.setEnabled(false);
+            buttonView.setEnabled(false);
+            buttonDelete.setEnabled(false);
+            buttonGenerate.setText("Generate");
+        } else if (status == StatusProcess.NOT_IMPLEMENTED) {
+            panel1.add(new JLabel(new ImageIcon(circulo)));
+            buttonGenerate.setEnabled(true);
+            buttonUpload.setEnabled(false);
+            buttonView.setEnabled(false);
+            buttonDelete.setEnabled(false);
+            buttonGenerate.setText("Generate");
         }
         panel1.revalidate();
         panel1.repaint();
@@ -195,7 +211,6 @@ public class RequiredPanel extends JPanel {
         buttonGenerate.revalidate();
         buttonGenerate.repaint();
     }
-
     private static BufferedImage resize(final Image img, final int newW, final int newH) {
         Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
         BufferedImage redImg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);

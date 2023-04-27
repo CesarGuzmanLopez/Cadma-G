@@ -49,5 +49,11 @@ public interface ActionsCadma {
      * */
     void delete();
 
+    /**
+     *
+     * @param eventUpdateData
+     */
+    void addEventUpdateData(EventUpdateData eventUpdateData);
+
 
 }

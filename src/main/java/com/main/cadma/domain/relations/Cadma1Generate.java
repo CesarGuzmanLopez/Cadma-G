@@ -1,8 +1,12 @@
 package com.main.cadma.domain.relations;
+import java.io.File;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import com.main.cadma.interfaces.ActionsCadma;
 import com.main.cadma.interfaces.EventComplete;
+import com.main.cadma.interfaces.EventUpdateData;
 import com.main.cadma.interfaces.StatusProcess;
 public class Cadma1Generate implements ActionsCadma {
     private SmileGenerate smileGenerate;
@@ -11,12 +15,16 @@ public class Cadma1Generate implements ActionsCadma {
     private String pathCadma1;
     private List<EventComplete> importProcessEvent;
     private StatusProcess statusProcess;
+    private List<EventUpdateData> eventsUpdateData;
+    private static final String CADMA1_SUB_FOLDER = "cadma1";
 
     public Cadma1Generate(SmileGenerate smileGenerate) {
         this.smileGenerate = smileGenerate;
         isActivate = false;
         importProcessEvent = new java.util.ArrayList<EventComplete>();
+        eventsUpdateData = new java.util.ArrayList<EventUpdateData>();
         statusProcess = StatusProcess.EMPTY;
+
     }
 
     @Override
@@ -30,25 +38,24 @@ public class Cadma1Generate implements ActionsCadma {
         if(smileGenerate.getStatusProcess() != StatusProcess.COMPLETE) {
             throw new RuntimeException("SmileGenerate not complete");
         }
-        if(!isActivate) {
-            throw new RuntimeException("Cadma1Generate not activate");
+        if( path == null && path.length() <= 0) {
+            throw new RuntimeException("path not set");
         }
-        path = smileGenerate.getParentPath();
-        pathCadma1 = path + "cadma1/";
+
+
         //verifico si existe el directorio de cadma1
         java.io.File file = new java.io.File(pathCadma1);
-
-        if(file.exists()) {
-            statusProcess = StatusProcess.INCOMPLETE;
-        } else {
+        if(statusProcess == StatusProcess.EMPTY || !file.exists()) {
             file.mkdir();
-            statusProcess = StatusProcess.COMPLETE;
+            statusProcess = StatusProcess.IN_PROCESS;
         }
 
-        for(EventComplete event : importProcessEvent) {
-            event.execute();
-        }
 
+
+
+
+
+        runEventUpdateData();
     }
 
     @Override
@@ -63,14 +70,39 @@ public class Cadma1Generate implements ActionsCadma {
 
     @Override
     public StatusProcess getStatusProcess() {
-        // TODO Auto-generated method stub
-        return null;
+        return statusProcess;
     }
 
     @Override
     public void delete() {
-        // TODO Auto-generated method stub
+        if(!isActivate) {
+            throw new RuntimeException("Cadma1Generate not activate");
+        }
+        if(pathCadma1 == null || pathCadma1.length() == 0) {
+            throw new RuntimeException("Cadma1Generate not activate");
+        }
+        java.io.File file = new java.io.File(pathCadma1);
+        if(!file.exists())
+            throw new RuntimeException("Cadma1Generate not activate");
+        if(JOptionPane.NO_OPTION == JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the directory?", "Delete Directory", JOptionPane.YES_NO_OPTION)) {
+            return;
+        }
 
+        deleteDirectory(file);
+
+        statusProcess = StatusProcess.EMPTY;
+        isActivate = false;
+        runEventUpdateData();
+        enableGenerate();
+    }
+
+    private void deleteDirectory(File file) {
+        if(file.isDirectory()) {
+            for(File f : file.listFiles()) {
+                deleteDirectory(f);
+            }
+        }
+        file.delete();
     }
 
     @Override
@@ -87,11 +119,42 @@ public class Cadma1Generate implements ActionsCadma {
 
     @Override
     public boolean isGenerate() {
-        // TODO Auto-generated method stub
         return true;
     }
 
     public void enableGenerate() {
+        if(isActivate) {
+            throw new RuntimeException("Cadma1Generate is activate");
+        }
+        if(smileGenerate.getStatusProcess() != StatusProcess.COMPLETE) {
+            statusProcess = StatusProcess.EMPTY;
+            throw new RuntimeException("SmileGenerate not complete");
+
+        }
+        if(smileGenerate.getParentPath() == null || smileGenerate.getParentPath().length() == 0) {
+            throw new RuntimeException("SmileGenerate not activate");
+        }
         isActivate = true;
+        path = smileGenerate.getParentPath();
+        pathCadma1 = path + "/" + CADMA1_SUB_FOLDER;
+        java.io.File file = new java.io.File(pathCadma1);
+        if(file.exists()){
+            statusProcess = StatusProcess.IN_PROCESS;
+        }else {
+            statusProcess = StatusProcess.NOT_IMPLEMENTED;
+        }
+        runEventUpdateData();
     }
+
+    @Override
+    public void addEventUpdateData(EventUpdateData eventUpdateData) {
+        eventsUpdateData.add(eventUpdateData);
+    }
+
+    private void runEventUpdateData() {
+        for (EventUpdateData event : eventsUpdateData) {
+            event.updateData();
+        }
+    }
+
 }
