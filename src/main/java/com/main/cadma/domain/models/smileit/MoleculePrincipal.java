@@ -32,6 +32,7 @@ public class MoleculePrincipal extends AttributeAbstract<Molecule> {
 
         }
         if (line.contains(SLUG_NAME)) {
+
             name = line.substring((SLUG_NAME + ": ").length());
         }
     }

@@ -56,6 +56,7 @@ public class RequiredPanel extends JPanel {
         } catch (IOException e) {
             throw new RuntimeException("Could not load image");
         }
+        initialize();
         actions.addObtainEvent(() ->
             setStatus(actions.getStatusProcess())
         );

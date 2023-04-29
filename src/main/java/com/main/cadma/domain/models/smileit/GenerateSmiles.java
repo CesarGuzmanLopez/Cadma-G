@@ -13,6 +13,7 @@ public class GenerateSmiles extends AttributeAbstract<List<Molecule>> {
     private String nameOfPrincipal;
 
     public GenerateSmiles(List<Molecule> value, String nameOfPrincipal) {
+
         super(value, nameOfPrincipal, true);
         initialize();
     }
@@ -39,5 +40,28 @@ public class GenerateSmiles extends AttributeAbstract<List<Molecule>> {
             sb.append(smile.getSmile() + "\n");
         }
         return sb.toString();
+    }
+
+    /**
+     * @return the Molecule for name
+     */
+    public Molecule getMolecule(String name) {
+        for (Molecule molecule : getValue()) {
+            if (molecule.getName().equals(name)) {
+                return molecule;
+            }
+        }
+        return null;
+    }
+    /**
+     * @return Molecule for smile
+     */
+    public Molecule getMoleculeForSmile(String smile) {
+        for (Molecule molecule : getValue()) {
+            if (molecule.getSmile().equals(smile)) {
+                return molecule;
+            }
+        }
+        return null;
     }
 }

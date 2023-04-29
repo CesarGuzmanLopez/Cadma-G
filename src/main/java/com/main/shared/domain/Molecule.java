@@ -18,13 +18,13 @@ public  class Molecule {
     private String smile;
     private String message;
     private String pathImage;
-    private List<Molecule> subbstitutes;
+    private List<Molecule> substitutes;
     public Molecule(String name, String smile, String message, String path) {
         this.name = name;
         this.smile = smile;
         this.message = message;
         this.pathImage = path;
-        subbstitutes = new ArrayList<>();
+        substitutes = new ArrayList<>();
     }
 
     public Molecule(String name, String smile) {
@@ -32,11 +32,11 @@ public  class Molecule {
         this.smile = smile;
         this.message = "";
         this.pathImage = "" ;
-
+        substitutes = new ArrayList<>();
     }
 
 
-    
+
     /**
      * @return name of Smile.
     */
@@ -68,14 +68,18 @@ public  class Molecule {
      * @param MoleculeSubstitute
     */
     public void addSubstitutes(Molecule substitutes){
-        this.subbstitutes.add(substitutes);
+        this.substitutes.add(substitutes);
     }
     /**
      * @param String namePrincipal
      * @param String smile
      */
     public void addSubstitutes(String namePrincipal, String smile){
-        this.subbstitutes.add(new Molecule(namePrincipal, smile));
+        this.substitutes.add(new Molecule(namePrincipal, smile));
+    }
+
+    public List<Molecule> getSubstitutes() {
+        return this.substitutes;
     }
 
 }

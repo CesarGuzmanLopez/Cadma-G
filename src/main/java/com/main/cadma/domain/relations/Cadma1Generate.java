@@ -146,7 +146,6 @@ public class Cadma1Generate implements ActionsCadma {
 
         runEventUpdateData();
     }
-
    @Override
     public void addEventUpdateData(EventUpdateData eventUpdateData) {
         eventsUpdateData.add(eventUpdateData);

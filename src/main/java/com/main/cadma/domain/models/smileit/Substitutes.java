@@ -80,4 +80,29 @@ public class Substitutes extends AttributeAbstract<List<Molecule>> {
         }
         return sb.toString();
     }
+
+    /**
+     *get subsitute for smile
+     */
+    public Molecule getSubstitute(String smile) {
+        for (Molecule smiles : getValue()) {
+            if (smiles.getSmile().equals(smile) ||
+                 smiles.getName().equals(smile.replace("]","" ).replace("[", ""))) {
+                return smiles;
+            }
+
+        }
+        return null;
+    }
+    /**
+     *get subsitute for name
+     */
+    public Molecule getSubstituteByName(String name) {
+        for (Molecule smiles : getValue()) {
+            if (smiles.getName().equals(name)) {
+                return smiles;
+            }
+        }
+        return null;
+    }
 }
