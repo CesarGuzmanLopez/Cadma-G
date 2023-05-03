@@ -7,6 +7,9 @@ public class Smiles implements SmilesHInterface {
     private boolean hydrogenImplicit;
     private String name = "";
     private SmileVerificationInterface smileVerification;
+
+
+
     public Smiles(final String name, final String smiles, final String message, final boolean hydrogenImplicit,
             final SmileVerificationInterface smileVerification) {
         if (smiles == null || message == null || name == null) {

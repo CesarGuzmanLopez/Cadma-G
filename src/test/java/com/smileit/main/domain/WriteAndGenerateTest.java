@@ -8,11 +8,11 @@ import java.io.PrintStream;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import com.main.framework.cdk.VerifiedSmile;
 import com.main.smileit.domain.generator.WriteAndGenerate;
 import com.main.smileit.domain.models.Molecule;
 import com.main.smileit.domain.models.MoleculesList;
 import com.main.smileit.framework.cdk.MoleculeDataFactory;
-import com.main.smileit.framework.cdk.VerifiedSmile;
 
 public class WriteAndGenerateTest {
     private static final ByteArrayOutputStream OUT_CONTENT = new ByteArrayOutputStream();

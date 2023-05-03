@@ -7,8 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import com.main.cadma.interfaces.EventComplete;
 import com.main.cadma.interfaces.SmilesUploadInterface;
+import com.main.shared.domain.cadma.interfaces.EventComplete;
 import com.main.smileit.interfaces.MoleculeListInterface;
 
 import java.awt.GridBagLayout;

@@ -84,11 +84,12 @@ public class RequiredPanel extends JPanel {
         buttonDelete.setEnabled(true);
         revalidateAll();
     }
+
     /**
      * @param RequiredPanel panel to next validate
      * add tje next panel to validate.
-     * */
-
+     *
+     */
     public void setPanelNext(final RequiredPanel panelNext) {
         this.panelNext = panelNext;
     }

@@ -3,6 +3,7 @@ package com.main.cadma.interfaces;
 import java.util.List;
 
 import com.main.shared.domain.Molecule;
+import com.main.shared.domain.cadma.interfaces.EventComplete;
 
 public interface MoleculesGuiInterface {
     /**

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.main.cadma.domain.models.AttributeAbstract;
+import com.main.common.methods.CompareSmiles;
 import com.main.shared.domain.Molecule;
 
 @JsonSerialize
@@ -58,7 +59,7 @@ public class GenerateSmiles extends AttributeAbstract<List<Molecule>> {
      */
     public Molecule getMoleculeForSmile(String smile) {
         for (Molecule molecule : getValue()) {
-            if (molecule.getSmile().equals(smile)) {
+            if ( CompareSmiles.compareSmiles(molecule.getSmile(), smile) ) {
                 return molecule;
             }
         }

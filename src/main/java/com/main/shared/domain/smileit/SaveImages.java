@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.main.cadma.interfaces.SaveImagesInterface;
+import com.main.framework.cdk.VerifiedSmile;
 import com.main.shared.domain.Molecule;
 import com.main.smileit.framework.cdk.MoleculeDataFactory;
-import com.main.smileit.framework.cdk.VerifiedSmile;
 
 public class SaveImages  implements SaveImagesInterface{
 

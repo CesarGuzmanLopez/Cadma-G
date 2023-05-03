@@ -9,12 +9,12 @@ import java.io.PrintStream;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import com.main.framework.cdk.VerifiedSmile;
 import com.main.smileit.domain.generator.GeneratorPermutesSmile;
 import com.main.smileit.domain.models.Molecule;
 import com.main.smileit.domain.models.MoleculesList;
 import com.main.smileit.domain.models.MoleculesListAbstract;
 import com.main.smileit.framework.cdk.MoleculeDataFactory;
-import com.main.smileit.framework.cdk.VerifiedSmile;
 import com.main.smileit.interfaces.AtomInterface;
 
 /**

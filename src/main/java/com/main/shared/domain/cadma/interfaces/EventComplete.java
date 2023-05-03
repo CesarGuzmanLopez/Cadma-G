@@ -1,4 +1,4 @@
-package com.main.cadma.interfaces;
+package com.main.shared.domain.cadma.interfaces;
 @FunctionalInterface
 public interface EventComplete {
     /**

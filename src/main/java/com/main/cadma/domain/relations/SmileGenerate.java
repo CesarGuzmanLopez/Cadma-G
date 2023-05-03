@@ -12,14 +12,14 @@ import java.util.List;
 import com.main.cadma.domain.models.smileit.GenerateSmiles;
 import com.main.cadma.domain.models.smileit.MoleculePrincipal;
 import com.main.cadma.domain.models.smileit.Substitutes;
-import com.main.cadma.interfaces.EventComplete;
-import com.main.cadma.interfaces.EventUpdateData;
 import com.main.cadma.interfaces.MoleculesGuiInterface;
 import com.main.cadma.interfaces.SaveImagesInterface;
 import com.main.cadma.interfaces.SmilesUploadInterface;
 import com.main.cadma.views.ViewSmileIt;
 import com.main.shared.domain.Molecule;
 import com.main.shared.domain.cadma.interfaces.ActionsCadma;
+import com.main.shared.domain.cadma.interfaces.EventComplete;
+import com.main.shared.domain.cadma.interfaces.EventUpdateData;
 import com.main.shared.domain.cadma.interfaces.StatusProcess;
 
 public class SmileGenerate implements ActionsCadma {
@@ -108,11 +108,10 @@ public class SmileGenerate implements ActionsCadma {
         if(lastWord.equals(" ") || lastWord.equals("\t") ){
             return;
         }
-        Molecule actual = generateSmiles.getMolecule(lastWord);
+        Molecule actual = generateSmiles.getMoleculeForSmile(lastWord);
         if (actual == null) {
             return;
         }
-        System.out.println("Actual: " + actual.getSmile());
 
         List<Molecule> thiisSubsList = new ArrayList<>();
         for (int i = 0; i < lineSplit.length - 1; i++) {
@@ -125,7 +124,6 @@ public class SmileGenerate implements ActionsCadma {
             actual.addSubstitutes(m);
         }
     }
-
     public void importCadmaProcess(final String path) {
 
         if (path == null || path.isEmpty()) {
@@ -168,7 +166,6 @@ public class SmileGenerate implements ActionsCadma {
             while ((line = BufferInfoCadma.readLine()) != null) {
                 smilePrincipal.lineAnalyze(line);
                 substitutes.lineAnalyze(line);
-
             }
             generateSmiles = new GenerateSmiles(smilePrincipal.getValue().getName());
             while ((line = BufferSmiles.readLine()) != null) {
@@ -178,6 +175,7 @@ public class SmileGenerate implements ActionsCadma {
                 addSustituteToMolecule(line);
             }
             generateSmiles.found();
+
         } catch (IOException e) {
             statusProcess = StatusProcess.ERROR;
             throw new IllegalArgumentException("Error reading file" + e.getMessage());
@@ -191,17 +189,6 @@ public class SmileGenerate implements ActionsCadma {
         principalName = smilePrincipal.getValue().getName();
         for (EventComplete event : importProcessEvent) {
             event.execute();
-        }
-
-
-
-        //imprimo todas las moleculas con sus sustitutos
-        for (Molecule m : generateSmiles.getValue()) {
-            System.out.println(m.toString());
-            System.out.println("Substitutes");
-            for (Molecule s : m.getSubstitutes()) {
-                System.out.println(s.toString());
-            }
         }
         runEventUpdateData();
     }

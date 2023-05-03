@@ -11,8 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.main.cadma.domain.CadmaProcess;
-import com.main.cadma.interfaces.EventUpdateData;
 import com.main.cadma.views.panels.Menu;
+import com.main.shared.domain.cadma.interfaces.EventUpdateData;
 import com.main.shared.domain.cadma.interfaces.StatusProcess;
 import com.main.shared.domain.cadma.views.panel.RequiredPanel;
 
@@ -49,22 +49,19 @@ public class Cadma extends JFrame {
         gblContentPane.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
         gblContentPane.rowWeights = new double[] { 1.0, Double.MIN_VALUE };
         contentPane.setLayout(gblContentPane);
-
         this.cadmaProcess = cadmaProcess;
-
         cadmaProcess.addEventUpdateData(
-                new EventUpdateData() {
-                    @Override
-                    public void updateData() {
-                        nameOfProcess.setText("process: " + cadmaProcess.getNameOfProcess());
-                        numberOfSubstituents.setText("number of substituents: " + cadmaProcess.getNumberOfSubstituents());
-                        numberOfMoleculesGenerated.setText("number of molecules generated: " + cadmaProcess.getNumberOfMoleculesGenerated());
-                        nameOfPath.setText("path: " + cadmaProcess.getPath());
-                        numberOfMoleculesGenerated.setVisible(true);
-                        nameOfProcess.setVisible(true);
-                        numberOfSubstituents.setVisible(true);
-
-                    }
+            new EventUpdateData() {
+                @Override
+                public void updateData() {
+                    nameOfProcess.setText("process: " + cadmaProcess.getNameOfProcess());
+                    numberOfSubstituents.setText("number of substituents: " + cadmaProcess.getNumberOfSubstituents());
+                    numberOfMoleculesGenerated.setText("number of molecules generated: " + cadmaProcess.getNumberOfMoleculesGenerated());
+                    nameOfPath.setText("path: " + cadmaProcess.getPath());
+                    numberOfMoleculesGenerated.setVisible(true);
+                    nameOfProcess.setVisible(true);
+                    numberOfSubstituents.setVisible(true);
+                }
             }
         );
     }
@@ -102,10 +99,6 @@ public class Cadma extends JFrame {
         gbcPanelPrincipal.fill = GridBagConstraints.HORIZONTAL;
         gbcPanelPrincipal.gridx = 0;
         gbcPanelPrincipal.gridy = 0;
-
-        /*
-
-         */
 
         nameOfPath = new JLabel("");
         nameOfProcess        = new JLabel("Please Generate the Smiles or Upload a file or import a project in the menu");

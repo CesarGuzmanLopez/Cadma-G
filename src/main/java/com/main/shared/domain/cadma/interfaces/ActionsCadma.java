@@ -1,8 +1,5 @@
 package com.main.shared.domain.cadma.interfaces;
 
-import com.main.cadma.interfaces.EventComplete;
-import com.main.cadma.interfaces.EventUpdateData;
-
 public interface ActionsCadma {
     /**
      * @return boolean if procces is posible upload

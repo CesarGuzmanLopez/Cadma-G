@@ -1,4 +1,4 @@
-package com.main.smileit.framework.cdk;
+package com.main.framework.cdk;
 
 import org.openscience.cdk.DefaultChemObjectBuilder;
 import org.openscience.cdk.exception.CDKException;
@@ -24,6 +24,7 @@ public class VerifiedSmile implements SmileVerificationInterface {
         }
         return true;
     }
+
     /**
      * {@inheritDoc}
      */

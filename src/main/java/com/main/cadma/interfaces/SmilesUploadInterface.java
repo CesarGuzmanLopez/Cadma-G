@@ -1,5 +1,7 @@
 package com.main.cadma.interfaces;
 
+import com.main.shared.domain.cadma.interfaces.EventComplete;
+
 public interface SmilesUploadInterface {
     /**
      * Show the principal view for generate Smiles.

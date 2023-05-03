@@ -8,10 +8,10 @@ import java.io.PrintStream;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import com.main.framework.cdk.VerifiedSmile;
 import com.main.smileit.domain.models.Molecule;
 import com.main.smileit.domain.models.MoleculesListNotRepeat;
 import com.main.smileit.framework.cdk.MoleculeDataFactory;
-import com.main.smileit.framework.cdk.VerifiedSmile;
 
 public class MoleculesListNotRepeatTest {
     private static final ByteArrayOutputStream OUT_CONTENT = new ByteArrayOutputStream();

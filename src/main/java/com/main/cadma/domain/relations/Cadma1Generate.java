@@ -4,9 +4,10 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import com.main.cadma.interfaces.EventComplete;
-import com.main.cadma.interfaces.EventUpdateData;
+import com.main.cadma.framework.cadma1.Cadma1;
 import com.main.shared.domain.cadma.interfaces.ActionsCadma;
+import com.main.shared.domain.cadma.interfaces.EventComplete;
+import com.main.shared.domain.cadma.interfaces.EventUpdateData;
 import com.main.shared.domain.cadma.interfaces.StatusProcess;
 public class Cadma1Generate implements ActionsCadma {
     private SmileGenerate smileGenerate;
@@ -17,19 +18,18 @@ public class Cadma1Generate implements ActionsCadma {
     private StatusProcess statusProcess;
     private List<EventUpdateData> eventsUpdateData;
     private static final String CADMA1_SUB_FOLDER = "cadma1";
-
-    public Cadma1Generate(SmileGenerate smileGenerate) {
+    private Cadma1 cadma1;
+    public Cadma1Generate(SmileGenerate smileGenerate, Cadma1 cadma1) {
         this.smileGenerate = smileGenerate;
         isActivate = false;
         importProcessEvent = new java.util.ArrayList<EventComplete>();
         eventsUpdateData = new java.util.ArrayList<EventUpdateData>();
         statusProcess = StatusProcess.EMPTY;
-
+        this.cadma1 = cadma1;
     }
 
     @Override
     public void upload() {
-
         throw new RuntimeException("Upload not used in this context");
     }
 
@@ -38,7 +38,7 @@ public class Cadma1Generate implements ActionsCadma {
         if(smileGenerate.getStatusProcess() != StatusProcess.COMPLETE) {
             throw new RuntimeException("SmileGenerate not complete");
         }
-        if( path == null && path.length() <= 0) {
+        if( path == null || path.length() <= 0) {
             throw new RuntimeException("path not set");
         }
 
@@ -48,17 +48,11 @@ public class Cadma1Generate implements ActionsCadma {
             file.mkdir();
         }
 
-        initNotImplemented();
         statusProcess = StatusProcess.IN_PROCESS;
 
         runEventUpdateData();
     }
-    private void initNotImplemented() {
-        if(statusProcess != StatusProcess.NOT_IMPLEMENTED) {
-            return;
-        }
 
-    }
 
     @Override
     public void view() {

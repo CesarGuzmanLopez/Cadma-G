@@ -3,14 +3,14 @@ package com.main.shared.domain.smileit;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.main.cadma.interfaces.EventComplete;
 import com.main.cadma.interfaces.MoleculesGuiInterface;
+import com.main.framework.cdk.VerifiedSmile;
+import com.main.shared.domain.cadma.interfaces.EventComplete;
 import com.main.smileit.views.SmileViewGenerator;
 import com.main.smileit.domain.models.Molecule;
 import com.main.smileit.domain.models.MoleculesList;
 import com.main.smileit.framework.cdk.MoleculeDataFactory;
 import com.main.smileit.framework.cdk.MoleculeGraphPainter;
-import com.main.smileit.framework.cdk.VerifiedSmile;
 import com.main.smileit.infrastructure.FirstSubstituent;
 
 

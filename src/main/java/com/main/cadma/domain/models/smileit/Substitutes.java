@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.main.cadma.domain.models.AttributeAbstract;
+import com.main.common.methods.CompareSmiles;
 import com.main.shared.domain.Molecule;
 
 @JsonSerialize
@@ -86,8 +87,7 @@ public class Substitutes extends AttributeAbstract<List<Molecule>> {
      */
     public Molecule getSubstitute(String smile) {
         for (Molecule smiles : getValue()) {
-            if (smiles.getSmile().equals(smile) ||
-                 smiles.getName().equals(smile.replace("]","" ).replace("[", ""))) {
+            if (CompareSmiles.compareSmiles(smiles.getSmile(), smile)) {
                 return smiles;
             }
 

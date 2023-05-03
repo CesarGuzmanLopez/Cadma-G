@@ -1,8 +1,8 @@
 package com.main.cadma.domain.relations;
 
-import com.main.cadma.interfaces.EventComplete;
-import com.main.cadma.interfaces.EventUpdateData;
 import com.main.shared.domain.cadma.interfaces.ActionsCadma;
+import com.main.shared.domain.cadma.interfaces.EventComplete;
+import com.main.shared.domain.cadma.interfaces.EventUpdateData;
 import com.main.shared.domain.cadma.interfaces.StatusProcess;
 
 public class Cadma2Generate implements ActionsCadma {

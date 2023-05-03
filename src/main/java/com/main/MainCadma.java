@@ -2,6 +2,7 @@ package com.main;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import com.main.cadma.domain.CadmaProcess;
+import com.main.cadma.framework.cadma1.Cadma1;
 import com.main.cadma.framework.smileit.SaveImages;
 import com.main.cadma.framework.smileit.SmileIt;
 import com.main.cadma.framework.smileit.views.SmileListUpload;
@@ -56,7 +57,8 @@ public final class MainCadma {
         final SmileListUpload slu = new SmileListUpload();
         final ViewSmileIt viewSmileIt = new ViewSmileIt();
         final SaveImages saveImage = new SaveImages();
-        final CadmaProcess cadmaProcess = new CadmaProcess(smileIt, slu,viewSmileIt,saveImage);
+        final Cadma1 cadma1 = new Cadma1();
+        final CadmaProcess cadmaProcess = new CadmaProcess(smileIt, slu,viewSmileIt,saveImage, cadma1);
         final Cadma principalView = new Cadma(cadmaProcess);
         principalView.initialize();
     }
