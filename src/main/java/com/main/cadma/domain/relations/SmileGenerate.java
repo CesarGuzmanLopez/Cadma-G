@@ -92,6 +92,10 @@ public class SmileGenerate implements ActionsCadma {
     public StatusProcess getStatusProcess() {
         return statusProcess;
     }
+    /**
+     *
+     * @param line
+     */
     private void addSustituteToMolecule(final String line) {
         if (line == null || line.isEmpty()) {
             return;
@@ -171,9 +175,7 @@ public class SmileGenerate implements ActionsCadma {
             while ((line = BufferSmiles.readLine()) != null) {
                 generateSmiles.lineAnalyze(line);
             }
-            while ((line = BufferInfo.readLine()) != null) {
-                addSustituteToMolecule(line);
-            }
+
             generateSmiles.found();
 
         } catch (IOException e) {

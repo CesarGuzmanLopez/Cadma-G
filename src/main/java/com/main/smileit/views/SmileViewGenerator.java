@@ -24,7 +24,6 @@ import com.main.smileit.interfaces.MoleculeDataFactoryInterface;
 import com.main.smileit.interfaces.MoleculeGraphPainterInterface;
 import com.main.smileit.interfaces.MoleculeListInterface;
 import com.main.smileit.interfaces.SmileVerificationInterface;
-import com.main.smileit.interfaces.SmilesHInterface;
 import com.main.smileit.views.panels.MoleculePanel;
 import com.main.smileit.views.panels.OptionPanel;
 import com.main.smileit.views.panels.WindowsGenerate;
