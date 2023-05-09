@@ -3,9 +3,9 @@ package com.main.smileit.domain.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.main.interfaces.SmileVerificationInterface;
 import com.main.smileit.interfaces.MoleculeDataFactoryInterface;
 import com.main.smileit.interfaces.MoleculeListInterface;
-import com.main.smileit.interfaces.SmileVerificationInterface;
 
 public abstract class MoleculesListAbstract implements MoleculeListInterface {
     private SmileVerificationInterface smileVerifier;

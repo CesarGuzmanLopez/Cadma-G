@@ -16,6 +16,7 @@ import com.main.cadma.interfaces.MoleculesGuiInterface;
 import com.main.cadma.interfaces.SaveImagesInterface;
 import com.main.cadma.interfaces.SmilesUploadInterface;
 import com.main.cadma.views.ViewSmileIt;
+import com.main.common.Constant;
 import com.main.shared.domain.Molecule;
 import com.main.shared.domain.cadma.interfaces.ActionsCadma;
 import com.main.shared.domain.cadma.interfaces.EventComplete;
@@ -23,9 +24,7 @@ import com.main.shared.domain.cadma.interfaces.EventUpdateData;
 import com.main.shared.domain.cadma.interfaces.StatusProcess;
 
 public class SmileGenerate implements ActionsCadma {
-    public static final String FILE_SMILES = "output.txt";
-    public static final String FILE_INFO = "info.txt";
-    public static final String FILE_CADMA_INFO = "CadmaInfo.txt";
+
     private MoleculesGuiInterface smilesGui;
     private SmilesUploadInterface smilesUpload;
     private MoleculePrincipal smilePrincipal;
@@ -61,7 +60,7 @@ public class SmileGenerate implements ActionsCadma {
         if (smilePrincipal == null || generateSmiles == null || substitutes == null) {
             throw new IllegalArgumentException("SmilePrincipal, GenerateSmiles or Substitutes not defined");
         }
-        try (FileWriter myWriter = new FileWriter(parentPath + System.getProperty("file.separator") + FILE_CADMA_INFO)) {
+        try (FileWriter myWriter = new FileWriter(parentPath + System.getProperty("file.separator") + Constant.FILE_CADMA_INFO)) {
             myWriter.write(smilePrincipal.toString());
             myWriter.write("=== Substitutes ===\n");
             myWriter.write(substitutes.toString());
@@ -139,20 +138,20 @@ public class SmileGenerate implements ActionsCadma {
             statusProcess = StatusProcess.ERROR;
             throw new IllegalArgumentException("Path not exists");
         }
-        File fileCadmaInfo = new File(parentPath + System.getProperty("file.separator") + FILE_CADMA_INFO);
+        File fileCadmaInfo = new File(parentPath + System.getProperty("file.separator") + Constant.FILE_CADMA_INFO);
         if (!fileCadmaInfo.exists()) {
             statusProcess = StatusProcess.ERROR;
-            throw new IllegalArgumentException(FILE_CADMA_INFO + ": File  not exists");
+            throw new IllegalArgumentException(Constant.FILE_CADMA_INFO + ": File  not exists");
         }
-        File fileSmiles = new File(parentPath + System.getProperty("file.separator") + FILE_SMILES);
+        File fileSmiles = new File(parentPath + System.getProperty("file.separator") + Constant.FILE_SMILES);
         if (!fileSmiles.exists()) {
             statusProcess = StatusProcess.ERROR;
-            throw new IllegalArgumentException(FILE_SMILES + ": File not exists");
+            throw new IllegalArgumentException(Constant.FILE_SMILES + ": File not exists");
         }
-        File fileInfo = new File(parentPath + System.getProperty("file.separator") + FILE_INFO);
+        File fileInfo = new File(parentPath + System.getProperty("file.separator") + Constant.FILE_INFO);
         if (!fileInfo.exists()) {
             statusProcess = StatusProcess.ERROR;
-            throw new IllegalArgumentException(FILE_INFO + ": File not exists");
+            throw new IllegalArgumentException(Constant.FILE_INFO + ": File not exists");
         }
 
 
@@ -170,8 +169,9 @@ public class SmileGenerate implements ActionsCadma {
             while ((line = BufferInfoCadma.readLine()) != null) {
                 smilePrincipal.lineAnalyze(line);
                 substitutes.lineAnalyze(line);
+
             }
-            generateSmiles = new GenerateSmiles(smilePrincipal.getValue().getName());
+            generateSmiles = new GenerateSmiles(smilePrincipal.getName());
             while ((line = BufferSmiles.readLine()) != null) {
                 generateSmiles.lineAnalyze(line);
             }
@@ -188,7 +188,7 @@ public class SmileGenerate implements ActionsCadma {
         if (substitutes.getValue().isEmpty()) {
             statusProcess = StatusProcess.IN_PROCESS;
         }
-        principalName = smilePrincipal.getValue().getName();
+        principalName = smilePrincipal.getName();
         for (EventComplete event : importProcessEvent) {
             event.execute();
         }
@@ -205,7 +205,7 @@ public class SmileGenerate implements ActionsCadma {
             directory.mkdir();
         }
         generateSmiles = new GenerateSmiles(principalName);
-        try (FileWriter myWriter = new FileWriter(parentPath + System.getProperty("file.separator") + FILE_SMILES)) {
+        try (FileWriter myWriter = new FileWriter(parentPath + System.getProperty("file.separator") + Constant.FILE_SMILES)) {
             File uploadFile = new File(fileToUploadable);
             if (!uploadFile.exists()) {
                 throw new NullPointerException("File to upload is null");
@@ -218,7 +218,7 @@ public class SmileGenerate implements ActionsCadma {
                 throw new NullPointerException("No smiles found");
             if(saveImage!=null) {
                 saveImage.saveImage(principalName, directory.getAbsolutePath()
-                + System.getProperty("file.separator") + "Structures-png" + System.getProperty("file.separator"),generateSmiles.getValue());
+                + System.getProperty("file.separator") + Constant.PATH_IMG + System.getProperty("file.separator"),generateSmiles.getValue());
             }
 
             generateSmiles.found();
@@ -273,7 +273,7 @@ public class SmileGenerate implements ActionsCadma {
         }
         String[][] smilesGenerated = new String[generateSmiles.getValue().size()][2];
         for (int i = 0; i < generateSmiles.getValue().size(); i++) {
-            smilesGenerated[i][1] = parentPath + System.getProperty("file.separator") + "Structures-png"
+            smilesGenerated[i][1] = parentPath + System.getProperty("file.separator") + Constant.PATH_IMG
                     + System.getProperty("file.separator") + principalName + "_" + i + ".png";
             smilesGenerated[i][0] = generateSmiles.getValue().get(i).getSmile();
         }

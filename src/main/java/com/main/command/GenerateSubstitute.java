@@ -1,7 +1,7 @@
 package com.main.command;
 
+import com.main.interfaces.SmileVerificationInterface;
 import com.main.smileit.interfaces.MoleculeDataFactoryInterface;
-import com.main.smileit.interfaces.SmileVerificationInterface;
 
 public class GenerateSubstitute extends Command {
 

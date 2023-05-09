@@ -7,8 +7,8 @@ import org.openscience.cdk.smiles.SmiFlavor;
 import org.openscience.cdk.smiles.SmilesGenerator;
 import org.openscience.cdk.smiles.SmilesParser;
 
-import com.main.smileit.interfaces.SmileVerificationInterface;
-import com.main.smileit.interfaces.SmilesHInterface;
+import com.main.interfaces.SmileVerificationInterface;
+import com.main.interfaces.SmilesHInterface;
 
 public class VerifiedSmile implements SmileVerificationInterface {
     /**

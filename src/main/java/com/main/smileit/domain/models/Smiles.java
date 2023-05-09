@@ -1,6 +1,6 @@
 package com.main.smileit.domain.models;
-import com.main.smileit.interfaces.SmileVerificationInterface;
-import com.main.smileit.interfaces.SmilesHInterface;
+import com.main.interfaces.SmileVerificationInterface;
+import com.main.interfaces.SmilesHInterface;
 public class Smiles implements SmilesHInterface {
     private String strSmiles;
     private String message;

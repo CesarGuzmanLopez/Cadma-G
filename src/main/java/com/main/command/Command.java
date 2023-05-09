@@ -2,9 +2,9 @@ package com.main.command;
 
 import java.util.logging.Logger;
 
+import com.main.interfaces.SmileVerificationInterface;
 import com.main.smileit.domain.models.Molecule;
 import com.main.smileit.interfaces.MoleculeDataFactoryInterface;
-import com.main.smileit.interfaces.SmileVerificationInterface;
 
 import java.util.ArrayList;
 

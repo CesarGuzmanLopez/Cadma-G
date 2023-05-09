@@ -7,8 +7,8 @@ import java.util.logging.Level;
 
 import javax.imageio.ImageIO;
 
+import com.main.interfaces.SmileVerificationInterface;
 import com.main.smileit.interfaces.MoleculeDataFactoryInterface;
-import com.main.smileit.interfaces.SmileVerificationInterface;
 
 /**
  * --img.

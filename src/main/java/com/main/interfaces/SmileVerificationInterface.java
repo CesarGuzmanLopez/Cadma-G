@@ -1,4 +1,4 @@
-package com.main.smileit.interfaces;
+package com.main.interfaces;
 /**Interface for the SmileVerification.
  * @author Cesar Gerardo Guzman Lopez
  */

@@ -2,8 +2,8 @@ package com.main.command;
 
 import java.util.logging.Level;
 
+import com.main.interfaces.SmileVerificationInterface;
 import com.main.smileit.interfaces.MoleculeDataFactoryInterface;
-import com.main.smileit.interfaces.SmileVerificationInterface;
 
 public class EnumMolecule extends Command {
 

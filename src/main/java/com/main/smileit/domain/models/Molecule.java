@@ -2,12 +2,12 @@ package com.main.smileit.domain.models;
 
 import java.util.List;
 
+import com.main.interfaces.SmileVerificationInterface;
+import com.main.interfaces.SmilesHInterface;
 import com.main.smileit.interfaces.AtomInterface;
 import com.main.smileit.interfaces.MoleculeComparableInterface;
 import com.main.smileit.interfaces.MoleculeDataFactoryInterface;
 import com.main.smileit.interfaces.MoleculeDataInterface;
-import com.main.smileit.interfaces.SmileVerificationInterface;
-import com.main.smileit.interfaces.SmilesHInterface;
 
 import java.awt.image.BufferedImage;
 

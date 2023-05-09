@@ -3,6 +3,7 @@ package com.main.shared.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**Interface for the SmilesH.
@@ -12,31 +13,49 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  *                especially for the hydrogen implicit.
  */
 @JsonSerialize
+@JsonDeserialize
 public  class Molecule {
+    static final List<Integer> ListOfID = new ArrayList<>();
 
+    private Integer id;
     private String name;
     private String smile;
-    private String message;
     private String pathImage;
-    private List<Molecule> substitutes;
-    public Molecule(String name, String smile, String message, String path) {
-        this.name = name;
-        this.smile = smile;
-        this.message = message;
-        this.pathImage = path;
-        substitutes = new ArrayList<>();
-    }
+    private String Smart;
 
+    private List<Molecule> substitutes;
+
+    public Molecule(){}
+    public void setID(){
+        int tempId = 0;
+        while(ListOfID.contains(tempId)){
+            tempId++;
+        }
+        ListOfID.add(tempId);
+        this.id = tempId;
+    }
+    static public void deleteAllID(){
+        ListOfID.clear();
+    }
+    public int getID(){
+        if(this.id == null)
+            return 0;
+        return this.id;
+    }
+    public void setID(int id){
+
+        if(ListOfID.contains(id) && id != 0){
+            throw new IllegalArgumentException("ID already exist");
+        }
+
+        this.id = id;
+    }
     public Molecule(String name, String smile) {
         this.name = name;
         this.smile = smile;
-        this.message = "";
         this.pathImage = "" ;
         substitutes = new ArrayList<>();
     }
-
-
-
     /**
      * @return name of Smile.
     */
@@ -44,19 +63,24 @@ public  class Molecule {
         return name;
     }
 
+    public String getSmart() {
+        return Smart;
+    }
 
+    public void setSmart(String smart) {
+        Smart = smart;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
     /**
      * @return  Smile.
     */
     public String  getSmile(){
         return smile;
     }
-    /**
-     * @return  Message.
-    */
-    public String  getMessage(){
-        return message;
-    }
+
     /**
      * @return  Path.
     */
@@ -64,6 +88,14 @@ public  class Molecule {
     public String  getPathImage(){
         return pathImage;
     }
+
+    /**
+     * @param String Path
+    */
+    public void setPathImage(String path){
+        this.pathImage = path;
+    }
+
     /**
      * @param MoleculeSubstitute
     */
@@ -81,5 +113,12 @@ public  class Molecule {
     public List<Molecule> getSubstitutes() {
         return this.substitutes;
     }
-
+    @Override
+    public String toString() {
+        return name;
+    }
+    public String toStringAll() {
+        return "Molecule [id=" + id + ", name=" + name + ", smile=" + smile + ", pathImage=" + pathImage
+                + ", substitutes=" + substitutes + "]";
+    }
 }

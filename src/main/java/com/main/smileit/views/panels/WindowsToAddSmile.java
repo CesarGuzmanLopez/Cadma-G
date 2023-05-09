@@ -7,9 +7,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import com.main.interfaces.SmileVerificationInterface;
+import com.main.interfaces.SmilesHInterface;
 import com.main.smileit.domain.models.Smiles;
-import com.main.smileit.interfaces.SmileVerificationInterface;
-import com.main.smileit.interfaces.SmilesHInterface;
 import com.main.smileit.views.events.AddSmileHEvent;
 import com.main.smileit.views.events.AddSmileHListener;
 

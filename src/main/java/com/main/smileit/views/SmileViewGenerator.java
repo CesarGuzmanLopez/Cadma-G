@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 
+import com.main.interfaces.SmileVerificationInterface;
 import com.main.smileit.domain.models.Molecule;
 import com.main.smileit.domain.models.MoleculesList;
 import com.main.smileit.domain.models.Smiles;
@@ -23,7 +24,6 @@ import com.main.smileit.interfaces.EventGenerateSmiles;
 import com.main.smileit.interfaces.MoleculeDataFactoryInterface;
 import com.main.smileit.interfaces.MoleculeGraphPainterInterface;
 import com.main.smileit.interfaces.MoleculeListInterface;
-import com.main.smileit.interfaces.SmileVerificationInterface;
 import com.main.smileit.views.panels.MoleculePanel;
 import com.main.smileit.views.panels.OptionPanel;
 import com.main.smileit.views.panels.WindowsGenerate;

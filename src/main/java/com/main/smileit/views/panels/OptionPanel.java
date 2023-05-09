@@ -8,10 +8,10 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.main.interfaces.SmileVerificationInterface;
+import com.main.interfaces.SmilesHInterface;
 import com.main.smileit.domain.models.Molecule;
 import com.main.smileit.interfaces.MoleculeListInterface;
-import com.main.smileit.interfaces.SmileVerificationInterface;
-import com.main.smileit.interfaces.SmilesHInterface;
 import com.main.smileit.views.events.AddSmileHEvent;
 import com.main.smileit.views.events.AddSmileHListener;
 

@@ -2,7 +2,7 @@ package com.main.smileit.views.events;
 
 import java.util.EventObject;
 
-import com.main.smileit.interfaces.SmilesHInterface;
+import com.main.interfaces.SmilesHInterface;
 
 @SuppressWarnings("java:S1948")
 public class AddSmileHEvent extends EventObject {

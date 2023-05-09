@@ -8,6 +8,7 @@ import java.io.PrintStream;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import com.main.common.Constant;
 import com.main.framework.cdk.VerifiedSmile;
 import com.main.smileit.domain.generator.WriteAndGenerate;
 import com.main.smileit.domain.models.Molecule;
@@ -53,7 +54,7 @@ public class WriteAndGenerateTest {
         moleculesList.addMolecule(molecule2);
         moleculesList.addMolecule(molecule3);
         WriteAndGenerate writeAndGenerate = new WriteAndGenerate(moleculesList, molecule1, 2, 2,
-                new File("./fileDescription.log"), new File("./Output.txt"));
+                new File("./fileDescription.log"), new File("." + System.getProperty("file.separator") + Constant.FILE_SMILES));
         writeAndGenerate.setSaveImages(new File("Imagenes/").getAbsolutePath());
         try {
             writeAndGenerate.generate();

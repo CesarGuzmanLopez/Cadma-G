@@ -5,6 +5,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import com.main.cadma.interfaces.Cadma1Interface;
+import com.main.common.Constant;
 import com.main.shared.domain.cadma.interfaces.ActionsCadma;
 import com.main.shared.domain.cadma.interfaces.EventComplete;
 import com.main.shared.domain.cadma.interfaces.EventUpdateData;
@@ -17,7 +18,7 @@ public class Cadma1Generate implements ActionsCadma {
     private List<EventComplete> importProcessEvent;
     private StatusProcess statusProcess;
     private List<EventUpdateData> eventsUpdateData;
-    private static final String CADMA1_SUB_FOLDER = "cadma1";
+
     private Cadma1Interface cadma1;
     public Cadma1Generate(SmileGenerate smileGenerate, Cadma1Interface cadma1) {
         this.smileGenerate = smileGenerate;
@@ -50,7 +51,7 @@ public class Cadma1Generate implements ActionsCadma {
             statusProcess = StatusProcess.IN_PROCESS;
         }
         runEventUpdateData();
-        cadma1.showGenerate(smileGenerate.getSmilePrincipal().getValue(), smileGenerate.getSubstitutes().getValue(), smileGenerate.getGenerateSmiles().getValue(), pathCadma1);
+        cadma1.showGenerate(smileGenerate.getSmilePrincipal().getValue(), smileGenerate.getSubstitutes().getValue(), smileGenerate.getGenerateSmiles().getValue(), path);
     }
 
     @Override
@@ -130,7 +131,7 @@ public class Cadma1Generate implements ActionsCadma {
         }
         isActivate = true;
         path = smileGenerate.getParentPath();
-        pathCadma1 = path + "/" + CADMA1_SUB_FOLDER;
+        pathCadma1 = path + "/" + Constant.CADMA1_SUB_FOLDER_PATH;
         java.io.File file = new java.io.File(pathCadma1);
         if(file.exists()){
             statusProcess = StatusProcess.IN_PROCESS;

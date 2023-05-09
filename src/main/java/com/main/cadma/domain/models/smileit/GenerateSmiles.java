@@ -17,11 +17,13 @@ public class GenerateSmiles extends AttributeAbstract<List<Molecule>> {
 
         super(value, nameOfPrincipal, true);
         initialize();
+        this.nameOfPrincipal = nameOfPrincipal;
     }
 
     public GenerateSmiles(String nameOfPrincipal) {
         super(new ArrayList<>(), nameOfPrincipal, true);
         initialize();
+        this.nameOfPrincipal = nameOfPrincipal;
     }
 
     public void initialize() {
@@ -30,7 +32,12 @@ public class GenerateSmiles extends AttributeAbstract<List<Molecule>> {
 
     @Override
     public void lineAnalyze(String line) {
-        getValue().add(new Molecule( nameOfPrincipal + "_" + numSmiles,line));
+        if(nameOfPrincipal.equals(line)) {
+            throw new RuntimeException("The name of the principal is the same as the name of the substituent");
+        }
+
+        getValue().add(new Molecule( nameOfPrincipal + "_" + numSmiles++,line));
+
     }
 
     @Override

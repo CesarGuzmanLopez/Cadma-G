@@ -2,6 +2,7 @@ package com.main.smileit.interfaces;
 
 import java.util.List;
 
+import com.main.interfaces.SmilesHInterface;
 import com.main.smileit.domain.models.Molecule;
 /**Interface for the MoleculeList.
  * @author Cesar Gerardo Guzman Lopez

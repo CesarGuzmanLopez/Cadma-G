@@ -3,10 +3,10 @@ package com.main.command;
 import java.io.File;
 import java.io.IOException;
 
+import com.main.interfaces.SmileVerificationInterface;
 import com.main.smileit.domain.generator.WriteAndGenerate;
 import com.main.smileit.domain.models.MoleculesList;
 import com.main.smileit.interfaces.MoleculeDataFactoryInterface;
-import com.main.smileit.interfaces.SmileVerificationInterface;
 
 public class GenerateMain extends GenerateSubstitute {
     private MoleculesList listMolecules;

@@ -2,9 +2,9 @@ package com.main.smileit.domain.models;
 
 import java.util.List;
 
+import com.main.interfaces.SmileVerificationInterface;
+import com.main.interfaces.SmilesHInterface;
 import com.main.smileit.interfaces.MoleculeDataFactoryInterface;
-import com.main.smileit.interfaces.SmileVerificationInterface;
-import com.main.smileit.interfaces.SmilesHInterface;
 
 public class MoleculesList extends MoleculesListAbstract {
 

@@ -41,16 +41,17 @@ public class SmileIt implements MoleculesGuiInterface {
                     generated = true;
                     this.pathPrincipal = path;
                     this.moleculePrincipal = new com.main.shared.domain.Molecule(principal.getName(),
-                            principal.smile(), principal.getMessage(), principal.getPathImage());
+                            principal.smile());
                     this.substitutes = new ArrayList<>();
                     for (final Molecule molecule : subs) {
                         this.substitutes.add(new com.main.shared.domain.Molecule(molecule.getName(),
-                                molecule.smile(), molecule.getMessage(), molecule.getPathImage()));
+                                molecule.smile()));
                     }
+                    int id = 0;
                     this.moleculesList = new ArrayList<>(listSmileGenerated.size());
                     for (final Molecule molecule : listSmileGenerated) {
-                        this.moleculesList.add(new com.main.shared.domain.Molecule(principal.getName(),
-                                molecule.smile(), molecule.getMessage(), molecule.getPathImage()));
+                        this.moleculesList.add(new com.main.shared.domain.Molecule(principal.getName() + "_" + id++,
+                                molecule.smile()));
                     }
                     for (final EventComplete event : events) {
                         event.execute();

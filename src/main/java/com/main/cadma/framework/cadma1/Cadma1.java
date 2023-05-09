@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.main.cadma.interfaces.Cadma1Interface;
-import com.main.cadma1.views.Cadma1ViewGenerator;
+import com.main.cadma1.Cadma1Main;
 import com.main.shared.domain.Molecule;
 import com.main.shared.domain.cadma.interfaces.EventComplete;
 import com.main.shared.domain.cadma.interfaces.EventUpdateData;
@@ -14,11 +14,11 @@ public class Cadma1 implements Cadma1Interface {
 
     private List<EventComplete> importProcessEvent;
     private List<EventUpdateData> updateDataEvent;
-    Cadma1ViewGenerator cadma1ViewGenerator;
+    Cadma1Main cadma1ViewGenerator;
     public Cadma1() {
         importProcessEvent = new ArrayList<EventComplete>();
         updateDataEvent = new ArrayList<EventUpdateData>();
-        cadma1ViewGenerator = new Cadma1ViewGenerator();
+        cadma1ViewGenerator = new Cadma1Main();
     }
 
     @Override

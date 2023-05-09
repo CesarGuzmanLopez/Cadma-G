@@ -1,9 +1,9 @@
 package com.main.smileit.infrastructure;
 
+import com.main.interfaces.SmileVerificationInterface;
 import com.main.smileit.domain.models.Molecule;
 import com.main.smileit.domain.models.MoleculesList;
 import com.main.smileit.interfaces.MoleculeDataFactoryInterface;
-import com.main.smileit.interfaces.SmileVerificationInterface;
 
 public final class FirstSubstituent {
     private FirstSubstituent() {

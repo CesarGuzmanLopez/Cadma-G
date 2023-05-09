@@ -63,4 +63,8 @@ public abstract class AttributeAbstract<ATTR> {
         return num;
 
     }
+
+    protected void setName(String name){
+        this.name = name;
+    }
 }

@@ -8,12 +8,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
+import com.main.common.Constant;
+import com.main.interfaces.SmilesHInterface;
 import com.main.smileit.domain.generator.WriteAndGenerate;
 import com.main.smileit.domain.models.Molecule;
 import com.main.smileit.domain.models.MoleculesList;
 import com.main.smileit.interfaces.EventGenerateSmiles;
 import com.main.smileit.interfaces.MoleculeListInterface;
-import com.main.smileit.interfaces.SmilesHInterface;
 
 import java.awt.event.MouseListener;
 import java.awt.GridBagLayout;
@@ -76,9 +77,9 @@ public class WindowsGenerate extends JFrame {
             return false;
         }
         File saveFileListDescriptive = new File(savePath.getSelectedFile().getAbsolutePath(),
-                principal.getName() + System.getProperty("file.separator") + "info.txt");
+                principal.getName() + System.getProperty("file.separator") + Constant.FILE_INFO);
         File saveFileListSmile = new File(savePath.getSelectedFile().getAbsolutePath(),
-                principal.getName() + System.getProperty("file.separator") + "output.txt");
+                principal.getName() + System.getProperty("file.separator") + Constant.FILE_SMILES);
         parentPath = saveFileListSmile.getParent();
         MoleculeListInterface listAllGenerated;
 
@@ -89,7 +90,7 @@ public class WindowsGenerate extends JFrame {
                     (int) rSubstitutes.getValue(), 1, saveFileListDescriptive, saveFileListSmile);
 
             File directory = new File(savePath.getSelectedFile().getAbsolutePath(),
-                    principal.getName() + System.getProperty("file.separator") + "Structures-png");
+                    principal.getName() + System.getProperty("file.separator") + Constant.PATH_IMG);
 
             if (!directory.exists()) {
                 directory.mkdir();
